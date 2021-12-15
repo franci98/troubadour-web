@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v3\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -34,6 +35,10 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed'
         ]);
+
+        $user = new User($data);
+        $user->save();
+        $user->sendPasswordResetNotification();
 
         return response(null, Response::HTTP_CREATED);
     }
