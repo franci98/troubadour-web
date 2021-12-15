@@ -93,3 +93,4 @@ com_crashlytics_export_strings.xml
 
 # ====== VAGRANT ========================================
 .vagrant/
+storage/api-docs/api-docs.json
