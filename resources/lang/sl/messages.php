@@ -6,4 +6,6 @@ return [
     'verify_email_button' => 'Potrdi',
     'verify_email_salutation' => 'Lep pozdrav',
     'copyright' => 'Vse pravice pridržane. Troubadour ©',
+    'email_verified' => 'Elektronski naslov je uspešno potrjen. Lahko nadaljuješ z uporabo aplikacije.',
+    'email_greeting' => 'Živijo!',
 ];

@@ -35,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new MailMessage)
                 ->subject('[' . strtoupper(env('APP_NAME')) . '] ' . __('messages.verify_email_subject'))
+                ->greeting(__('messages.email_greeting'))
                 ->line(__('messages.verify_email_body'))
                 ->action(__('messages.verify_email_button'), $url)
                 ->salutation(__('messages.verify_email_salutation'));

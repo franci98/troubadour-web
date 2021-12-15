@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API\v3\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -36,9 +38,10 @@ class AuthController extends Controller
             'password' => 'required|min:8|confirmed'
         ]);
 
+        $data['password'] = Hash::make($data['password']);
         $user = new User($data);
         $user->save();
-        $user->sendPasswordResetNotification();
+        event(new Registered($user));
 
         return response(null, Response::HTTP_CREATED);
     }
