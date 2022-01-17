@@ -63,15 +63,7 @@ class AuthController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Login was successful. An authorization token was issued.",
-     *          @OA\JsonContent(
-     *              @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="token",
-     *                     type="string"
-     *                 ),
-     *              )
-     *          )
+     *          ref="#/components/schemas/TokenResponse"
      *       ),
      * )
      */
