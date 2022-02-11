@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class Chord
 {
-    public $integerNotation, $exists, $obrati, $name;
-    public function __construct($name, $exists, $obrati)
+    public $integerNotation, $exists, $obrati, $type;
+    public function __construct($type, $exists, $obrati)
     {
-        $this->integerNotation = HarmonyController::INTEGER_NOTATION[$name];
+        $this->integerNotation = HarmonyController::INTEGER_NOTATION[$type];
         $this->exists = $exists;
         $this->obrati = $obrati;
-        $this->name = $name;
+        $this->type = $type;
     }
 }
 
@@ -54,10 +54,10 @@ class HarmonyController extends Controller
         $razlozeniProbability = 0.6;
         $ozkaProbability = 1;
         $chordProbability = array(
-            new Chord(ChNames::MIN, 1, [1, 0, 0]),
-            new Chord(ChNames::MAJ, 1, [1, 3, 10]),
-            new Chord(ChNames::DIM, 2, [1, 5, 0]),
-            new Chord(ChNames::AUG, 1, [1, 2, 0]),
+            new Chord(ChNames::MIN, 0, [1, 0, 0]),
+            new Chord(ChNames::MAJ, 0, [1, 0, 0 ]),
+            new Chord(ChNames::DIM, 0, [1, 0, 0]),
+            new Chord(ChNames::AUG, 1, [1, 0, 0]),
             new Chord(ChNames::MIN7, 0, [1, 0, 1]),
             new Chord(ChNames::MAJ7, 0, [1, 0, 0]),
             new Chord(ChNames::DOM7, 0, [1, 0, 0]),
@@ -68,7 +68,7 @@ class HarmonyController extends Controller
 
         $allchordsalneki = array(
             'major' => array(
-                'C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'
+                'c', 'g', 'd', 'a', 'e', 'b', 'f#', 'db', 'ab', 'eb', 'bb', 'f'
             ),
             'minor' => array(
                 'a', 'e', 'b', 'f#', 'c#', 'g#', 'd#', 'bb', 'f', 'c', 'g', 'd'
@@ -90,7 +90,7 @@ class HarmonyController extends Controller
 
         // Pick root
         $rootIndex = rand(0, 11);
-        if ($chord->name === ChNames::MIN || $chord->name === ChNames::MIN7) {
+        if ($chord->type === ChNames::MIN || $chord->type === ChNames::MIN7 || $chord->type == ChNames::DIM) {
             $root = $allchordsalneki['minor'][$rootIndex];
         } else {
             $root = $allchordsalneki['major'][$rootIndex];
@@ -108,8 +108,7 @@ class HarmonyController extends Controller
 
         sort($chord->integerNotation);
 
-        $chordType = $chord->name;
-
+        $chordType = $chord->type;
 
         return view('harmony_testing', compact('chord', 'razlozen', 'root', 'chordType'));
     }
