@@ -17,6 +17,7 @@ class CreateDifficultiesTable extends Migration
             $table->id();
             $table->integer('value');
             $table->string('title');
+            $table->string('description');
             $table->timestamps();
         });
     }
