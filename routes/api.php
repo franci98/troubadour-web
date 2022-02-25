@@ -25,6 +25,7 @@ Route::group([
     Route::post('/register', 'Auth\AuthController@register');
     Route::post('/login', 'Auth\AuthController@login');
 
-    Route::resource('game-types', 'GameTypeController')->only(['index']);
-    Route::resource('difficulties', 'DifficultyController')->only(['index']);
+    Route::apiResource('game-types', 'GameTypeController')->only(['index']);
+    Route::apiResource('difficulties', 'DifficultyController')->only(['index']);
+    Route::apiResource('games', 'GameController')->only(['store']);
 });

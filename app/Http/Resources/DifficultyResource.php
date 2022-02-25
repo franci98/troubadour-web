@@ -16,7 +16,7 @@ class DifficultyResource extends JsonResource
     /**
      * @OA\Property(
      *      title="id",
-     *      description="Unique identifier.",
+     *      description="Unique identifier",
      *      example="1"
      * )
      */

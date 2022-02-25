@@ -16,6 +16,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('difficulty_id')->constrained();
+            $table->foreignId('game_type_id')->constrained();
             $table->timestamps();
         });
     }
