@@ -10,12 +10,13 @@
     <script src="https://unpkg.com/vexflow/releases/vexflow-min.js" type="text/javascript"></script>
     <script>
         let chord = {!! json_encode($chord) !!};
+        let chNames = {!! json_encode($chNames) !!};
         console.log(chord);
 
         const majorScales = {
             'c': ['c/4', 'd/4', 'e/4', 'f/4', 'g/4', 'a/4', 'b/4'],
             'g': ['g/4', 'a/4', 'b/4', 'c/5', 'd/5', 'e/5', 'f#/5'],
-            'd': ['d/4/', 'e/4', 'f#/4', 'g/4', 'a/4', 'b/4', 'c#/5'],
+            'd': ['d/4', 'e/4', 'f#/4', 'g/4', 'a/4', 'b/4', 'c#/5'],
             'a': ['a/4', 'b/4', 'c#/5', 'd/5', 'e/5', 'f#/5', 'g#/5'],
             'e': ['e/4', 'f#/4', 'g#/4', 'a/4', 'b/4', 'c#/5', 'd#/5'],
             'b': ['b/4', 'c#/5', 'd#/5', 'e/5', 'f#/5', 'g#/5', 'a#/5'],
@@ -45,20 +46,31 @@
         const majorStruct = [0, 2, 4, 5, 7, 9, 11, 12];
 
         let structure = majorStruct;
-        let noteName = {!! json_encode($root) !!}
+        let rootNote = {!! json_encode($root) !!}
         // TODO handle others
-        if (chord['type'] === 'min' || chord['type'] === 'dim') {
-            noteName = minorToMajorRoot[noteName];
+        if (chord['type'] === 'min' || chord['type'] === 'dim' || chord['type'] === 'min7' || chord['type'] ===
+            'min_maj7') {
+            rootNote = minorToMajorRoot[rootNote];
         }
 
-        console.log(noteName);
+        console.log(rootNote);
         console.log(structure);
-        console.log(majorScales[noteName]);
+        console.log(majorScales[rootNote]);
 
         let offsetLookup = {
             'min': {
                 3: {
                     'index': 4,
+                    'append': 'b'
+                }
+            },
+            'min7': {
+                3: {
+                    'index': 4,
+                    'append': 'b'
+                },
+                10: {
+                    'index': 11,
                     'append': 'b'
                 }
             },
@@ -76,6 +88,47 @@
                 8: {
                     'index': 7,
                     'append': '#'
+                }
+            },
+            'dom7': {
+                10: {
+                    'index': 11,
+                    'append': 'b'
+                }
+            },
+            // TODO preglej ce gre skozi vse root note
+            'min_maj7': {
+                3: {
+                    'index': 4,
+                    'append': 'b'
+                }
+            },
+            'dim7': {
+                3: {
+                    'index': 4,
+                    'append': 'b'
+                },
+                6: {
+                    'index': 7,
+                    'append': 'b'
+                },
+                9: {
+                    'index': 11,
+                    'append': 'bb'
+                }
+            },
+            'half_dim': {
+                3: {
+                    'index': 4,
+                    'append': 'b'
+                },
+                6: {
+                    'index': 7,
+                    'append': 'b'
+                },
+                10: {
+                    'index': 11,
+                    'append': 'b'
                 }
             }
         };
@@ -103,27 +156,38 @@
         }
 
         let keys = [];
-        for (let i = 0; i < chord['integerNotation'].length; i++) {
-            // POZENI SKOZI MAPPING
-            // ce je minor: 3->4, dodaj flat v key.
-            let current = chord['integerNotation'][i];
+        for (let curr of chord['integerNotation']) {
+            let addToOctave = Math.floor(curr / 12);
+            if (curr < 0) {
+                addToOctave = -1;
+                if (curr < -11)
+                    console.log('INT NOTATION IS LESS THAN 11!')
+            }
+            console.log('curr: ' + curr + ' addToOctave: ' + addToOctave)
 
-            let offset = offsetLookup[chord['type']][current];
+
+            let offset;
+            curr = curr % 12;
+            if (curr < 0) curr += 12;
+            if (chordType = offsetLookup[[chord['type']]]) {
+                offset = chordType[curr];
+            }
             if (offset == undefined) {
                 offset = {
-                    'index': current,
+                    'index': curr,
                     'append': ''
                 };
             }
 
             let indexOfNote = structure.indexOf(offset['index']);
-
-            let key = majorScales[noteName][indexOfNote];
+            let key = majorScales[rootNote][indexOfNote];
 
             // append b or # (if duplicate remove accidentals).
             if (offset['append'] == 'b') key = nizanje(key);
+            else if (offset['append'] == 'bb') key = nizanje(nizanje(key));
             else if (offset['append'] == '#') key = visanje(key);
 
+            key = key.substring(0, key.length - 1) + (parseInt(key[key.length - 1]) + addToOctave)
             keys.push(key);
         }
         console.log(keys);
@@ -145,48 +209,37 @@
         trebleStave.setContext(context).draw();
         bassStave.setContext(context).draw();
 
-        let sharps = [];
-        let flats = [];
-        let doubleSharps = [];
-        let doubleFlats = [];
-        for (let i = 0; i < keys.length; i++) {
-            if (keys[i].includes('##')) {
-                doubleSharps.push(i);
-            }
-            else if (keys[i].substring(1).includes('bb')) {
-                doubleFlats.push(i);
-            }
-            else if (keys[i].includes('#')) {
-                sharps.push(i);
-            } else if (keys[i].includes('b')) {
-                if (keys[i][0] !== 'b' || keys[i].substring(1).includes('b')) {
-                    flats.push(i);
-                }
-            }
+        let accidentals = [];
+
+        for (key of keys) {
+            accidentals.push(whichAccidental(key));
         }
 
-        staveNote = new VF.StaveNote({
-            keys: keys,
-            duration: 'w'
-        });
-
-
-        /// TODO polepsaj
-        for (let i = 0; i < sharps.length; i++) {
-            staveNote.addAccidental(sharps[i], new VF.Accidental('#'));
-        }
-        for (let i = 0; i < flats.length; i++) {
-            staveNote.addAccidental(flats[i], new VF.Accidental('b'));
-        }
-        for (let i = 0; i < doubleSharps.length; i++) {
-            staveNote.addAccidental(doubleSharps[i], new VF.Accidental('##'));
-        }
-        for (let i = 0; i < doubleFlats.length; i++) {
-            staveNote.addAccidental(doubleFlats[i], new VF.Accidental('bb'));
-        }
-
+        let razlozen = {!! json_encode($razlozen) !!};
         let tickables = [];
-        tickables.push(staveNote);
+
+        if (razlozen) {
+            let notes = [];
+            for (key of keys) {
+                notes.push(new VF.StaveNote({
+                    keys: [key],
+                    duration: 'w',
+                }));
+                if (whichAccidental(key) !== '')
+                    notes[notes.length - 1].addAccidental(0, new VF.Accidental(whichAccidental(key)))
+            }
+            tickables.push(...notes);
+        } else {
+            let staveNote = new VF.StaveNote({
+                keys: keys,
+                duration: 'w'
+            });
+            for (let i = 0; i < accidentals.length; i++) {
+                if (accidentals[i] == '') continue;
+                staveNote.addAccidental(i, new VF.Accidental(accidentals[i]))
+            }
+            tickables.push(staveNote);
+        }
 
         var voices = [
             new VF.Voice({
@@ -200,6 +253,21 @@
         voices.forEach(function(v) {
             v.draw(context, trebleStave);
         });
+
+        function whichAccidental(key) {
+            if (key.includes('##')) {
+                return '##';
+            } else if (key.substring(1).includes('bb')) {
+                return 'bb';
+            } else if (key.includes('#')) {
+                return '#';
+            } else if (key.includes('b')) {
+                if (key[0] !== 'b' || key.substring(1).includes('b')) {
+                    return 'b';
+                }
+            }
+            return '';
+        }
     </script>
 </body>
 

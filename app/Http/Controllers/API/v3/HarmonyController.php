@@ -29,6 +29,22 @@ abstract class ChNames
     const MIN_MAJ7 = 'min_maj7';
     const DIM7 = 'dim7';
     const HALF_DIM = 'half_dim';
+
+    static function getAll()
+    {
+        return [
+            self::MIN,
+            self::MAJ,
+            self::DIM,
+            self::AUG,
+            self::MIN7,
+            self::MAJ7,
+            self::DOM7,
+            self::MIN_MAJ7,
+            self::DIM7,
+            self::HALF_DIM,
+        ];
+    }
 }
 
 class HarmonyController extends Controller
@@ -48,23 +64,30 @@ class HarmonyController extends Controller
 
     const HARMONY_CHAPTER_QUESTIONS = 4;
 
+    public function settings(Request $request)
+    {
+        return view('harmony_settings');
+    }
+
     public function harmony(Request $request)
     {
+
         /* Parameters */
-        $razlozeniProbability = 0.6;
-        $ozkaProbability = 1;
-        $chordProbability = array(
-            new Chord(ChNames::MIN, 0, [1, 0, 0]),
-            new Chord(ChNames::MAJ, 0, [1, 0, 0 ]),
-            new Chord(ChNames::DIM, 0, [1, 0, 0]),
-            new Chord(ChNames::AUG, 1, [1, 0, 0]),
-            new Chord(ChNames::MIN7, 0, [1, 0, 1]),
-            new Chord(ChNames::MAJ7, 0, [1, 0, 0]),
-            new Chord(ChNames::DOM7, 0, [1, 0, 0]),
-            new Chord(ChNames::MIN_MAJ7, 0, [1, 0, 0]),
-            new Chord(ChNames::DIM7, 0, [1, 0, 0]),
-            new Chord(ChNames::HALF_DIM, 0, [1, 0, 0]),
-        );
+        $razlozeniProbability = $request['razlozen'] / 100;
+        $ozkaProbability = $request['ozka'] / 100;
+
+        $chordProbability = array();
+        foreach (ChNames::getAll() as $cn) {
+            $chordProbability[] = new Chord(
+                $cn,
+                $request["chord"][$cn]['exists'],
+                array(
+                    $request["chord"][$cn]['lega1'],
+                    $request["chord"][$cn]['lega2'],
+                    $request["chord"][$cn]['lega3'],
+                )
+            );
+        }
 
         $allchordsalneki = array(
             'major' => array(
@@ -76,8 +99,6 @@ class HarmonyController extends Controller
         );
 
         /* Generate chords */
-
-
         // Pick chord based on its probability (exists)
         $chord = clone $chordProbability[$this->weightedRandom(
             array_map(
@@ -90,7 +111,7 @@ class HarmonyController extends Controller
 
         // Pick root
         $rootIndex = rand(0, 11);
-        if ($chord->type === ChNames::MIN || $chord->type === ChNames::MIN7 || $chord->type == ChNames::DIM) {
+        if ($chord->type === ChNames::MIN || $chord->type === ChNames::MIN7 || $chord->type === ChNames::DIM || $chord->type == ChNames::MIN_MAJ7) {
             $root = $allchordsalneki['minor'][$rootIndex];
         } else {
             $root = $allchordsalneki['major'][$rootIndex];
@@ -99,18 +120,28 @@ class HarmonyController extends Controller
         // TODO use razlozen parameter
         $razlozen = self::weightedRandom([1 - $razlozeniProbability, $razlozeniProbability]);
 
+        $kateriObrat = self::weightedRandom($chord->obrati);
+        if ($kateriObrat >= 0)
+            self::obrati($chord->integerNotation, $kateriObrat);
+
+        sort($chord->integerNotation);
+        
         if (self::weightedRandom([$ozkaProbability, 1 - $ozkaProbability])) {
             self::siroka($chord->integerNotation);
         }
 
-        $kateriObrat = self::weightedRandom($chord->obrati);
-        self::obrati($chord->integerNotation, $kateriObrat);
-
         sort($chord->integerNotation);
+
+        if ($chord->integerNotation[sizeof($chord->integerNotation) - 1] > 20) {
+            for ($i = 0; $i < sizeof($chord->integerNotation); $i++) {
+                $chord->integerNotation[$i] = $chord->integerNotation[$i] - 12;
+            }
+        }
 
         $chordType = $chord->type;
 
-        return view('harmony_testing', compact('chord', 'razlozen', 'root', 'chordType'));
+        $chNames = ChNames::getAll();
+        return view('harmony_testing', compact('chord', 'razlozen', 'root', 'chordType', 'chNames'));
     }
 
     private static function weightedRandom($percentages)
@@ -119,6 +150,7 @@ class HarmonyController extends Controller
         foreach ($percentages as $p) {
             $sumOfWeight += $p;
         }
+        if ($sumOfWeight === 0) return -1;
 
         $sum = 0;
         $r = rand(0, 1000) / 1000;
@@ -130,7 +162,7 @@ class HarmonyController extends Controller
 
     private static function obrati(&$chord, int $n)
     {
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i <= $n; $i++) {
             $chord[$i % sizeof($chord)] = $chord[$i] + 12;
         }
     }
