@@ -16,6 +16,7 @@ class CreateIntervalExercisesTable extends Migration
         Schema::create('interval_exercises', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exercise_id')->constrained();
+            $table->json('value');
             $table->timestamps();
         });
     }
