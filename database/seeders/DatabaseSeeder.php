@@ -15,5 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GameTypeSeeder::class);
         $this->call(DifficultySeeder::class);
+        $this->call(TimeSignatureSeeder::class);
+        $this->call(RhythmFeatureSeeder::class);
+        $this->call(RhythmSymbolSeeder::class);
     }
 }
