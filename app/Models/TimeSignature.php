@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * @property int id
+ * @property Collection rhythmFeatureOccurrences
  */
 class TimeSignature extends Model
 {
@@ -21,4 +23,9 @@ class TimeSignature extends Model
     protected $casts = [
         'value' => 'array'
     ];
+
+    public function rhythmFeatureOccurrences()
+    {
+        return $this->hasMany(RhythmFeatureOccurrence::class);
+    }
 }

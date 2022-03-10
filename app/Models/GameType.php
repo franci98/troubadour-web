@@ -25,6 +25,8 @@ class GameType extends Model
         ]);
         if ($this->id == self::INTERVALS) {
             IntervalExercise::generate($exercise);
+        } elseif ($this->id == self::RHYTHM) {
+            RhythmExercise::generate($exercise);
         }
     }
 

@@ -17,17 +17,17 @@ class DifficultySeeder extends Seeder
         $difficulties = [];
         $difficulties[] = [
             'title' => '11',
-            'value' => 1,
+            'sequence' => 1,
             'description' => 'Zelo lahko'
         ];
         $difficulties[] = [
             'title' => '12',
-            'value' => 2,
+            'sequence' => 2,
             'description' => 'Zelo lahko a malo izziv'
         ];
         $difficulties[] = [
             'title' => '44',
-            'value' => 3,
+            'sequence' => 3,
             'description' => 'Zelo težko'
         ];
 

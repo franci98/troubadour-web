@@ -15,7 +15,7 @@ class CreateDifficultiesTable extends Migration
     {
         Schema::create('difficulties', function (Blueprint $table) {
             $table->id();
-            $table->integer('value');
+            $table->integer('sequence');
             $table->string('title');
             $table->string('description');
             $table->timestamps();
