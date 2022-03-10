@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TimeSignatureSeeder::class);
         $this->call(RhythmFeatureSeeder::class);
         $this->call(RhythmSymbolSeeder::class);
+        $this->call(RhythmFeatureOccurrenceSeeder::class);
+        $this->call(RhythmSymbolOccurrenceSeeder::class);
     }
 }

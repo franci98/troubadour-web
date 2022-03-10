@@ -13,6 +13,8 @@ class RhythmSymbolOccurrence extends Model
     use HasFactory;
 
     protected $fillable = [
+        'rhythm_symbol_id',
+        'rhythm_feature_id',
         'probability'
     ];
 }
