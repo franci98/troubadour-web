@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRhythmFeaturesTable extends Migration
+class CreateRhythmExerciseFeedbacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateRhythmFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rhythm_features', function (Blueprint $table) {
+        Schema::create('rhythm_exercise_feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('is_crossbar');
+            $table->text('content');
+            $table->foreignId('rhythm_exercise_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateRhythmFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rhythm_features');
+        Schema::dropIfExists('rhythm_exercise_feedbacks');
     }
 }

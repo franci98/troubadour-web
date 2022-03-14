@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GameTypeSeeder::class);
         $this->call(DifficultySeeder::class);
-        $this->call(TimeSignatureSeeder::class);
-        $this->call(RhythmFeatureSeeder::class);
-        $this->call(RhythmSymbolSeeder::class);
-        $this->call(RhythmFeatureOccurrenceSeeder::class);
-        $this->call(RhythmSymbolOccurrenceSeeder::class);
+        $this->call(RyhthmExerciseConfigSeeder::class);
+//        $this->call(TimeSignatureSeeder::class);
+//        $this->call(RhythmFeatureSeeder::class);
+//        $this->call(RhythmSymbolSeeder::class);
+//        $this->call(RhythmFeatureOccurrenceSeeder::class);
+//        $this->call(RhythmSymbolOccurrenceSeeder::class);
     }
 }

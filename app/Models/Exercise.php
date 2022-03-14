@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int id
  * @property IntervalExercise intervalExercise
+ * @property RhythmExercise rhythmExercise
  * @property Game game
  * @property Carbon created_at
  */
@@ -29,5 +30,10 @@ class Exercise extends Model
     public function intervalExercise()
     {
         return $this->hasOne(IntervalExercise::class);
+    }
+
+    public function rhythmExercise()
+    {
+        return $this->hasOne(RhythmExercise::class);
     }
 }

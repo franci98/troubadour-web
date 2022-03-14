@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int id
+ * @property RhythmSymbol rhythmSymbol
+ * @property RhythmFeature rhythmFeature
  */
 class RhythmSymbolOccurrence extends Model
 {
@@ -17,4 +19,14 @@ class RhythmSymbolOccurrence extends Model
         'rhythm_feature_id',
         'probability'
     ];
+
+    public function rhythmSymbol()
+    {
+        return $this->belongsTo(RhythmSymbol::class);
+    }
+
+    public function rhythmFeature()
+    {
+        return $this->belongsTo(RhythmFeature::class);
+    }
 }

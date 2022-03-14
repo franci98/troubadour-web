@@ -15,6 +15,9 @@ class ExerciseResource extends JsonResource
 
         if ($this->game->gameType->id == GameType::INTERVALS)
             $resource['value'] = $this->intervalExercise->value;
+        elseif ($this->game->gameType->id == GameType::RHYTHM)
+            $resource['value'] = $this->rhythmExercise->bars;
+
 
         return $resource;
     }

@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @property int id
+ * @property string title
  * @property int sequence
  */
 class Difficulty extends Model

@@ -25,7 +25,7 @@ class GameController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Game was successfuly created. The game details are returned.",
-     *          ref="#/components/schemas/GameResource"
+     *          @OA\JsonContent(ref="#/components/schemas/GameResource")
      *       ),
      * )
      */

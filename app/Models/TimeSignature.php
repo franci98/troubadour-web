@@ -8,6 +8,8 @@ use Illuminate\Support\Collection;
 
 /**
  * @property int id
+ * @property array value
+ * @property float probability
  * @property Collection rhythmFeatureOccurrences
  */
 class TimeSignature extends Model

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRhythmSymbolsTable extends Migration
+class AddBarInfoProbability extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateRhythmSymbolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rhythm_symbols', function (Blueprint $table) {
-            $table->id();
-            $table->json('value');
-            $table->double('length');
-            $table->double('cross_bar')->nullable();
-            $table->timestamps();
+        Schema::table('bar_infos', function(Blueprint $table) {
+            $table->double('probability')->default(0.5);
         });
     }
 
@@ -29,6 +25,8 @@ class CreateRhythmSymbolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rhythm_symbols');
+        Schema::table('bar_infos', function(Blueprint $table) {
+            $table->dropColumn('probability');
+        });
     }
 }
