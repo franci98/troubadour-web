@@ -13,6 +13,7 @@ class GameTypeController extends Controller
      * @OA\Get (
      *      path="/game-types",
      *      tags={"GameType","Game"},
+     *      security={{"bearerAuth":{}}},
      *      summary="Game Types List",
      *      description="Retrieve all game types the platform currently offers.",
      *      @OA\Response(

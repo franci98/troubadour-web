@@ -14,6 +14,7 @@ class DifficultyController extends Controller
      * @OA\Get (
      *      path="/difficulties",
      *      tags={"Game"},
+     *      security={{"bearerAuth":{}}},
      *      summary="Difficulties List",
      *      description="Retrieve all difficulties the platform currently offers.",
      *      @OA\Response(

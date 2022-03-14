@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v3\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class AuthController extends Controller
      *      ),
      *      @OA\Response(
      *          response=201,
-     *          description="User successfuly created"
+     *          description="User successfuly created",
+     *          @OA\JsonContent(ref="#/components/schemas/TokenResponse")
      *       ),
      * )
      */
@@ -44,7 +46,11 @@ class AuthController extends Controller
         $user->save();
         event(new Registered($user));
 
-        return response(null, Response::HTTP_CREATED);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+        ]);
     }
 
     /**
@@ -63,7 +69,7 @@ class AuthController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Login was successful. An authorization token was issued.",
-     *          ref="#/components/schemas/TokenResponse"
+     *          @OA\JsonContent(ref="#/components/schemas/TokenResponse")
      *       ),
      * )
      */
@@ -82,5 +88,24 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
         ]);
+    }
+
+    /**
+     * @OA\Get  (
+     *      path="/users/me",
+     *      tags={"Authorization"},
+     *      summary="Current user",
+     *      description="Gets current user details.",
+     *      security={{"bearerAuth":{}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="User details successfuly retrieved",
+     *          @OA\JsonContent(ref="#/components/schemas/UserResource")
+     *       ),
+     * )
+     */
+    public function currentUser()
+    {
+        return UserResource::make(Auth::user());
     }
 }

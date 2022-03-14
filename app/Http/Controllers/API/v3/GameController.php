@@ -13,6 +13,7 @@ class GameController extends Controller
      * @OA\Post (
      *      path="/games",
      *      tags={"Game"},
+     *      security={{"bearerAuth":{}}},
      *      summary="New game",
      *      description="Create a new game.",
      *      @OA\RequestBody(
