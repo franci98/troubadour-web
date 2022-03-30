@@ -28,6 +28,7 @@ class GameType extends Model
         } elseif ($this->id == self::RHYTHM) {
             RhythmExercise::generate($exercise);
         }
+        $exercise->generateMp3File();
     }
 
 }

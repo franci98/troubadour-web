@@ -12,6 +12,7 @@ class ExerciseResource extends JsonResource
     {
         $resource = [
             'id' => $this->id,
+            'mp3_url' => config('app.url') . "/audio/$this->id.mp3",
         ];
 
         if ($this->game->gameType->id == GameType::INTERVALS)

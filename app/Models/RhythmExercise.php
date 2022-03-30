@@ -28,9 +28,23 @@ class RhythmExercise extends Model
         return RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
     }
 
+    public function barInfo()
+    {
+        return $this->belongsTo(BarInfo::class);
+    }
+
     public function bars()
     {
         return $this->belongsToMany(RhythmBar::class, 'rhythm_exercise_bars')->withPivot(['seq'])->orderBy('seq');
     }
 
+    public function notesCollection(): array
+    {
+        $notes = json_decode($this->bars[0]->content);
+        for($i = 1; $i < count($this->bars); $i++){
+            $notes = array_merge($notes, json_decode($this->bars[$i]->content));
+        }
+
+        return $notes;
+    }
 }
