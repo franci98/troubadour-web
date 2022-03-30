@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\GameType;
+use App\Models\RhythmBar;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ExerciseResource extends JsonResource
@@ -16,7 +17,7 @@ class ExerciseResource extends JsonResource
         if ($this->game->gameType->id == GameType::INTERVALS)
             $resource['value'] = $this->intervalExercise->value;
         elseif ($this->game->gameType->id == GameType::RHYTHM)
-            $resource['value'] = $this->rhythmExercise->bars;
+            $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
 
 
         return $resource;
