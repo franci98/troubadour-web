@@ -21,7 +21,7 @@ class GameTypeResource extends JsonResource
      *      example="1"
      * )
      */
-    private $id;
+    public $id;
     /**
      * @OA\Property(
      *      title="title",
@@ -29,7 +29,8 @@ class GameTypeResource extends JsonResource
      *      example="Ritmični narek"
      * )
      */
-    private $title;
+    public $title;
+
     /**
      * @OA\Property(
      *      title="description",
@@ -37,10 +38,24 @@ class GameTypeResource extends JsonResource
      *      example="Vadi ritmični narek."
      * )
      */
-    private $description;
+    public $description;
+
+    /**
+     * @OA\Property(
+     *      title="image_url",
+     *      description="Url to the icon.",
+     *      example="http://localhost:8000/img/game-types/1.svg"
+     * )
+     */
+    public $image_url;
 
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->resource->id,
+            'title' => $this->resource->title,
+            'description' => $this->resource->description,
+            'image_url' => url('/img/game-types/' . $this->resource->id . '.svg'),
+        ];
     }
 }

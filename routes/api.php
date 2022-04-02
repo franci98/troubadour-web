@@ -18,12 +18,14 @@ Route::group([
     'as' => 'api.',
     'namespace' => 'API\v3',
 ], function () {
-    Route::middleware('auth:sanctum')->get('/users/me', 'Auth\AuthController@currentUser');
-
     Route::post('/register', 'Auth\AuthController@register');
     Route::post('/login', 'Auth\AuthController@login');
 
-    Route::apiResource('game-types', 'GameTypeController')->only(['index']);
-    Route::apiResource('difficulties', 'DifficultyController')->only(['index']);
-    Route::apiResource('games', 'GameController')->only(['store']);
+    Route::middleware('auth:sanctum')->get('/users/me', 'Auth\AuthController@currentUser');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('answers', 'AnswerController')->only(['store']);
+        Route::apiResource('game-types', 'GameTypeController')->only(['index']);
+        Route::apiResource('difficulties', 'DifficultyController')->only(['index']);
+        Route::apiResource('games', 'GameController')->only(['store']);
+    });
 });
