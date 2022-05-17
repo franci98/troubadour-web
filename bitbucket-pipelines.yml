@@ -2,7 +2,7 @@ image: atlassian/default-image:3
 
 pipelines:
   branches:
-    master:
+    release:
       - step:
           name: 'Docker build and push'
           script:
