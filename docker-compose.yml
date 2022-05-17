@@ -1,0 +1,31 @@
+version: '3'
+services:
+  troubadour:
+    image: registry.koin.musiclab.si/ul-fri-lgm/troubadour:latest
+    ports:
+    - "8150:8000"
+    environment:
+    - "APP_KEY=${APP_KEY}"
+    - "LARAVEL_DATABASE_TYPE=pgsql"
+    - "LARAVEL_DATABASE_HOST=172.17.0.1"
+    - "LARAVEL_DATABASE_PORT_NUMBER=5432"
+    - "LARAVEL_DATABASE_NAME=troubadour"
+    - "LARAVEL_DATABASE_USER=troubadour"
+    - "LARAVEL_DATABASE_PASSWORD=troubadour"
+    - "MAIL_MAILER=smtp"
+    - "MAIL_HOST=smtp.gmail.com"
+    - "MAIL_PORT=587"
+    - "MAIL_USERNAME=${MAIL_USERNAME}"
+    - "MAIL_PASSWORD=${MAIL_PASSWORD}"
+    - "MAIL_ENCRYPTION=tls"
+    - "MAIL_FROM_ADDRESS=${MAIL_ADDRESS}"
+    - "MAIL_FROM_NAME=Troubadour"
+    volumes:
+    - "storage:/storage/app"
+
+volumes:
+  storage:
+    driver_opts:
+      type: none
+      device: "/storage/docker/troubadour/storage"
+      o: bind
