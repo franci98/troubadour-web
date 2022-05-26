@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Utils\RhythmExerciseGenerator;
+use App\Models\GameType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * @property int id
@@ -23,9 +25,17 @@ class RhythmExercise extends Model
         'mp3_generated',
     ];
 
-    public static function generate(Exercise $exercise): RhythmExercise
+    public static function generate(Exercise $exercise, int $gameType): RhythmExercise
     {
+        if ($gameType == 4) {
+            return RhythmExerciseGenerator::generateForGuessLevel($exercise->game->difficulty->title, $exercise);
+        }
         return RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
+    }
+
+    public function barInfo()
+    {
+        return $this->belongsTo(BarInfo::class);
     }
 
     public function bars()
@@ -33,4 +43,13 @@ class RhythmExercise extends Model
         return $this->belongsToMany(RhythmBar::class, 'rhythm_exercise_bars')->withPivot(['seq'])->orderBy('seq');
     }
 
+    public function notesCollection(): array
+    {
+        $notes = json_decode($this->bars[0]->content);
+        for($i = 1; $i < count($this->bars); $i++){
+            $notes = array_merge($notes, json_decode($this->bars[$i]->content));
+        }
+
+        return $notes;
+    }
 }

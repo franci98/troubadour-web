@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utils\Midi\MidiNotes;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,5 +36,17 @@ class Exercise extends Model
     public function rhythmExercise()
     {
         return $this->hasOne(RhythmExercise::class);
+    }
+
+    public function generateMp3File()
+    {
+        if ($this->game->gameType->id == GameType::RHYTHM) {
+            $soundController = new MidiNotes();
+            $info = (object) [
+                'metronome' => true,
+            ];
+            $baseFilePath = public_path("audio/");
+            $soundController->generateExerciseSound($this->rhythmExercise->id, $baseFilePath.$this->id, $info);
+        }
     }
 }

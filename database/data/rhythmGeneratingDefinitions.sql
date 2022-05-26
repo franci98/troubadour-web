@@ -1,7 +1,7 @@
-
 DELETE FROM rhythm_bar_occurrences     WHERE rhythm_bar_id > 0;
 DELETE FROM rhythm_feature_occurrences WHERE rhythm_feature_id > 0;
 DELETE FROM rhythm_features            WHERE id > 0;
+
 
 /* INSERT IGNORE rhythm_bars */
 INSERT  IGNORE INTO `rhythm_bars` VALUES (1,'[{\"type\": \"bar\"}]',0,0,NULL);
@@ -22,8 +22,8 @@ INSERT  IGNORE INTO `rhythm_bars` VALUES (15,'[{\"type\": \"n\", \"value\": 4}, 
 INSERT  IGNORE INTO `rhythm_bars` VALUES (16,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}]',2,1,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (17,'[{\"type\": \"n\", \"value\": 2}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 4}]',3,2,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (18,'[{\"type\": \"n\", \"value\": 4}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 2}]',3,1,NULL);
-INSERT  IGNORE INTO `rhythm_bars` VALUES (19,'[{\"dot\": true, \"type\": \"n\", \"value\": 4}]',1.5,NULL,NULL);
-INSERT  IGNORE INTO `rhythm_bars` VALUES (20,'[{\"dot\": true, \"type\": \"r\", \"value\": 4}]',1.5,NULL,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (19,'[{\"dot\": true, \"type\": \"n\", \"value\": 4}]',1.5,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (20,'[{\"dot\": true, \"type\": \"r\", \"value\": 4}]',1.5,0,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (21,'[{\"dot\": true, \"type\": \"n\", \"value\": 4}, {\"type\": \"bar\"}, {\"dot\": true, \"tie\": true, \"type\": \"n\", \"value\": 4}]',3,1.5,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (22,'[{\"dot\": true, \"type\": \"n\", \"value\": 4}, {\"type\": \"bar\"}, {\"dot\": true, \"tie\": true, \"type\": \"n\", \"value\": 2}]',4.5,1.5,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (23,'[{\"dot\": true, \"type\": \"n\", \"value\": 2}, {\"type\": \"bar\"}, {\"dot\": true, \"tie\": true, \"type\": \"n\", \"value\": 4}]',4.5,3,NULL);
@@ -37,7 +37,7 @@ INSERT  IGNORE INTO `rhythm_bars` VALUES (30,'[{\"type\": \"n\", \"value\": 2}, 
 INSERT  IGNORE INTO `rhythm_bars` VALUES (31,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 2}]',3,1,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (32,'[{\"dot\": true, \"type\": \"n\", \"value\": 4}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 4}]',3,2,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (33,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"bar\"}, {\"tie\": true, \"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 4}, {\"type\": \"n\", \"value\": 8}]',3,1,NULL);
-INSERT  IGNORE INTO `rhythm_bars` VALUES (34,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}]',1.5,NULL,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (34,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 8}]',1.5,0,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (35,'[{\"type\": \"n\", \"value\": 4}, {\"type\": \"n\", \"value\": 8}]',1.5,NULL,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (36,'[{\"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 4}]',1.5,NULL,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (37,'[{\"type\": \"r\", \"value\": 4}, {\"type\": \"n\", \"value\": 8}]',1.5,NULL,NULL);
@@ -196,16 +196,52 @@ INSERT  IGNORE INTO `rhythm_bars` VALUES (189,'[{\"type\": \"n\", \"value\": 16,
 INSERT  IGNORE INTO `rhythm_bars` VALUES (190,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"r\", \"value\": 8}, {\"type\": \"r\", \"value\": 8}]',1.5,0,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (191,'[{\"type\": \"r\", \"value\": 4}, {\"type\": \"n\", \"value\": 8}, {\"tie\": true, \"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16, \"in_tuplet\": true}, {\"type\": \"n\", \"value\": 16, \"in_tuplet\": true}, {\"type\": \"n\", \"value\": 16, \"in_tuplet\": true, \"tuplet_end\": true, \"tuplet_type\": {\"num_notes\": 3, \"in_space_of\": 2}}, {\"type\": \"n\", \"value\": 8}]',3,0,NULL);
 INSERT  IGNORE INTO `rhythm_bars` VALUES (192,'[{\"dot\": true, \"type\": \"n\", \"value\": 8}, {\"type\": \"n\", \"value\": 16}, {\"tie\": true, \"type\": \"n\", \"value\": 8}]',1.5,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (193,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"r\", \"value\": 16}]',1,NULL,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (194,'[{\"type\": \"r\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}]',1.5,NULL,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (195,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"r\", \"value\": 16}]',1.5,NULL,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (196,'[{\"type\": \"r\", \"value\": 8}]',0.5,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (197,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"r\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}]',1,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (198,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}, {\"type\": \"r\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}]',1,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (199,'[{\"type\": \"n\", \"value\": 16}, {\"type\": \"n\", \"value\": 16}]',0.5,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (200,'[{\"type\": \"n\", \"value\": 1}]',4,0,NULL);
+INSERT  IGNORE INTO `rhythm_bars` VALUES (201,'[{\"type\": \"n\", \"value\": 4, \"in_tuplet\": true}, {\"type\": \"n\", \"value\": 4, \"in_tuplet\": true}, {\"type\": \"n\", \"value\": 4, \"in_tuplet\": true, \"tuplet_end\": true, \"tuplet_type\": {\"num_notes\": 3, \"in_space_of\": 2}}]',2,NULL,NULL);
 
 /* INSERT IGNORE bar_infos */
-INSERT  IGNORE INTO `bar_infos` VALUES (1,'{\"base_note\": 4, \"num_beats\": 4}',11,0.6);
-INSERT  IGNORE INTO `bar_infos` VALUES (2,'{\"base_note\": 4, \"num_beats\": 3}',11,0.6);
-INSERT  IGNORE INTO `bar_infos` VALUES (3,'{\"base_note\": 8, \"num_beats\": 6}',11,0.6);
-INSERT  IGNORE INTO `bar_infos` VALUES (4,'{\"base_note\": 4, \"num_beats\": 5, \"subdivisions\": [{\"d\": 4, \"n\": 3}, {\"d\": 4, \"n\": 2}]}',11,0.2);
-INSERT  IGNORE INTO `bar_infos` VALUES (5,'{\"base_note\": 4, \"num_beats\": 5, \"subdivisions\": [{\"d\": 4, \"n\": 2}, {\"d\": 4, \"n\": 3}]}',11,0.2);
-INSERT  IGNORE INTO `bar_infos` VALUES (6,'{\"base_note\": 8, \"num_beats\": 9}',22,0.4);
+INSERT  IGNORE INTO `bar_infos` VALUES (1,'{\"base_note\": 4, \"num_beats\": 4}',1,0.6);
+INSERT  IGNORE INTO `bar_infos` VALUES (2,'{\"base_note\": 4, \"num_beats\": 3}',1,0.6);
+INSERT  IGNORE INTO `bar_infos` VALUES (3,'{\"base_note\": 8, \"num_beats\": 6}',10,0.6);
+INSERT  IGNORE INTO `bar_infos` VALUES (4,'{\"base_note\": 4, \"num_beats\": 5, \"subdivisions\": [{\"d\": 4, \"n\": 3}, {\"d\": 4, \"n\": 2}]}',21,0.2);
+INSERT  IGNORE INTO `bar_infos` VALUES (5,'{\"base_note\": 4, \"num_beats\": 5, \"subdivisions\": [{\"d\": 4, \"n\": 2}, {\"d\": 4, \"n\": 3}]}',21,0.2);
+INSERT  IGNORE INTO `bar_infos` VALUES (6,'{\"base_note\": 8, \"num_beats\": 9}',21,0.4);
 
 /*  INSERT rhythm_features */
+INSERT INTO `rhythm_features` VALUES (1,'1. razred - level 1',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (2,'1. razred - level 2',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (3,'1. razred - level 3',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (4,'1. razred - level 4',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (5,'2. razred - level 1',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (6,'2. razred - level 2',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (7,'2. razred - level 3',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (8,'2. razred - level 4',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (9,'3. razred - level 1 (cetrtinka s piko, vezaj cetrtink, vezaj cetrtink s piko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (10,'3. razred - level 2 (osminski takt + 3 osminke + cetrtinska pavza s piko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (11,'3. razred - level 3 (4 sestnajstinke)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (12,'3. razred - level 4 (3 sestnajstinke + sestnajstinske pavze)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (13,'3. razred - level 5 (6 sestnajstink + 5 sestanjstink + 2 sestnajstinki z osminko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (14,'4. razred - level 1 (osminka 2 sestnajstinki osminka',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (15,'4. razred - level 2 (triole)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (16,'4. razred - level 3 (pavza med 4 sestnajstinke + 4 sestnajstinke z osminko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (17,'4. razred - level 4 (osminka s piko sestnajstinka + 2 sestnajstinki osminka 2 sestanjstinki',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (18,'5. razred - level 1 (2 sestnajstinki + osminki vezaj na osminko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (19,'5. razred - level 2 (sestnajstinka osminka sestnajstinka)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (20,'5. razred - level 3 (osminka s piko 3 sestnajstinke + osminka s piko sestnajstinka osminka)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (21,'5. razred - level 4 (5/8 7/8 9/8 5/4 + cetrtinka s piko vezaj na cetrtinko)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (22,'5. razred - level 5 (triplet cetrtink + celinka + celinka s piko + 3/2 2/2)',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (23,'6. razred - level 1',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (24,'6. razred - level 2',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (25,'6. razred - level 3',NULL,NULL,0);
+INSERT INTO `rhythm_features` VALUES (26,'6. razred - level 4',NULL,NULL,0);
+/*
 INSERT INTO `rhythm_features` VALUES (1,'Level 11 (4/4) (3/4)',NULL,NULL,0);
 INSERT INTO `rhythm_features` VALUES (2,'Level 12 (4/4)',NULL,NULL,0);
 INSERT INTO `rhythm_features` VALUES (3,'Level 13 (4/4)(3/4)(mešano)',NULL,NULL,0);
@@ -246,8 +282,89 @@ INSERT INTO `rhythm_features` VALUES (44,'Level 33 (3/8)',NULL,NULL,0);
 INSERT INTO `rhythm_features` VALUES (45,'Level 33 (1/4)',NULL,NULL,0);
 INSERT INTO `rhythm_features` VALUES (46,'Level 34 (1/4)',NULL,NULL,0);
 INSERT INTO `rhythm_features` VALUES (47,'Level 34 (3/8)',NULL,NULL,0);
+*/
+
 
 /*  INSERT rhythm_feature_occurrences */
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (1,1,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (1,1,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (2,2,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (2,2,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (3,3,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (3,3,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (4,4,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (4,4,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (5,5,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (5,5,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (6,6,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (6,6,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (7,7,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (7,7,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (8,8,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (8,8,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (9,9,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (9,9,2,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (10,10,1,0);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (10,10,2,0);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (10,10,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,11,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,11,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,11,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (12,12,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (12,12,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (12,12,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (13,13,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (13,13,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (13,13,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (14,14,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (14,14,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (14,14,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (15,15,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (15,15,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (15,15,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (16,16,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (16,16,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (16,16,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (17,17,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (17,17,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (17,17,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (18,18,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (18,18,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (18,18,3,1);
+
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (19,19,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (19,19,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (19,19,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (20,20,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (20,20,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (20,20,3,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,1,0);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,2,0);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,3,0);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,4,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,5,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (21,21,6,1);
+
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,1,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,2,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,3,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,4,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,5,1);
+INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (22,22,6,1);
+
+/*
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,18,1,1);
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,18,2,1);
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (11,18,3,1);
@@ -362,8 +479,378 @@ INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_i
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (34,46,5,0.5);
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (34,47,3,0.5);
 INSERT INTO `rhythm_feature_occurrences` (rhythm_level, rhythm_feature_id, bar_info_id, feature_probability) VALUES (34,47,6,0.5);
+*/
 
 /*  INSERT rhythm_bar_occurrences */
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,1,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,1,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,2,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,2,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,2,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,3,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,3,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,3,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,3,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,4,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,4,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,4,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,4,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,4,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,4,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,5,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,5,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,5,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,5,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,5,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,5,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,6,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,6,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,6,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,6,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,6,0.3);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,6,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,6,0.3);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,6,0.3);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,7,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,7,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,7,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,7,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,7,0.3);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,7,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,7,0.7);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,7,0.7);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,8,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,8,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,8,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,8,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,8,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,8,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,8,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,8,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,9,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,9,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,9,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,9,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,9,1);
+/* vezaj cetrtink + vezaj ctrtink s piko */
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,10,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,10,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,10,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,10,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,10,0.1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,11,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,11,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,11,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,11,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,11,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,11,0.1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,12,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,12,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,12,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,12,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,12,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,12,0.1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,13,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,13,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,13,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,13,0.1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,14,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,14,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,14,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,14,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,14,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,14,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,14,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,15,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,15,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,15,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,15,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,15,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,15,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,15,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,16,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,16,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,16,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,16,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,16,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,16,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,16,0.8);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,16,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,16,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,16,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,16,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,17,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,17,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,17,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,17,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,17,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,17,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,17,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,17,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,17,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,17,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,17,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,18,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,18,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,18,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,18,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,18,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,18,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,18,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,18,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,18,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,18,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,18,0.8);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (199,18,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,19,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,19,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,19,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,19,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,19,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (199,19,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (70,19,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,20,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,20,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,20,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,20,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,20,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (199,20,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (70,20,0.4);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (66,20,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (162,20,1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,21,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,21,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,21,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,21,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (199,21,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (70,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (66,21,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (162,21,0.1);
+
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,22,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (3,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (4,22,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (5,22,0.5);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (6,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (7,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (8,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (9,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (13,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (19,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (20,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (34,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (59,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (68,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (193,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (194,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (195,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (196,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (48,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (69,22,0);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (110,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (64,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (81,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (197,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (198,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (46,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (199,22,0.2);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (70,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (66,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (162,22,0.1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (200,22,1);
+INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (201,22,1);
+
+/*
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,21,0.8);
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,22,0.5);
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (2,23,0.2);
@@ -755,4 +1242,4 @@ INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_prob
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (190,47,0.014492753623188406);
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (191,47,0.014492753623188406);
 INSERT INTO `rhythm_bar_occurrences` (rhythm_bar_id, rhythm_feature_id, bar_probability) VALUES (192,47,0.014492753623188406);
-
+*/
