@@ -4,4 +4,5 @@ WORKDIR /app
 COPY . /app
 
 RUN cp .env.production .env && \
-    composer install --ignore-platform-reqs
+    composer install --ignore-platform-reqs && \
+    sudo apt-get update && sudo apt-get -y install fluidsynth
