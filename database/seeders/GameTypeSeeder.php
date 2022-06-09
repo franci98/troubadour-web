@@ -31,5 +31,11 @@ class GameTypeSeeder extends Seeder
             'title' => 'Harmonični narek',
             'description' => 'Vadi harmonični narek',
         ]);
+
+        GameType::query()->firstOrCreate([
+            'id' => 4,
+            'title' => 'Ritmični kviz',
+            'description' => 'Vadi ritmični kviz',
+        ]);
     }
 }

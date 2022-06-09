@@ -17,7 +17,7 @@ class MidiConvert {
 
         if(!function_exists('exec')) {
             throw new Exception("Exec can't run!");
-        } 
+        }
 
         exec("whereis fluidsynth", $out, $return);
 
@@ -28,9 +28,9 @@ class MidiConvert {
           }
         }
 
-//        if(!$found){
-//          throw new Exception("Please install fluidsynth!");
-//        }
+        if(!$found){
+          throw new Exception("Please install fluidsynth!");
+        }
 
     }
 

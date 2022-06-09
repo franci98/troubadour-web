@@ -1,0 +1,17 @@
+image: atlassian/default-image:3
+
+pipelines:
+  branches:
+    release:
+      - step:
+          name: 'Docker build and push'
+          script:
+            - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+            - docker build -t registry.koin.musiclab.si/ul-fri-lgm/troubadour:latest .
+            - docker push registry.koin.musiclab.si/ul-fri-lgm/troubadour:latest
+          services:
+            - docker
+      - step:
+          name: 'Deploy'
+          script:
+            - 'ssh lgmCI@koin.lgm.fri.ingress.si "cd troubadour; ./deploy.sh"'

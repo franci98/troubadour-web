@@ -1,0 +1,13 @@
+# Git files and folders
+.git
+.gitattributes
+.gitignore
+
+# Other files
+.editorconfig
+.styleci
+.*.swp
+
+# Docker files
+Dockerfile
+docker-compose.yml
