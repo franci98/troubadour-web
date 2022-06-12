@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int id
- * @property string name
- */
-class School extends Model
+class Role extends Model
 {
     use HasFactory;
+
+    const ADMIN = 1;
+    const TEACHER = 2;
+
+    const ROLES = [self::ADMIN, self::TEACHER,];
 }

@@ -13,9 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(SchoolSeeder::class);
         $this->call(GameTypeSeeder::class);
         $this->call(DifficultySeeder::class);
         $this->call(RyhthmExerciseConfigSeeder::class);
+        $this->call(RoleSeeder::class);
 //        $this->call(TimeSignatureSeeder::class);
 //        $this->call(RhythmFeatureSeeder::class);
 //        $this->call(RhythmSymbolSeeder::class);
