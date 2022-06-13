@@ -29,5 +29,7 @@ return [
     'login_input_submit_label' => 'Prijava',
     'login_to_register' => 'Se še niste registrirali? <a href=":0" class="text-dark font-weight-bolder">Registrirajte se</a>.',
 
-
+    'role_invalid_alert' => 'Žal trenutno nimate pravic za dostop do tega dela aplikacije. Prosimo, obrnite se na upravitelja.',
+    'classroom_select_title' => 'Izberi ali ustvari učilnico.',
+    'classroom_create_button' => 'Ustvari učilnico',
 ];

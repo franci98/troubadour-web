@@ -32,9 +32,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('password/reset', 'ForgotPasswordController@reset')->name("password.reset");
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/classrooms/select', 'ClassroomController@select')->name('classrooms.select');
-    Route::get('/dashboard', 'ClassroomController@select')->name('home');
+Route::middleware(['auth', 'classroom-teacher'])->group(function () {
+    Route::get('/classrooms/select', 'ClassroomController@showSelect')->name('classrooms.select.show')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
+    Route::get('/classrooms/{classroom}/select', 'ClassroomController@select')->name('classrooms.select')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
+    Route::resource('classrooms', 'ClassroomController');
+    Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('classroom-teacher');
+    Route::get('/dashboard', 'HomeController@dashboard')->name('home');
 });
 
 
