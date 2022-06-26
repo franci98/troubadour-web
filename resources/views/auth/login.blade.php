@@ -25,9 +25,15 @@
                                 @csrf
                                 <div class="mb-3">
                                     <input type="email" name="email" class="form-control" placeholder="@lang('messages.login_input_email_label')" aria-label="@lang('messages.login_input_email_label')" aria-describedby="email-addon">
+                                    @error('email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" name="password" class="form-control" placeholder="@lang('messages.login_input_password_label')" aria-label="@lang('messages.login_input_password_label')" aria-describedby="password-addon">
+                                    @error('password')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">@lang('messages.login_input_submit_label')</button>

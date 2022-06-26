@@ -25,6 +25,9 @@
                                 @csrf
                                 <div class="mb-3">
                                     <input type="text" name="name" class="form-control" placeholder="@lang('messages.register_input_name_label')" aria-label="@lang('messages.register_input_name_label')" aria-describedby="email-addon">
+                                    @error('name')
+                                    <div class="alert alert-danger text-white mt-2 mb-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="input-school_id">@lang('messages.register_input_school_label')</label>
@@ -33,12 +36,21 @@
                                             <option value="{{$school->id}}">{{ $school->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('school_id')
+                                    <div class="alert alert-danger text-white mt-2 mb-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <input type="email" name="email" class="form-control" placeholder="@lang('messages.register_input_email_label')" aria-label="@lang('messages.register_input_email_label')" aria-describedby="email-addon">
+                                    @error('email')
+                                    <div class="alert alert-danger text-white mt-2 mb-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" name="password" class="form-control" placeholder="@lang('messages.register_input_password_label')" aria-label="@lang('messages.register_input_password_label')" aria-describedby="password-addon">
+                                    @error('password')
+                                    <div class="alert alert-danger text-white mt-2 mb-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('messages.register_input_password_confirmation_label')" aria-label="@lang('messages.register_input_password_confirmation_label')" aria-describedby="password_confirmation-addon">

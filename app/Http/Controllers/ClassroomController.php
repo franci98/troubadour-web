@@ -10,8 +10,16 @@ class ClassroomController extends Controller
 {
     public function showSelect()
     {
-        $classrooms = request()->user()->classrooms;
+        $classrooms = Auth::user()->teachersClassrooms;
+
         return view('classroom.select', compact('classrooms'));
+    }
+
+    public function select(Request $request, Classroom $classroom)
+    {
+        $this->selectClassroom($classroom->id);
+
+        return redirect()->route('home');
     }
 
     public function store(Request $request)
@@ -22,8 +30,10 @@ class ClassroomController extends Controller
 
         $classroom = new Classroom($data);
         $classroom->user()->associate(Auth::user());
+        $classroom->school()->associate(Auth::user()->school_id);
         $classroom->save();
+        $this->selectClassroom($classroom->id);
 
-        return redirect()->route('classrooms.select.show');
+        return redirect()->route('home');
     }
 }

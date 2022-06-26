@@ -19,11 +19,14 @@
 @include('base.app.head')
 <body class="g-sidenav-show bg-gray-100">
 @auth
-    @isset($classroom)
+    @if(request()->session()->has('classroom'))
         @include('base.app.sidenav')
     @endif
 @endauth
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    @auth
+        @include('base.app.topnav')
+    @endauth
     <div class="@auth container-fluid py-4 @endauth">
         @yield('content')
     </div>

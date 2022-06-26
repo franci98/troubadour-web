@@ -17,7 +17,7 @@ class EnsureClassroomIsSelected
     public function handle(Request $request, Closure $next)
     {
         if (! $request->session()->has('classroom')) {
-            return redirect()->route('classrooms.select');
+            return redirect()->route('classrooms.select.show');
         }
         return $next($request);
     }

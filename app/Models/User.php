@@ -13,7 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int id
  * @property string name
  * @property string email
+ * @property School school
  * @property Collection classrooms
+ * @property Collection teachersClassrooms
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'school_id',
         'password',
     ];
 
@@ -37,13 +40,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles()
     {
         return $this->belongsToMany(Role::class)
-            ->with('status')
+            ->withPivot('status')
             ->withTimestamps();
     }
 
     public function classrooms()
     {
         return $this->belongsToMany(Classroom::class);
+    }
+
+    public function teachersClassrooms()
+    {
+        return $this->hasMany(Classroom::class);
+    }
+
+    public function shool()
+    {
+        return $this->belongsTo(School::class);
     }
 
     public function assignRole(int $roleId, int $status = RoleUser::STATUS_UNCONFIRMED)

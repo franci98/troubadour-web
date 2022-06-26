@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-
+        $classroom= $this->classroom;
+        return view('dashboard', compact('classroom'));
     }
 }

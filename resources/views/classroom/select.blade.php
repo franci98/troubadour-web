@@ -20,6 +20,9 @@
                                 <form  action="{{ route('classrooms.store') }}" method="POST" class="mt-2">
                                     @csrf
                                     <input class="form-control mb-3" type="text" name="name">
+                                    @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <button type="submit" class="btn btn-block btn-success">@lang('messages.classroom_create_button')</button>
                                 </form>
                             </div>

@@ -9,8 +9,17 @@ class Classroom extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }

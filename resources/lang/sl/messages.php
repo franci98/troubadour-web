@@ -32,4 +32,12 @@ return [
     'role_invalid_alert' => 'Žal trenutno nimate pravic za dostop do tega dela aplikacije. Prosimo, obrnite se na upravitelja.',
     'classroom_select_title' => 'Izberi ali ustvari učilnico.',
     'classroom_create_button' => 'Ustvari učilnico',
+
+    'stats_users_count' => 'Število učencev',
+    'stats_open_homeworks_count' => 'Število odprtih domačih nalog',
+    'stats_average_points' => 'Povprečno število točk',
+    'stats_average_rating' => 'Zadovoljstvo učencev',
+    'profile' => 'Profil',
+    'logout' => 'Odjava',
+    'dashboard' => 'Nadzorna plošča',
 ];

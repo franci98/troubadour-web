@@ -37,12 +37,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($data)) {
-            if (Auth::user()->email_verified_at == null) {
-                Auth::logout();
-                return redirect()->route('login')->with('status', __('messages.email_not_verified'));
-            } else {
-                return redirect()->route('home');
-            }
+            return redirect()->route('home');
         } else {
             return redirect()->route('login')->with('status', __('messages.login_failed'));
         }
