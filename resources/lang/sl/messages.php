@@ -40,4 +40,10 @@ return [
     'profile' => 'Profil',
     'logout' => 'Odjava',
     'dashboard' => 'Nadzorna plošča',
+    'dashboard_students_index_button' => 'Poglej vse',
+    'dashboard_success_ratio_title' => 'Uspešnost učencev',
+    'dashboard_homeworks_list_title' => 'Domače naloge',
+    'dashboard_homeworks_index_button' => 'Vse domače naloge',
+    'dashboard_students_title' => 'Moji študentje',
+    'dashboard_welcome' => 'Pozdravljeni <small class="text-muted">:0</small>!',
 ];

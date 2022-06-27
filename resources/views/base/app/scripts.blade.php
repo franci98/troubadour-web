@@ -1,9 +1,9 @@
 <!--   Core JS Files   -->
 <script src="{{ asset('/app/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('/app/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/app/js/plugins/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('/app/js/plugins/smooth-scrollbar.min.js') }}"></script>
 <script src="{{ asset('/app/js/plugins/chartjs.min.js') }}"></script>
-<script src="{{ asset('/app/js/plugins/Chart.extension.js') }}"></script>
 
 <!-- Date picker -->
 <script src="https://unpkg.com/flatpickr@4.6.9/dist/l10n/de.js"></script>
@@ -16,6 +16,9 @@
 
 <!-- Tom Select -->
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+<!-- Vanilla calendar -->
+<script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.3.5/vanilla-calendar.min.js"></script>
 
 <!-- Load FilePond library -->
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>

@@ -2,90 +2,153 @@
 
 @section('content')
     <div class="row mb-1">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12 card">
+                    <div class="row p-3">
                         <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">@lang('messages.stats_students_count')</p>
-                                <h5 class="font-weight-bolder mb-0">
-                                    20
-                                </h5>
-                            </div>
+                            <h3>
+                                @lang('messages.dashboard_welcome', [\Illuminate\Support\Facades\Auth::user()->name])
+                            </h3>
+                            <p class="lead">
+                                Vaši učenci napredujejo.
+                            </p>
                         </div>
                         <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                                <i class="fas fa-dollar-sign text-lg opacity-10" aria-hidden="true"></i>
+                            <img style="width: 150px" src="{{ asset('img/dashboard_welcome_image.jpg') }}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mt-3 p-0">
+                    <div class="card me-3">
+                        <div class="card-header pb-0">
+                            <div class="row">
+                                <div class="col-lg-6 col-7">
+                                    <h6 class="my-auto">@lang('messages.dashboard_students_title')</h6>
+                                </div>
+                                <div class="col-lg-6 col-5 my-auto text-end">
+                                        <a class="small text-muted" href="#">
+                                            @lang('messages.dashboard_students_index_button')
+                                        </a>
+                                </div>
                             </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div>
+                                                    <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
+                                                         class="avatar avatar-sm me-3"
+                                                    />
+                                                </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">John Michael</h6>
+                                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                                    </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mt-3 p-0">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h6 class="my-auto">@lang('messages.dashboard_success_ratio_title')</h6>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <canvas id="chart"></canvas>
+                            @push('scripts')
+                                <script>
+                                  const ctx = document.getElementById('chart').getContext('2d');
+                                  const DATA_COUNT = 5;
+                                  const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+                                  const CHART_COLORS = {
+                                    red: 'rgb(255, 99, 132)',
+                                    orange: 'rgb(255, 159, 64)',
+                                    yellow: 'rgb(255, 205, 86)',
+                                    green: 'rgb(75, 192, 192)',
+                                    blue: 'rgb(54, 162, 235)',
+                                    purple: 'rgb(153, 102, 255)',
+                                    grey: 'rgb(201, 203, 207)'
+                                  };
+
+                                  const data = {
+                                    datasets: [
+                                      {
+                                        label: 'Dataset 1',
+                                        data: [20, 30, 10, 15, 25],
+                                        backgroundColor: Object.values(CHART_COLORS),
+                                      }
+                                    ]
+                                  };
+                                  const config = {
+                                    type: 'doughnut',
+                                    data: data,
+                                    options: {
+                                      responsive: true,
+                                      cutout: 140,
+                                      plugins: {
+                                        title: {
+                                          display: true,
+                                        }
+                                      }
+                                    },
+                                  };
+                                  const myChart = new Chart(ctx, config);
+                                </script>
+                            @endpush
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-                <div class="card-body p-3">
+        <div class="col-4">
+            <div class="ms-3 card row">
+                <div class="col">
+                    <div class="vanilla-calendar mx-auto px-0"></div>
+                    @push('scripts')
+                        <script>
+                          const calendar = new VanillaCalendar({
+                            HTMLElement: document.querySelector('.vanilla-calendar'),
+                          });
+
+                          calendar.init();
+                        </script>
+                    @endpush
+                </div>
+                <div class="col mb-2">
                     <div class="row">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">@lang('messages.stats_open_homeworks_count')</p>
-                                <h5 class="font-weight-bolder mb-0">
-                                    1
-                                </h5>
-                            </div>
+                        <div class="col-lg-6 col-7">
+                            <h5 class="my-auto">
+                                @lang('messages.dashboard_homeworks_list_title')
+                            </h5>
                         </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                                <i class="fas fa-circle-dollar-to-slot text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
+                        <div class="col-lg-6 col-5 my-auto text-end">
+                            <a class="small text-muted" href="#">
+                                @lang('messages.dashboard_homeworks_index_button')
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-            <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">@lang('messages.stats_average_points')</p>
-                                <h5 class="font-weight-bolder mb-0">
-                                    1015
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                                <i class="fas fa-hand-holding-dollar text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
+                <div class="col">
+                    <div class="card mb-3 p-3 shadow border border-primary border-primary">
+                        <h6>1. Domača naloga</h6>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">@lang('messages.stats_average_rating')</p>
-                                <h5 class="font-weight-bolder mb-0">
-                                    4,9
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                                <i class="fas fa-check text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
+                <div class="col">
+                    <div class="card mb-3 p-3 shadow border border-primary border-primary">
+                        <h6>2. Domača naloga</h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <hr class="mb-3">
 @endsection

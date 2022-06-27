@@ -16,6 +16,9 @@
     <!-- Tom Select -->
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 
+    <!-- Vanilla calendar -->
+    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.3.5/vanilla-calendar.min.css" rel="stylesheet">
+
     <!-- Filepond stylesheet -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link
