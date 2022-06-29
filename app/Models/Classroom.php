@@ -18,6 +18,11 @@ class Classroom extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function school()
     {
         return $this->belongsTo(School::class);

@@ -27,7 +27,7 @@
                                     <h6 class="my-auto">@lang('messages.dashboard_students_title')</h6>
                                 </div>
                                 <div class="col-lg-6 col-5 my-auto text-end">
-                                        <a class="small text-muted" href="#">
+                                        <a class="small text-muted" href="{{ route('classrooms.users.index', $classroom) }}">
                                             @lang('messages.dashboard_students_index_button')
                                         </a>
                                 </div>
@@ -38,19 +38,21 @@
                                 <table class="table align-items-center mb-0">
                                     <tbody>
                                     <tr>
+                                        @foreach($classroom->users as $user)
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
                                                     <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
-                                                         class="avatar avatar-sm me-3"
-                                                    />
+                                                             class="avatar avatar-sm me-3"
+                                                        />
                                                 </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">John Michael</h6>
-                                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                        <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
                                                     </div>
                                             </div>
                                         </td>
+                                        @endforeach
                                     </tr>
                                     </tbody>
                                 </table>

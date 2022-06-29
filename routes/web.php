@@ -40,6 +40,7 @@ Route::middleware(['auth', 'classroom-teacher'])->group(function () {
     Route::get('/classrooms/select', 'ClassroomController@showSelect')->name('classrooms.select.show')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
     Route::get('/classrooms/{classroom}/select', 'ClassroomController@select')->name('classrooms.select')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
     Route::resource('classrooms', 'ClassroomController')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
+    Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
     Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('classroom-teacher');
     Route::get('/dashboard', 'HomeController@dashboard')->name('home');
 });

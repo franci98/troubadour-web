@@ -11,15 +11,15 @@
                             <div class="card-header text-center pt-4">
                                 <h5>@lang('messages.classroom_select_title')</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body row justify-content-center">
                                 @foreach($classrooms as $classroom)
-                                    <a href="{{ route('classrooms.select', ['classroom' => $classroom->id]) }}" class="btn btn-block btn-primary">
+                                    <a href="{{ route('classrooms.select', ['classroom' => $classroom->id]) }}" class="col-8 btn btn-block btn-primary">
                                         {{ $classroom->name }}
-                                    </a>
+                                    </a><br />
                                 @endforeach
-                                <form  action="{{ route('classrooms.store') }}" method="POST" class="mt-2">
+                                <form  action="{{ route('classrooms.store') }}" method="POST" class="text-center row align-content-center mt-2">
                                     @csrf
-                                    <input class="form-control mb-3" type="text" name="name">
+                                    <input class="col-8 form-control mb-3" type="text" name="name">
                                     @error('name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror

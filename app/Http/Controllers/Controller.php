@@ -14,6 +14,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $classroom;
+    protected $breadcrumbs = [];
 
     public function __construct()
     {
@@ -26,5 +27,20 @@ class Controller extends BaseController
     public function selectClassroom(int $classroomId)
     {
         request()->session()->put('classroom', $classroomId);
+    }
+
+    protected function addBreadcrumbItem($title, $href, $isLastRecord = false)
+    {
+        $this->breadcrumbs[] = [
+            'title' => $title,
+            'href' => $href
+        ];
+        if ($isLastRecord)
+            $this->shareBreadcrumbs();
+    }
+
+    public function shareBreadcrumbs()
+    {
+        View::share('breadcrumbs', $this->breadcrumbs);
     }
 }

@@ -8,6 +8,8 @@ return [
     'copyright' => 'Vse pravice pridržane. Troubadour ©',
     'email_verified' => 'Elektronski naslov je uspešno potrjen. Lahko nadaljuješ z uporabo aplikacije.',
     'email_greeting' => 'Živijo!',
+    'save' => 'Shrani',
+    'cancel' => 'Prekliči',
 
     'register_welcome_title' => "Učiteljski portal Trubadur",
     'register_welcome_subtitle' => "Upravljajte z učenci in spremljajte njihovo aktivnost z učiteljskim portalom.",
@@ -46,4 +48,10 @@ return [
     'dashboard_homeworks_index_button' => 'Vse domače naloge',
     'dashboard_students_title' => 'Moji študentje',
     'dashboard_welcome' => 'Pozdravljeni <small class="text-muted">:0</small>!',
+
+
+    'classroom_users_index_title' => 'Učenci',
+    'classroom_users_index_button_add' => 'Dodaj učenca',
+    'classroom_users_create_title' => 'Dodajte učenca v učilnico',
+    'classroom_users_store_success' => 'Učenec je bil uspešno dodan v učilnico.',
 ];
