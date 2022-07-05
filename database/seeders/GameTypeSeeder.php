@@ -23,7 +23,7 @@ class GameTypeSeeder extends Seeder
         GameType::query()->firstOrCreate([
             'id' => 2,
             'title' => 'Ritmični narek',
-            'description' => 'Vadi ritmični narek',
+            'description' => 'poslušaj in zapiši',
         ]);
 
         GameType::query()->firstOrCreate([
@@ -35,7 +35,13 @@ class GameTypeSeeder extends Seeder
         GameType::query()->firstOrCreate([
             'id' => 4,
             'title' => 'Ritmični kviz',
-            'description' => 'Vadi ritmični kviz',
+            'description' => 'poslušaj in izberi',
+        ]);
+
+        GameType::query()->firstOrCreate([
+            'id' => 5,
+            'title' => 'Igraj ritem',
+            'description' => 'preberi in zaigraj',
         ]);
     }
 }

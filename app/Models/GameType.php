@@ -17,6 +17,7 @@ class GameType extends Model
     const RHYTHM = 2;
     const HARMONIC = 3;
     const RHYTHM_GUESS = 4;
+    const RHYTHM_TAP = 5;
 
     public function generateExercise(Game $game)
     {
@@ -30,6 +31,8 @@ class GameType extends Model
             RhythmExercise::generate($exercise, self::RHYTHM);
         } elseif ($this->id == self::RHYTHM_GUESS) {
             RhythmExercise::generate($exercise, self::RHYTHM_GUESS);
+        } elseif ($this->id == self::RHYTHM_TAP) {
+            RhythmExercise::generate($exercise, self::RHYTHM_TAP);
         }
         $exercise->generateMp3File();
     }

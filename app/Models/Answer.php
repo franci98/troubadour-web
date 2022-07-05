@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Exercise exercise
  * @property int solving_time
  * @property int number_of_attempts
+ * @property int deletions
+ * @property int level
+ * @property int sound_replays
+ * @property double score
  */
 class Answer extends Model
 {
@@ -20,7 +24,11 @@ class Answer extends Model
         'exercise_id',
         'user_id',
         'solving_time',
-        'number_of_attempts'
+        'number_of_attempts',
+        'deletions',
+        'level',
+        'sound_replays',
+        'score'
     ];
 
     public function user()

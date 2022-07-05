@@ -36,6 +36,10 @@ class AnswerController extends Controller
             'exercise_id' => 'required|exists:exercises,id',
             'solving_time' => 'nullable|integer|min:0',
             'number_of_attempts' => 'required|integer|min:0',
+            'deletions' => 'required|integer|min:0',
+            'level' => 'required|integer|min:0',
+            'sound_replays' => 'required|integer|min:0',
+            'score' => 'required|numeric|min:0',
         ]);
 
         $answer = new Answer($data);

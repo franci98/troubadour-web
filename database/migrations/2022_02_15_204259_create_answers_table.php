@@ -19,6 +19,10 @@ class CreateAnswersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('solving_time')->nullable();
             $table->integer('number_of_attempts');
+            $table->integer('deletions');
+            $table->integer('level');
+            $table->integer('sound_replays');
+            $table->double('score');
             $table->timestamps();
         });
     }

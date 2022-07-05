@@ -29,6 +29,8 @@ class RhythmExercise extends Model
     {
         if ($gameType == 4) {
             return RhythmExerciseGenerator::generateForGuessLevel($exercise->game->difficulty->title, $exercise);
+        } elseif ($gameType == 5) {
+            return RhythmExerciseGenerator::generateForTapLevel($exercise->game->difficulty->title, $exercise);
         }
         return RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
     }

@@ -13,6 +13,8 @@ class RhythmExerciseGenerator
 
     public static function generateForLevel($level, Exercise $exercise) : RhythmExercise {
 
+        // error_log('generateForLevel');
+
         $numbars = 2;
         $numSubdivisions = 1;
 
@@ -157,24 +159,10 @@ class RhythmExerciseGenerator
 
     public static function generateForGuessLevel($level, Exercise $exercise) : RhythmExercise {
 
+        // error_log('generateForGuessLevel');
+
         $numbars = 2;
         $numSubdivisions = 1;
-
-        // - Poglej ker rhythm_level je user
-        // - Izberi naključni bar_info, ki je primeren za ta level
-        // - Inicializiraj arraye za bare in inicializiraj maksimalne dolžine
-        // - Prenesi vse pojavitve značilnosti (skupaj z značilnostmi in minimalnimi dolžinami taktov), ki so primerne za ta level in BarInfo
-        // - Pojdi čez značilnosti
-        //     ○ V boben po vrsti dodaj bare tistih značilnosti, ki imajo nastavljen min_occurrence; Za vsakega naključno določi, v kater bar (1.,2.) gre.
-        //         § ChooseCategoryBar($catId, $spaceLeft)
-        //         § Če zmanjka prostora, odnehaj in nadaljuj algoritem.
-        //     ○ V vrsto za generiranje dodaj vse verjetnosti (kumulativna vsota) (normaliziraj jih s številom verjetnosti), ki imajo minimalno dolžino manjšo ali enako kot $spaceLeft in max_occurrences večji kot število pojavitev te kategorije, da nastane kot nek številski trak
-        //     ○ Naključno generiraj številko in jo lociraj na traku - tja kamor pade, tisto kategorijo generiraj:
-        //         § Naredi nekaj podobnega za rhythm_bar_occurrence
-        //         § Zmanjšaj potrebno dolžino; Če je takt poln, povečaj index generiranega takta
-        //         § Povečaj število pojavitev kategorije
-        //     ○ Če je index enak številu taktov, odnehaj in shrani vajo.
-
 
         // - Poglej ker rhythm_level je user ✅ ($level)
         // - Izberi naključni bar_info, ki je primeren za ta level
@@ -298,6 +286,135 @@ class RhythmExerciseGenerator
 
     }
 
+    public static function generateForTapLevel($level, Exercise $exercise) : RhythmExercise {
+
+        // error_log('generateForTapLevel');
+
+        $numbars = 2;
+        $numSubdivisions = 1;
+
+        // - Poglej ker rhythm_level je user ✅ ($level)
+        // - Izberi naključni bar_info, ki je primeren za ta level
+        $bar_info_info = self::getBarInfosCollection($level);
+
+        $bar_info = json_decode($bar_info_info->bar_info);
+
+        if(isset($bar_info->subdivisions)){
+            $numSubdivisions = count($bar_info->subdivisions);
+        }
+
+        // - Inicializiraj arraye za bare in inicializiraj maksimalne dolžine
+        $currentBar = 0;
+        $numResults = $numSubdivisions * $numbars;
+
+        // Choose bar splitters
+        // - Randomly choose a cross-bar
+        $crossBar = self::getCrossBarForLevel($level, $bar_info_info);
+
+        $result  = array_fill(0, $numResults, []); // Fill with empty arrays
+        $lengths = iterator_to_array(self::barLengthIterator($bar_info, $crossBar, $numbars));
+        $featureUseCounter = [];
+
+
+        $featureTypes = self::getFeaturesForLevelAndBar($level, $bar_info_info->id);
+
+        // Najprej obvezne sestavine
+        // Generiraj Bar iz značilnosti
+        // Najdi prvi prost bar od trenutno izbranega naprej. Če ga ni, odstrani ta feature in pojdi naprej.
+        // Dodaj bar index v $result
+        // povečaj featureUseCount; Če je večji od min
+        $currentBar = 0;
+        while(count($featureTypes->obligatory) > 0){
+            $f = $featureTypes->obligatory[0];
+
+            // Choose bar
+            $bar = self::chooseFeatureBarNoRests($f, $lengths[$currentBar]);
+
+            // Find its place
+            $idx = self::getFirstFreeBar($bar->length, $lengths, $currentBar);
+            if($idx < 0){
+                unset($featureTypes->obligatory[0]);
+            }
+            $currentBar = $idx;
+
+            // Add bar to result
+            $result[$idx][] = $bar->id;
+            $lengths[$idx] -= $bar->length;
+
+            // Increment and remove if there are enough bas of this type
+            self::incrementArrayValue($featureUseCounter, $f->id);
+            if($featureUseCounter[$f->id] >= $f->min){
+
+                if(!isset($f->max) || ($f->max > $f->min)){
+                    $featureTypes->other[] = $featureTypes->obligatory[0];
+                }
+
+                unset($featureTypes->obligatory[0]);
+            }
+        }
+
+        $allF = $featureTypes->other;
+        $currentBar = 0;
+
+        // Until all bars are full
+        for($currentBar = 0; $currentBar < $numResults; $currentBar++){
+
+            $remLength = $lengths[$currentBar];
+
+            if($remLength <= 0.001) continue;
+
+            // Izberi uteženo naključno značilnost
+            $f = self::chooseFeature($allF, $remLength);
+            if(!is_object($f)) {
+                throw new \Exception("FEATURE FOR SPECIFIED MIN LENGTH NOT AVAILABLE!");
+            }
+
+            // Izberi uteženo naključen bar
+            $bar = self::chooseFeatureBarNoRests($f, $remLength);
+            if(!is_object($bar)) {
+                throw new \Exception("ERROR! FEATURE DEFINITION CORRUPTED! BAR OF SPECIFIED LENGTH NOT AVAILABLE DESPITE THE INITIAL MIN LENGTH CHECK!");
+            }
+
+            // Dodaj bar index v array
+            $result[$currentBar][] = $bar->id;
+            $lengths[$currentBar] -= $bar->length;
+
+            // Zmanjšaj številke
+            self::incrementArrayValue($featureUseCounter, $f->id);
+            if(isset($f->max) && $f->max >= $featureUseCounter[$f->id]){
+                $allF = array_filter($allF, function($c) use (&$f) {return $c->id != $f->id; });
+            }
+
+            $currentBar -= 1;
+        }
+
+        // Basic 2 bars merge
+        // $bars = array_merge($result[0], [$crossBar->id], $result[1]);
+
+        $bars = [];
+        for($i = 0; $i < $numResults; $i++) {
+
+            if($i > 0 && ($i % $numSubdivisions == 0)){
+                $bars = array_merge($bars, [$crossBar->id]);
+            }
+
+            $bars = array_merge($bars, $result[$i]);
+        }
+
+        $BPM = 60;
+        if (json_decode($bar_info_info->bar_info)->base_note == 8)
+            $BPM = 120;
+
+        // Shrani vajo in vrni številko
+        return self::saveExercise([
+            'bar_info_id' => $bar_info_info->id,
+            'exercise_id' => $exercise->id,
+            'BPM' => $BPM,
+            'rhythm_level' => $level
+        ], $bars);
+
+    }
+
     private static function saveExercise($ex, &$bars) : RhythmExercise {
 
         $ex = RhythmExercise::query()->create($ex);
@@ -322,6 +439,20 @@ class RhythmExerciseGenerator
             JOIN rhythm_bars b on b.id = o.rhythm_bar_id
 
         WHERE (b.cross_bar = 0 OR b.cross_bar IS NULL) AND o.rhythm_feature_id = :fid AND b.length <= :len", ['fid' => $feature->id, 'len' => $spaceLeft]);
+
+        return self::weightedRandomSelector($coll, function($b) { return $b->prob; });
+    }
+
+    private static function chooseFeatureBarNoRests($feature, $spaceLeft) {
+        $coll = DB::select("SELECT
+            b.id as id,
+            o.bar_probability as prob,
+            b.length as length,
+            b.content as content
+        from rhythm_bar_occurrences o
+            JOIN rhythm_bars b on b.id = o.rhythm_bar_id
+
+        WHERE b.rests IS NULL AND (b.cross_bar = 0 OR b.cross_bar IS NULL) AND o.rhythm_feature_id = :fid AND b.length <= :len", ['fid' => $feature->id, 'len' => $spaceLeft]);
 
         return self::weightedRandomSelector($coll, function($b) { return $b->prob; });
     }

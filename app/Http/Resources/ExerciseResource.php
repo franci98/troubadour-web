@@ -20,8 +20,10 @@ class ExerciseResource extends JsonResource
         elseif ($this->game->gameType->id == GameType::RHYTHM) {
             $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
-        }
-        elseif ($this->game->gameType->id == GameType::RHYTHM_GUESS) {
+        } elseif ($this->game->gameType->id == GameType::RHYTHM_GUESS) {
+            $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
+            $resource['time_signature'] = $this->rhythmExercise->barInfo;
+        } elseif ($this->game->gameType->id == GameType::RHYTHM_TAP) {
             $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
         }
