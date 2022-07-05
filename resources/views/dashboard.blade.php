@@ -134,7 +134,7 @@
                             </h5>
                         </div>
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <a class="small text-muted" href="#">
+                            <a class="small text-muted" href="{{ route('classrooms.homeworks.index', $classroom) }}">
                                 @lang('messages.dashboard_homeworks_index_button')
                             </a>
                         </div>

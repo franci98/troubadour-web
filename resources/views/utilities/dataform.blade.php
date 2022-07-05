@@ -39,19 +39,19 @@
                                     <span class="input-group-text">{{$input->addOn}}</span>
                                 </div>
                             @endisset
-                            @isset($input->helpTip)
-                                <div class="mt--10">
-                                    <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
-                                        <span class="ml-2">{{ $input->helpTip }}</span>
-                                    </small>
-                                </div>
-                            @endisset
-                            @error($name)
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
+                        @isset($input->helpTip)
+                            <div class="mt--10">
+                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                    <span class="ml-2">{{ $input->helpTip }}</span>
+                                </small>
+                            </div>
+                        @endisset
+                        @error($name)
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     @break
                     @case("date")
@@ -70,19 +70,19 @@
                                     <span class="input-group-text">{{$input->addOn}}</span>
                                 </div>
                             @endisset
-                            @isset($input->helpTip)
-                                <div class="mt--10">
-                                    <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
-                                        <span class="ml-2">{{ $input->helpTip }}</span>
-                                    </small>
-                                </div>
-                            @endisset
-                            @error($name)
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
+                        @isset($input->helpTip)
+                            <div class="mt--10">
+                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                    <span class="ml-2">{{ $input->helpTip }}</span>
+                                </small>
+                            </div>
+                        @endisset
+                        @error($name)
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     @push('scripts')
                         <script>
@@ -111,19 +111,19 @@
                                     <span class="input-group-text">{{$input->addOn}}</span>
                                 </div>
                             @endisset
-                            @isset($input->helpTip)
-                                <div class="mt--10">
-                                    <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
-                                        <span class="ml-2">{{ $input->helpTip }}</span>
-                                    </small>
-                                </div>
-                            @endisset
-                            @error($name)
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
+                        @isset($input->helpTip)
+                            <div class="mt--10">
+                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                    <span class="ml-2">{{ $input->helpTip }}</span>
+                                </small>
+                            </div>
+                        @endisset
+                        @error($name)
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     @push('scripts')
                         <script>

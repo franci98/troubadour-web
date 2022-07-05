@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGamesTable extends Migration
+class CreateHomeworkUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('homework_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('difficulty_id')->constrained();
-            $table->foreignId('game_type_id')->constrained();
-            $table->foreignId('homework_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('homework_user');
     }
 }
