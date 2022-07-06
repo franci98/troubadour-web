@@ -18,6 +18,7 @@ class CreateDifficultiesTable extends Migration
             $table->integer('sequence');
             $table->string('title');
             $table->string('description');
+            $table->foreignId('game_type_id')->constrained();
             $table->timestamps();
         });
     }

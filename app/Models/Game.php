@@ -39,6 +39,11 @@ class Game extends Model
         return $this->hasMany(Exercise::class);
     }
 
+    public function homework()
+    {
+        return $this->belongsTo(Homework::class);
+    }
+
     public function createExercises()
     {
         foreach (range(1, self::EXERCISES_PER_GAME) as $i) {

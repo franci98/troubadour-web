@@ -49,9 +49,12 @@ return [
     'dashboard_students_title' => 'Moji študentje',
     'dashboard_welcome' => 'Pozdravljeni <small class="text-muted">:0</small>!',
 
-
     'classroom_users_index_title' => 'Učenci',
     'classroom_users_index_button_add' => 'Dodaj učenca',
     'classroom_users_create_title' => 'Dodajte učenca v učilnico',
     'classroom_users_store_success' => 'Učenec je bil uspešno dodan v učilnico.',
+
+    'homeworks_index_title' => 'Domače naloge',
+    'homeworks_index_create_button' => 'Dodaj domačo nalogo',
+    'homeworks_create_title' => 'Nova domača naloga',
 ];
