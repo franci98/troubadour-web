@@ -2,11 +2,16 @@
 
 namespace App\Utils;
 
+use App\Models\Exercise;
+
 abstract class ExerciseGenerator
 {
-    protected $options;
+    protected $exercise;
 
-    abstract public function setOptions($options);
+    public function __construct(Exercise $exercise)
+    {
+        $this->exercise = $exercise;
+    }
 
-    abstract public function generateExercise($options);
+    abstract public function generateExercise();
 }

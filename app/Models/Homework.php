@@ -15,6 +15,20 @@ class Homework extends Model
 
     protected $table = 'homeworks';
 
+    protected $fillable = [
+        'name',
+        'game_type_id',
+        'difficulty_id',
+        'games_required',
+        'available_at',
+        'finished_at',
+    ];
+
+    protected $dates = [
+        'available_at',
+        'finished_at',
+    ];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
@@ -30,10 +44,18 @@ class Homework extends Model
         return $this->hasMany(Game::class);
     }
 
-    public function createGames(int $difficulty)
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function createGames()
     {
         for ($i = 0; $i < $this->games_required; $i++) {
-            $game = new Game();
+            $game = new Game([
+                'difficulty_id' => $this->difficulty_id,
+                'game_type_id' => $this->game_type_id,
+            ]);
             $game->homework()->associate($this);
             $game->save();
             $game->createExercises();

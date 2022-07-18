@@ -57,4 +57,10 @@ return [
     'homeworks_index_title' => 'Domače naloge',
     'homeworks_index_create_button' => 'Dodaj domačo nalogo',
     'homeworks_create_title' => 'Nova domača naloga',
+    'homeworks_create_name_title' => 'Ime domače naloge',
+    'homeworks_create_game_type_id_title' => 'Tip igre',
+    'homeworks_create_difficulty_id_title' => 'Težavnost',
+    'homeworks_create_games_required_title' => 'Število iger',
+    'homeworks_create_available_at_title' => 'Odprtje domače naloge',
+    'homeworks_create_finished_at_title' => 'Zaprtje domače naloge',
 ];

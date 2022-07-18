@@ -15,7 +15,11 @@ class CreateHomeworkUserTable extends Migration
     {
         Schema::create('homework_user', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('homework_id');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
+
+            $table->foreign('homework_id')->references('id')->on('homeworks');
         });
     }
 

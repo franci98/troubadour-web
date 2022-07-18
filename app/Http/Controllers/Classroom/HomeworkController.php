@@ -67,23 +67,19 @@ class HomeworkController extends Controller
             'games_required' => 'required|numeric|min:1',
             'game_type_id' => 'required|exists:game_types,id',
             'difficulty_id' => 'required|exists:difficulties,id',
-            'finished_at' => 'required',
-            'available_at' => ['required'],
-        ]);
-        $data = array_merge($data, [
-            'finished_at' => Carbon::createFromFormat('d. m. Y, h:i', $data['finished_at']),
-            'available_at' => Carbon::createFromFormat('d. m. Y, h:i', $data['available_at']),
+            'finished_at' => 'required|date',
+            'available_at' => 'required|date',
         ]);
 
         $homework = new Homework($data);
         $homework->classroom()->associate($this->classroom);
         $homework->save();
-        foreach ($this->classroom->students as $user) {
+        foreach ($this->classroom->users as $user) {
             $homework->addUser($user);
         }
         $homework->createGames();
 
-        return redirect()->route('administration.homeworks.show', $homework);
+        return redirect()->route('classrooms.homeworks.index', $this->classroom);
     }
 
     public function show(Homework $homework)
