@@ -17,7 +17,7 @@ class CreateGamesTable extends Migration
             $table->id();
             $table->foreignId('difficulty_id')->constrained();
             $table->foreignId('game_type_id')->constrained();
-            $table->foreignId('homework_id')->nullable()->constrained();
+            $table->foreignId('homework_id')->nullable()->constrained('homeworks');
             $table->timestamps();
         });
     }
