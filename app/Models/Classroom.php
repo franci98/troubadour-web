@@ -4,7 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * @property int id
+ * @property Collection users
+ * @property Collection homeworks
+ */
 class Classroom extends Model
 {
     use HasFactory;
@@ -26,5 +32,10 @@ class Classroom extends Model
     public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function homeworks()
+    {
+        return $this->hasMany(Homework::class);
     }
 }

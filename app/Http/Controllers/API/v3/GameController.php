@@ -43,4 +43,29 @@ class GameController extends Controller
 
         return GameResource::make($game);
     }
+
+    /**
+     * @OA\Get (
+     *     path="/games/{id}",
+     *     tags={"Game"},
+     *     security={{"bearerAuth":{}}},
+     *     summary="Game details",
+     *     description="Get game details.",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Game id"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Game details object is returned.",
+     *         @OA\JsonContent(ref="#/components/schemas/GameResource")
+     *     ),
+     * )*/
+    public function show(Request $request, Game $game)
+    {
+        //$this->authorize('view', $game);
+        return GameResource::make($game);
+    }
 }
