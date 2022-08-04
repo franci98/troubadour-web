@@ -49,4 +49,9 @@ class Exercise extends Model
             $soundController->generateExerciseSound($this->rhythmExercise->id, $baseFilePath.$this->id, $info);
         }
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 }

@@ -35,4 +35,9 @@ class Answer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isLastAnswer(): bool
+    {
+        return $this->exercise->game->exercises()->count() == $this->exercise->game->answers()->where('user_id', $this->user_id)->count();
+    }
 }

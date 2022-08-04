@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int id
@@ -39,6 +40,11 @@ class Game extends Model
         return $this->hasMany(Exercise::class);
     }
 
+    public function answers()
+    {
+        return $this->hasManyThrough(Answer::class, Exercise::class);
+    }
+
     public function homework()
     {
         return $this->belongsTo(Homework::class);
@@ -49,5 +55,11 @@ class Game extends Model
         foreach (range(1, self::EXERCISES_PER_GAME) as $i) {
             $this->gameType->generateExercise($this);
         }
+    }
+
+    public function finishGameFor(User $user)
+    {
+        $points = $this->answers()->where('user_id', $user->id)->sum('score');
+        GameUser::query()->where('user_id', $user->id)->firstWhere('game_id', $this->id)->addPoints($points);
     }
 }

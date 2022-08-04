@@ -46,6 +46,10 @@ class AnswerController extends Controller
         $answer->user()->associate(Auth::id());
         $answer->save();
 
+        if ($answer->isLastAnswer()) {
+            $answer->exercise->game->finishGameFor(Auth::user());
+        }
+
         return response()->json(null, Response::HTTP_CREATED);
     }
 }
