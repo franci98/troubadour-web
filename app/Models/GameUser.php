@@ -19,6 +19,8 @@ class GameUser extends Model
 {
     use HasFactory;
 
+    protected $table = 'game_user';
+
     public function addPoints(int $points)
     {
         $this->points += $points;

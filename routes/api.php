@@ -20,6 +20,7 @@ Route::group([
 ], function () {
     Route::post('/register', 'Auth\AuthController@register');
     Route::post('/login', 'Auth\AuthController@login');
+    Route::get('/users/leaderboard', 'UserController@leaderboard');
 
     Route::middleware('auth:sanctum')->get('/users/me', 'Auth\AuthController@currentUser');
     Route::middleware('auth:sanctum')->group(function () {
