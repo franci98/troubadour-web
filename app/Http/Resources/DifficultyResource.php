@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @OA\Schema(
@@ -23,12 +24,12 @@ class DifficultyResource extends JsonResource
     private $id;
     /**
      * @OA\Property(
-     *      title="value",
-     *      description="Value of the difficulty. Can be used to order the difficulties. The easiest has the lowest value.",
+     *      title="sequence",
+     *      description="Sequence of the difficulty. Can be used to order the difficulties. The easiest has the lowest value.",
      *      example="1"
      * )
      */
-    private $value;
+    private $sequence;
     /**
      * @OA\Property(
      *      title="title",
@@ -46,8 +47,37 @@ class DifficultyResource extends JsonResource
      */
     private $description;
 
+    /**
+     * @OA\Property(
+     *      title="points",
+     *      description="Points the user retrieved on this difficulty.",
+     *      example="1000"
+     * )
+     */
+    private $points;
+
+    /**
+     * @OA\Property(
+     *      title="number_of_games",
+     *      description="Number of games the user played on this difficulty.",
+     *      example="20"
+     * )
+     */
+    private $number_of_games;
+
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = [
+            'id' => $this->resource->id,
+            'sequence' => $this->resource->sequence,
+            'title' => $this->resource->title,
+            'description' => $this->resource->description,
+        ];
+        if (Auth::check()) {
+            $data['points'] = $this->resource->getPointsForUser(Auth::user());
+            $data['number_of_games'] = $this->resource->getNumberOfGamesForUser(Auth::user());
+         }
+
+        return $data;
     }
 }

@@ -7,7 +7,7 @@ namespace App\Virtual;
  *      title="RegistrationRequest",
  *      description="Request that is used when a guest wants to register on the platform.",
  *      type="object",
- *      required={"name","email","password","password_confirmation"}
+ *      required={"name","email","password","password_confirmation","school_id"}
  * )
  */
 class RegistrationRequest
@@ -47,5 +47,14 @@ class RegistrationRequest
      * )
      */
     public $password_confirmation;
+
+    /**
+     * @OA\Property(
+     *      title="School id",
+     *      description="Id of the user school.",
+     *      example="1"
+     * )
+     */
+    public $school_id;
 
 }

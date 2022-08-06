@@ -28,4 +28,26 @@ class Difficulty extends Model
             ->where('sequence', $including ? '>=' : '>', $this->sequence)
             ->get();
     }
+
+    public function getPointsForUser(User $user): int
+    {
+        return GameUser::query()
+            ->where('user_id', $user->id)
+            ->join('games', 'games.id', '=', 'game_user.game_id')
+            ->where('games.difficulty_id', $this->id)
+            ->where('is_finished', true)
+            ->get()
+            ->sum('points');
+    }
+
+    public function getNumberOfGamesForUser(User $user): int
+    {
+        return GameUser::query()
+            ->where('user_id', $user->id)
+            ->join('games', 'games.id', '=', 'game_user.game_id')
+            ->where('games.difficulty_id', $this->id)
+            ->where('is_finished', true)
+            ->get()
+            ->count();
+    }
 }
