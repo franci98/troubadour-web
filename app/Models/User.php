@@ -76,4 +76,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->wherePivot('status', RoleUser::STATUS_ACTIVE)
             ->exists();
     }
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'game_user')
+            ->withPivot(['points', 'is_finished'])
+            ->withTimestamps();
+    }
 }

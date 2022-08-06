@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DifficultySeeder::class);
         $this->call(RyhthmExerciseConfigSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(BadgesTableSeeder::class);
 //        $this->call(TimeSignatureSeeder::class);
 //        $this->call(RhythmFeatureSeeder::class);
 //        $this->call(RhythmSymbolSeeder::class);

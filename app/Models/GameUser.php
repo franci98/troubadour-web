@@ -25,4 +25,24 @@ class GameUser extends Model
         $this->is_finished = true;
         $this->save();
     }
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'user_id', 'user_id')->whereIn('exercise_id', $this->game->exercises->pluck('id'));
+    }
+
+    public function allAnswersCorrect(): bool
+    {
+        return $this->answers()->where('score', '>', 0)->count() == $this->game->exercises()->count();
+    }
 }
