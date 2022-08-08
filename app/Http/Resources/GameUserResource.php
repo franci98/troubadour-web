@@ -51,7 +51,7 @@ class GameUserResource extends JsonResource
         return [
             'id' => $this->user->id,
             'name' => $this->user->name,
-            'points' => $this->points,
+            'points' => $this->resource->points,
         ];
     }
 }
