@@ -50,6 +50,9 @@ class AnswerController extends Controller
             $answer->exercise->game->finishGameFor(Auth::user());
         }
 
-        return response()->json(null, Response::HTTP_CREATED);
+        return response()->json([
+            'is_finished' => $answer->isLastAnswer(),
+            'current_points' => $answer->exercise->game->answers()->where('user_id', Auth::id())->sum('score'),
+        ], Response::HTTP_CREATED);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\GameUser;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -42,6 +45,21 @@ class UserResource extends JsonResource
 
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+
+        $range = CarbonPeriod::create()
+            ->between(
+                Carbon::now()->subDays(30),
+                Carbon::now()
+            );
+
+        $data['total_points'] = GameUser::query()->where('user_id', $this->resource->id)->sum('points');
+        foreach ($range as $date) {
+            $data['points_timeline'][] = [
+                'date' => $date->format('Y-m-d'),
+                'points' => $this->resource->achievedPointsOn($date)
+            ];
+        }
+        return $data;
     }
 }

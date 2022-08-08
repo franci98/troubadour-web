@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -88,5 +89,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Badge::class, 'badge_user')
             ->withTimestamps();
+    }
+
+    public function achievedPointsOn(Carbon $date): int
+    {
+        return $this->games()
+            ->where('is_finished', true)
+            ->whereBetween('game_user.created_at', [$date->startOfDay(), $date->endOfDay()])
+            ->sum('points');
     }
 }

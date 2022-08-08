@@ -71,6 +71,7 @@ class DifficultyResource extends JsonResource
             'id' => $this->resource->id,
             'sequence' => $this->resource->sequence,
             'title' => $this->resource->title,
+            'image_url' => 'todo',
             'description' => $this->resource->description,
         ];
         if (Auth::check()) {
