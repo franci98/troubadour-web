@@ -39,6 +39,9 @@ class GameController extends Controller
         ]);
 
         $game = Game::query()->create($data);
+        $gameUser = $game->gameUsers()->create([
+            'user_id' => auth()->id(),
+        ]);
         $game->createExercises();
 
         return GameResource::make($game);
