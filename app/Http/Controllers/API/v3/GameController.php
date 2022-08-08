@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v3;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
+use App\Models\GameUser;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -39,8 +40,9 @@ class GameController extends Controller
         ]);
 
         $game = Game::query()->create($data);
-        $gameUser = $game->gameUsers()->create([
-            'user_id' => auth()->id(),
+        $gameUser = GameUser::query()->create([
+            'game_id' => $game->id,
+            'user_id' => auth()->user()->id,
         ]);
         $game->createExercises();
 

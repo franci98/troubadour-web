@@ -21,6 +21,13 @@ class GameUser extends Model
 
     protected $table = 'game_user';
 
+    protected $fillable = [
+        'user_id',
+        'game_id',
+        'points',
+        'is_finished',
+    ];
+
     public function addPoints(int $points)
     {
         $this->points += $points;
