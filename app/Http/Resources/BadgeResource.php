@@ -16,6 +16,7 @@ class BadgeResource extends JsonResource
 
     {
         $data = [
+            'id' => $this->resource->id,
             'title' => $this->resource->title,
             'description' => $this->resource->description,
             'image_url' => 'TODO',
