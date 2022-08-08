@@ -26,7 +26,7 @@ Route::group([
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('answers', 'AnswerController')->only(['store']);
         Route::apiResource('game-types', 'GameTypeController')->only(['index']);
-        Route::apiResource('difficulties', 'DifficultyController')->only(['index']);
+        Route::apiResource('game-types.difficulties', 'GameType\DifficultyController')->only(['index']);
         Route::apiResource('games', 'GameController')->only(['show', 'store']);
         Route::apiResource('classrooms', 'Classroom\ClassroomController')->only(['index']);
         Route::apiResource('classrooms.homeworks', 'Classroom\HomeworkController')->only(['index', 'show']);

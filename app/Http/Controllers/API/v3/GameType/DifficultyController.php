@@ -1,22 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\API\v3;
+namespace App\Http\Controllers\API\v3\GameType;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DifficultyResource;
 use App\Models\Difficulty;
-use Illuminate\Http\Request;
+use App\Models\GameType;
 
 class DifficultyController extends Controller
 {
 
     /**
      * @OA\Get (
-     *      path="/difficulties",
+     *      path="/game-types/{gameTypeId}/difficulties",
      *      tags={"Game"},
      *      security={{"bearerAuth":{}}},
      *      summary="Difficulties List",
      *      description="Retrieve all difficulties the platform currently offers.",
+     *     @OA\Parameter(
+     *     name="gameTypeId",
+     *     in="path",
+     *     description="Game Type ID",
+     *     required=true,
+     *     @OA\Schema(
+     *              type="integer",
+     *              example="1"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successfuly retrieved the list",
@@ -27,8 +37,8 @@ class DifficultyController extends Controller
      *       ),
      * )
      */
-    public function index()
+    public function index(GameType $gameType)
     {
-        return DifficultyResource::collection(Difficulty::all());
+        return DifficultyResource::collection($gameType->difficulties);
     }
 }

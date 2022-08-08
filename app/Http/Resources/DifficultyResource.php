@@ -76,6 +76,7 @@ class DifficultyResource extends JsonResource
         if (Auth::check()) {
             $data['points'] = $this->resource->getPointsForUser(Auth::user());
             $data['number_of_games'] = $this->resource->getNumberOfGamesForUser(Auth::user());
+            $data['max_games'] = 24;
          }
 
         return $data;

@@ -37,4 +37,9 @@ class GameType extends Model
         $exercise->generateMp3File();
     }
 
+    public function difficulties()
+    {
+        return $this->hasMany(Difficulty::class);
+    }
+
 }
