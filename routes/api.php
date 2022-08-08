@@ -29,6 +29,7 @@ Route::group([
         Route::apiResource('game-types.difficulties', 'GameType\DifficultyController')->only(['index']);
         Route::apiResource('games', 'GameController')->only(['show', 'store']);
         Route::apiResource('classrooms', 'Classroom\ClassroomController')->only(['index']);
+        Route::apiResource('badges', 'BadgeController')->only(['index']);
         Route::apiResource('classrooms.homeworks', 'Classroom\HomeworkController')->only(['index', 'show']);
     });
 });

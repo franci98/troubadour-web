@@ -12,4 +12,9 @@ class Badge extends Model
     protected $casts = [
         'options' => 'array',
     ];
+
+    public function hasBeenAchievedBy(User $user): bool
+    {
+        return $user->badges()->where('badge_id', $this->id)->exists();
+    }
 }

@@ -83,4 +83,10 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot(['points', 'is_finished'])
             ->withTimestamps();
     }
+
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'badge_user')
+            ->withTimestamps();
+    }
 }
