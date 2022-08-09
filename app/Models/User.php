@@ -95,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->games()
             ->where('is_finished', true)
-            ->whereBetween('game_user.created_at', [$date->startOfDay(), $date->endOfDay()])
+            ->whereBetween('game_user.created_at', [$date->startOfDay(), $date->copy()->endOfDay()])
             ->sum('points');
     }
 }
