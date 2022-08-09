@@ -53,7 +53,7 @@ class UserResource extends JsonResource
                 Carbon::now()
             );
 
-        $data['total_points'] = GameUser::query()->where('user_id', $this->resource->id)->sum('points');
+        $data['total_points'] = (int) GameUser::query()->where('user_id', $this->resource->id)->sum('points');
         foreach ($range as $date) {
             $data['points_timeline'][] = [
                 'date' => $date->format('Y-m-d'),
