@@ -24,7 +24,7 @@ class GameResource extends JsonResource
             'exercises' => ExerciseResource::collection($this->exercises)
         ];
         $data['allowed_attempts'] = 12;
-        $data['seconds_per_exercise'] = 600;
+        $data['seconds_per_exercise'] = 120;
 
         if ($data['game_type']['id'] == GameType::RHYTHM) {
             $data['beats_per_minute'] = 120;
