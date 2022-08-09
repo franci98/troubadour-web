@@ -46,7 +46,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         $data = parent::toArray($request);
-
+        $data['school'] = $this->school->name;
         $range = CarbonPeriod::create()
             ->between(
                 Carbon::now()->subDays(30),
