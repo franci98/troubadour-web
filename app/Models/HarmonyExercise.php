@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utils\HarmonyExerciseGenerator;
 use App\Utils\IntervalExerciseGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,10 +20,10 @@ class HarmonyExercise extends Model
         'value' => 'array'
     ];
 
-    public static function generate(Exercise $exercise): IntervalExercise
+    public static function generate(Exercise $exercise): HarmonyExercise
     {
-        $generator = new IntervalExerciseGenerator($exercise);
-        $intervalExercise = $generator->generateExercise();
-        return $intervalExercise;
+        $generator = new HarmonyExerciseGenerator($exercise);
+        $harmonyExercise = $generator->generateExercise();
+        return $harmonyExercise;
     }
 }

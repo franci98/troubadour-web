@@ -38,6 +38,11 @@ class Exercise extends Model
         return $this->hasOne(RhythmExercise::class);
     }
 
+    public function harmonyExercise()
+    {
+        return $this->hasOne(HarmonyExercise::class);
+    }
+
     public function generateMp3File()
     {
         if ($this->game->gameType->id == GameType::RHYTHM) {
