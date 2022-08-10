@@ -46,6 +46,7 @@ class UserController extends Controller
                     $query->where('game_type_id', $game_type_id);
                 })
                 ->groupBy('user_id')
+                ->orderBy('points')
                 ->get();
         } else {
             $sortedLeaderboard = GameUser::query()

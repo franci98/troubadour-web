@@ -33,6 +33,8 @@ class GameType extends Model
             RhythmExercise::generate($exercise, self::RHYTHM_GUESS);
         } elseif ($this->id == self::RHYTHM_TAP) {
             RhythmExercise::generate($exercise, self::RHYTHM_TAP);
+        } elseif ($this->id == self::HARMONIC) {
+            HarmonyExercise::generate($exercise);
         }
         $exercise->generateMp3File();
     }
