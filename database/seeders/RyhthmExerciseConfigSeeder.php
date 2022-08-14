@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\RhythmBar;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,9 @@ class RyhthmExerciseConfigSeeder extends Seeder
      */
     public function run()
     {
+        if (RhythmBar::query()->exists())
+            return;
+
         $path = base_path().'/database/data/rhythmGeneratingDefinitions.sql';
         $sql = file_get_contents($path);
         DB::unprepared($sql);

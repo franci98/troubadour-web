@@ -250,7 +250,7 @@ class BadgesTableSeeder extends Seeder
         if (Badge::all()->count() > 0)
             return;
         foreach ($this->data as $item) {
-            \App\Models\Badge::query()->create($item);
+            \App\Models\Badge::query()->firstOrCreate($item);
         }
     }
 }

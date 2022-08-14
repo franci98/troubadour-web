@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Difficulty;
+use App\Models\GameType;
 use Illuminate\Database\Seeder;
 
 class DifficultySeeder extends Seeder
@@ -15,6 +16,12 @@ class DifficultySeeder extends Seeder
     public function run()
     {
         $difficulties = [];
+        $difficulties[] = [
+            'title' => '1',
+            'sequence' => 1,
+            'description' => 'Splošni intervali',
+            'game_type_id' => GameType::INTERVALS
+        ];
         $difficulties[] = [
             'title' => '1',
             'sequence' => 1,
