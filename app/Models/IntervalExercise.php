@@ -6,7 +6,11 @@ use App\Utils\IntervalExerciseGenerator;
 use App\Utils\Utils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * @property Collection value
+ */
 class IntervalExercise extends Model
 {
     use HasFactory;
@@ -25,5 +29,10 @@ class IntervalExercise extends Model
         $generator = new IntervalExerciseGenerator($exercise);
         $intervalExercise = $generator->generateExercise();
         return $intervalExercise;
+    }
+
+    public function notesCollection(): Collection
+    {
+        return collect($this->value)->map(fn($item) => ['type' => 'n', 'value' => 4]);
     }
 }

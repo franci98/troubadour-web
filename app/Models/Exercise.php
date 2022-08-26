@@ -45,13 +45,18 @@ class Exercise extends Model
 
     public function generateMp3File()
     {
+        $soundController = new MidiNotes();
+        $baseFilePath = public_path("audio/");
         if ($this->game->gameType->id == GameType::RHYTHM) {
-            $soundController = new MidiNotes();
             $info = (object) [
                 'metronome' => true,
             ];
-            $baseFilePath = public_path("audio/");
             $soundController->generateExerciseSound($this->rhythmExercise->id, $baseFilePath.$this->id, $info);
+        } else if ($this->game->gameType->id == GameType::INTERVALS) {
+            $info = (object) [
+                'metronome' => false,
+            ];
+            $soundController->generateIntervalExerciseSound($this->intervalExercise->id, $baseFilePath.$this->id, $info);
         }
     }
 
