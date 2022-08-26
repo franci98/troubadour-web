@@ -6,6 +6,7 @@ use App\Utils\Midi\MidiNotes;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 /**
  * @property int id
@@ -58,6 +59,13 @@ class Exercise extends Model
             ];
             $soundController->generateIntervalExerciseSound($this->intervalExercise->id, $baseFilePath.$this->id, $info);
         }
+    }
+
+    public function deleteMp3File()
+    {
+        $baseFilePath = public_path("audio/");
+        File::delete($baseFilePath.$this->id.'.mp3');
+        File::delete($baseFilePath.$this->id.'.mid');
     }
 
     public function answers()
