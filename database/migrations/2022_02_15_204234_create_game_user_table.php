@@ -17,7 +17,7 @@ class CreateGameUserTable extends Migration
             $table->id();
             $table->foreignId('game_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->integer('points')->default(0);
+            $table->double('points')->default(0);
             $table->boolean('is_finished')->default(false);
             $table->timestamps();
         });
