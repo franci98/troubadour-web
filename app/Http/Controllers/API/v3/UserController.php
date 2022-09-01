@@ -52,6 +52,7 @@ class UserController extends Controller
             $sortedLeaderboard = GameUser::query()
                 ->select('game_user.*', DB::raw('SUM(game_user.points) AS points'))
                 ->groupBy('user_id')
+                ->orderBy('points')
                 ->get();
         }
 
