@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Utils\HarmonyExerciseGenerator;
-use App\Utils\IntervalExerciseGenerator;
+use App\Utils\Utils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property Collection value
+ */
 class HarmonyExercise extends Model
 {
     use HasFactory;

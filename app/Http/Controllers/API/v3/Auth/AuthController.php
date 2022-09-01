@@ -38,11 +38,12 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'school_id' => 'required|exists:schools,id',
+            'school_id' => '',//'required|exists:schools,id',
             'password' => 'required|min:8|confirmed'
         ]);
 
         $data['password'] = Hash::make($data['password']);
+        $data['school_id'] = 1;
         $user = new User($data);
         $user->save();
         event(new Registered($user));
