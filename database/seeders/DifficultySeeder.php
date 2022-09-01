@@ -419,8 +419,65 @@ class DifficultySeeder extends Seeder
             'game_type_id' => 5
         ];
 
+        $difficulties[] = [
+            'title' => 'Nižja glasbena šola - vsi letniki',
+            'sequence' => 1,
+            'description' => '2 - 4 note, poltonski razpon = 3',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 3, 'min_notes' => 2, 'max_notes' => 4
+            ]
+        ];
+        $difficulties[] = [
+            'title' => 'Srednja glasbena šola - 1. letnik',
+            'sequence' => 2,
+            'description' => '4 - 6 not, poltonski razpon = 5',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 5, 'min_notes' => 4, 'max_notes' => 6
+            ]
+        ];
+        $difficulties[] = [
+            'title' => 'Srednja glasbena šola - 2. letnik',
+            'sequence' => 3,
+            'description' => '4 - 6 not, poltonski razpon = 12',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 12, 'min_notes' => 4, 'max_notes' => 6
+            ]
+        ];
+        $difficulties[] = [
+            'title' => 'Srednja glasbena šola - 3. letnik',
+            'sequence' => 4,
+            'description' => '6 - 8 not, poltonski razpon = 12',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 12, 'min_notes' => 6, 'max_notes' => 8
+            ]
+        ];
+        $difficulties[] = [
+            'title' => 'Srednja glasbena šola - 4. letnik',
+            'sequence' => 5,
+            'description' => '6 - 10 not, poltonski razpon = 12',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 12, 'min_notes' => 6, 'max_notes' => 10
+            ]
+        ];
+        $difficulties[] = [
+            'title' => 'Univerzitetni nivo',
+            'sequence' => 6,
+            'description' => '8 - 10 not, poltonski razpon = 12',
+            'game_type_id' => GameType::INTERVALS,
+            'parameters' => [
+                'range' => 12, 'min_notes' => 8, 'max_notes' => 10
+            ]
+        ];
+
         foreach ($difficulties as $i => $difficulty) {
-            Difficulty::query()->firstOrCreate($difficulty);
+            $parameters = $difficulty['parameters'] ?? null;
+            unset($difficulty['parameters']);
+            Difficulty::query()->firstOrCreate($difficulty, ['parameters' => $parameters]);
         }
     }
 }

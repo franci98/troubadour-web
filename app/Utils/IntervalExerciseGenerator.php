@@ -9,9 +9,9 @@ class IntervalExerciseGenerator extends ExerciseGenerator
     public function generateExercise(): IntervalExercise
     {
         // Could be modified from difficulty
-        $difficultyRange = 5;
+        $difficultyRange = $this->exercise->game->difficulty->parameters['range'] ?? 5;
         // Could be modified from difficulty
-        $nNotes = 5;
+        $nNotes = rand($this->exercise->game->difficulty->parameters['min_notes'] ?? 4, $this->difficulty->parameters['max_notes'] ?? 8);
 
         $pitches = ['A#3', 'B3', 'C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5', 'C#5'];
 

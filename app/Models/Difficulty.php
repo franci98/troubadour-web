@@ -9,11 +9,16 @@ use Illuminate\Support\Collection;
 /**
  * @property int id
  * @property string title
+ * @property Collection parameters
  * @property int sequence
  */
 class Difficulty extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'parameters' => 'array'
+    ];
 
     public function getEasierDifficulties(bool $including = false): Collection
     {
