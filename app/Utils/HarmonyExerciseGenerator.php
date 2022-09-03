@@ -119,7 +119,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         );
 
         /* Generate chords */
-        
+
         // Pick chord based on its probability (exists)
         $chord = clone $chordProbability[Utils::weightedRandom(
             array_map(
@@ -319,7 +319,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                     'keys' => $keys,
                     'razlozen' => $razlozen,
                     'root' => $root,
-                    'chordType' => $chordType,
+                    'chord_type' => $chordType,
                 ]
             ]
         );

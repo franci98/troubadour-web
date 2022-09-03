@@ -19,6 +19,12 @@ class DifficultySeeder extends Seeder
         $difficulties[] = [
             'title' => '1',
             'sequence' => 1,
+            'description' => 'Splošni akordi',
+            'game_type_id' => 3
+        ];
+        $difficulties[] = [
+            'title' => '1',
+            'sequence' => 1,
             'description' => 'Splošni intervali',
             'game_type_id' => GameType::INTERVALS
         ];
