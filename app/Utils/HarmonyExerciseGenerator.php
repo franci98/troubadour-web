@@ -29,87 +29,101 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
             "ozka" => 100,
             "chord" => array(
                 "min" => array(
-                    "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "exists" => 1,
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "maj" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 0,
+                    "obrat1" => 0,
+                    "obrat2" => 1,
                 ),
                 "dim" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0,
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0,
                 ),
                 "aug" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "min7" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "maj7" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "dom7" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "min_maj7" => array(
-                    "exists" => 1,
-                    "lega1" => 1,
-                    "lega2" => 1,
-                    "lega3" => 0
+                    "exists" => 0,
+                    "obrat0" => 0,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "dim7" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 ),
                 "half_dim" => array(
                     "exists" => 0,
-                    "lega1" => 1,
-                    "lega2" => 0,
-                    "lega3" => 0
+                    "obrat0" => 1,
+                    "obrat1" => 0,
+                    "obrat2" => 0
                 )
             ),
             "meja" => 1
         );
 
-        /* Parameters */
+        /* Strummed or picked */
         $razlozeniProbability = $request['razlozen'] / 100;
-        $ozkaProbability = $request['ozka'] / 100;
+        $razlozen = Utils::weightedRandom([1 - $razlozeniProbability, $razlozeniProbability]);
 
-        $chordProbability = array();
+        /*
+        Store all chord types (min, maj, dim,...) and their probability for inversion
+        and existance into $chords and pick one based on its probability to exist.
+         */
+        $chords = array();
         foreach (ChNames::getAll() as $cn) {
-            $chordProbability[] = new Chord(
+            $chords[] = new Chord(
                 $cn,
                 $request["chord"][$cn]['exists'],
                 array(
-                    $request["chord"][$cn]['lega1'],
-                    $request["chord"][$cn]['lega2'],
-                    $request["chord"][$cn]['lega3'],
+                    $request["chord"][$cn]['obrat0'],
+                    $request["chord"][$cn]['obrat1'],
+                    $request["chord"][$cn]['obrat2'],
                 )
             );
         }
+        $chord = clone $chords[Utils::weightedRandom(
+            array_map(
+                function ($ch) {
+                    return $ch->exists;
+                },
+                $chords
+            )
+        )];
 
-        $allchordsalneki = array(
+
+        /* Pick one of available root notes (ones that have scales without double accidentals)*/
+        $availableRootNotes = array(
             'major' => array(
                 'c', 'g', 'd', 'a', 'e', 'b', 'f#', 'db', 'ab', 'eb', 'bb', 'f'
             ),
@@ -117,49 +131,36 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                 'a', 'e', 'b', 'f#', 'c#', 'g#', 'd#', 'bb', 'f', 'c', 'g', 'd'
             )
         );
-
-        /* Generate chords */
-
-        // Pick chord based on its probability (exists)
-        $chord = clone $chordProbability[Utils::weightedRandom(
-            array_map(
-                function ($ch) {
-                    return $ch->exists;
-                },
-                $chordProbability
-            )
-        )];
-
-        // Pick root
         $rootIndex = rand(0, 11);
         if ($chord->type === ChNames::MIN || $chord->type === ChNames::MIN7 || $chord->type === ChNames::DIM || $chord->type == ChNames::MIN_MAJ7) {
-            $root = $allchordsalneki['minor'][$rootIndex];
+            $root = $availableRootNotes['minor'][$rootIndex];
         } else {
-            $root = $allchordsalneki['major'][$rootIndex];
+            $root = $availableRootNotes['major'][$rootIndex];
         }
 
-        // TODO use razlozen parameter
-        $razlozen = Utils::weightedRandom([1 - $razlozeniProbability, $razlozeniProbability]);
-
-        $kateriObrat = Utils::weightedRandom($chord->obrati);
-        if ($kateriObrat >= 0)
-            self::obrati($chord->integerNotation, $kateriObrat);
-
+        /*  Pick one of the available inversions and invert the chord
+            (inversion means you take the bottom note and raise it by an octave (+12)
+        */
+        $inversion = Utils::weightedRandom($chord->obrati); // 0=>? 1=>? 2=>?
+        if ($inversion != null)
+            self::obrati($chord->integerNotation, $inversion);
         sort($chord->integerNotation);
 
-        if (Utils::weightedRandom([$ozkaProbability, 1 - $ozkaProbability])) {
+
+        /* If the harmony is open increase every other note by an octave (open harmony means more than an octave between first and last note)*/
+        $closeHarmonyProbability = $request['ozka'] / 100;
+        if (Utils::weightedRandom([$closeHarmonyProbability, 1 - $closeHarmonyProbability])) {
             self::siroka($chord->integerNotation);
         }
-
         sort($chord->integerNotation);
 
+        /* If notes are too high (?) lower the whole chord */
         if ($chord->integerNotation[sizeof($chord->integerNotation) - 1] > 20) {
             for ($i = 0; $i < sizeof($chord->integerNotation); $i++) {
                 $chord->integerNotation[$i] = $chord->integerNotation[$i] - 12;
             }
         }
 
-        $chordType = $chord->type;
 
         $majorScales = [
             'c' => ['c/4', 'd/4', 'e/4', 'f/4', 'g/4', 'a/4', 'b/4'],
@@ -176,6 +177,8 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
             'f' => ['f/4', 'g/4', 'a/4', 'bb/4', 'c/5', 'd/5', 'e/5']
         ];
 
+        
+
         $minorToMajorRoot = [
             'a' => 'c',
             'e' => 'g',
@@ -191,13 +194,17 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
             'd' => 'f'
         ];
 
+        /* Minor scales have enharmonic major scales and vice-versa.
+            If the chord is minor then change the root note to enharmonic major so ?
+        */
+        if ($chord->type === 'min' || $chord->type === 'dim' || $chord->type === 'min7' || $chord->type === 'min_maj7') {
+            $root = $minorToMajorRoot[$root];
+        }
+
         $majorStruct = [0, 2, 4, 5, 7, 9, 11, 12];
 
         $structure = $majorStruct;
 
-        if ($chord->type === 'min' || $chord->type === 'dim' || $chord->type === 'min7' || $chord->type === 'min_maj7') {
-            $root = $minorToMajorRoot[$root];
-        }
 
         $offsetLookup = array(
             'min' => [
@@ -278,15 +285,17 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         $keys = [];
         foreach ($chord->integerNotation as $curr) {
             $addToOctave = floor($curr / 12);
-            if ($curr < 0) {
+            if ($curr < 0 && $curr >= -11) {
                 $addToOctave = -1;
-                if ($curr < -11)
-                    echo ('INT NOTATION IS LESS THAN 11!');
+                $curr += 12;
+            } else if ($curr < -11) {
+                $addToOctave = -2;
+                $curr += 24;
             }
 
             $curr = $curr % 12;
             $offset = false;
-            if ($curr < 0) $curr += 12;
+
             if (array_key_exists($chord->type, $offsetLookup)) {
                 if (array_key_exists($curr, $offsetLookup[$chord->type])) {
                     $offset = $offsetLookup[$chord->type][$curr];
@@ -319,7 +328,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                     'keys' => $keys,
                     'razlozen' => $razlozen,
                     'root' => $root,
-                    'chord_type' => $chordType,
+                    'chord_type' => $chord->type,
                 ]
             ]
         );
@@ -329,6 +338,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
 
     private static function obrati(&$chord, int $n)
     {
+        $n -= 1;
         for ($i = 0; $i <= $n; $i++) {
             $chord[$i % sizeof($chord)] = $chord[$i] + 12;
         }
@@ -343,7 +353,6 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
 
     private static function nizanje($key)
     {
-        return $key;
         $acc = self::hasAccidental($key);
         if (!$acc || $acc === 'b') {
             $t = explode('/', $key);
@@ -354,7 +363,6 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
 
     private static function visanje($key)
     {
-        return $key;
         $acc = self::hasAccidental($key);
         if (!$acc || $acc === '#') {
             $t = explode('/', $key);
