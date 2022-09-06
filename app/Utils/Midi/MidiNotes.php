@@ -2,6 +2,7 @@
 
 namespace App\Utils\Midi;
 
+use App\Models\HarmonyExercise;
 use App\Models\IntervalExercise;
 use Illuminate\Support\Facades\Log;
 use Motniemtin\Midi\Midi;
@@ -37,7 +38,7 @@ class MidiNotes {
                 "BPM" => $BPM,
                 "bar" => (object) $data->barInfo->bar_info,
                 "pitch" => (object) [
-                    "exercise" => [69],
+                    "exercise" => [[69]],
                     "metronome" => [60, 70]
                 ]
             ], true
@@ -119,7 +120,87 @@ class MidiNotes {
 
     }
 
-    public function SetupMidi($BPM) {
+    public function generateHarmonyExerciseSound($exId, $baseFilePath, $info) {
+
+        $data = HarmonyExercise::query()->find($exId);
+
+        if(!$data) {
+            return null;
+        }
+        $data = (object) $data;
+
+        $midiPitchMap = [
+            'A3' => 57,
+            'Bb3' => 58,
+            'B3' => 59,
+            'C4' => 60,
+            'Db4' => 61,
+            'D4' => 62,
+            'Eb4' => 63,
+            'E4' => 64,
+            'F4' => 65,
+            'Gb4' => 66,
+            'G4' => 67,
+            'Ab4' => 68,
+            'A4' => 69,
+            'Bb4' => 70,
+            'B4' => 71,
+            'C5' => 72,
+            'Db5' => 73,
+            'D5' => 74,
+        ];
+
+        $lowerToUpperMap = [
+            'A#3' => 'Bb3',
+            'B#3' => 'C4',
+            'Cb4' => 'B3',
+            'C#4' => 'Db4',
+            'D#4' => 'Eb4',
+            'E#4' => 'F4',
+            'Fb4' => 'E4',
+            'F#4' => 'Gb4',
+            'G#4' => 'Ab4',
+            'A#4' => 'Bb4',
+            'B#4' => 'C5',
+            'Cb5' => 'B4',
+            'C#5' => 'Db5'
+        ];
+
+
+        $enableMetronome = $info->metronome;
+        $BPM = 60;
+//        Log::debug(collect($data->values));
+        //  "f/4",
+        //  "ab/4",
+        //  "c/5",
+        //  "db/5"
+
+        $file = $this->NotesToSound(
+            $exId, $baseFilePath,
+            $data->notesCollection(),
+            (object) [
+                "enableMetronome" => $enableMetronome,
+                "BPM" => $BPM,
+                "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
+                "pitch" => (object) [
+                    "exercise" => [
+                        [65],
+                        [68],
+                        [72],
+                        [73]
+                    ]
+                ]
+            ], true
+        );
+
+//        RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
+
+        return (object) ['ok' => true, 'file' => $file];
+
+    }
+
+
+    public function SetupMidi($BPM, $trackCount = 2) {
 
         $midi = new Midi();
         $midi->open();
@@ -128,12 +209,9 @@ class MidiNotes {
 
         $midi->setTempo($tempo);
 
-        // Notes tract
-        $midi->newTrack();
-
-        // Metronome track
-        $midi->newTrack();
-
+        for ($i = 0; $i < $trackCount; $i++) {
+            $midi->newTrack();
+        }
 
         return $midi;
 
@@ -141,7 +219,7 @@ class MidiNotes {
 
     public function Instrument($midi, $trId, $xylo = false) {
 
-        $i = $xylo ? 13 : 18;
+        $i = $xylo ? 13 : 4;
 
         $midi->addMsg($trId, MSG::Param(0, $trId, 0, 121));
         $midi->addMsg($trId, MSG::Param(0, $trId, 32, 0));
@@ -287,7 +365,7 @@ class MidiNotes {
 
     public function NotesToSound($exerciseId, $baseFilePath, $notes, $info, $convertToMP3) {
         $timeDiff = 0;
-        $midi = $this->SetupMidi($info->BPM);
+        $midi = $this->SetupMidi($info->BPM, $info->enableMetronome ? 2 : count($info->pitch->exercise));
 
         if($info->enableMetronome) {
             $countinNotes = $this->GetMetronomeNotes($info->bar, 1);
@@ -308,15 +386,17 @@ class MidiNotes {
         }
 
 
-        // Melody
-        $this->Instrument($midi, 1, false);
-        $this->GetMIDIData($midi, $notes, $info, (object) [
-            "trackId" => 1,
-            "pitch" => $info->pitch->exercise,
-            "currentTime" => $timeDiff,
-            "constDuration" => null,
-            "noteForce" => 50,
-        ]);
+        foreach ($info->pitch->exercise as $i => $item) {
+            // Melody
+            $this->Instrument($midi, 1, false);
+            $this->GetMIDIData($midi, $notes, $info, (object) [
+                "trackId" => $i + 1,
+                "pitch" => $item,
+                "currentTime" => $timeDiff,
+                "constDuration" => null,
+                "noteForce" => 50,
+            ]);
+        }
 
         // Metronome
         if($info->enableMetronome) {

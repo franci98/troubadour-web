@@ -58,6 +58,11 @@ class Exercise extends Model
                 'metronome' => false,
             ];
             $soundController->generateIntervalExerciseSound($this->intervalExercise->id, $baseFilePath.$this->id, $info);
+        } else if ($this->game->gameType->id == GameType::HARMONIC) {
+            $info = (object) [
+                'metronome' => false,
+            ];
+            $soundController->generateHarmonyExerciseSound($this->harmonyExercise->id, $baseFilePath.$this->id, $info);
         }
     }
 

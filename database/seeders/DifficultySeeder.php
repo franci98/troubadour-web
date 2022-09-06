@@ -480,6 +480,80 @@ class DifficultySeeder extends Seeder
             ]
         ];
 
+        $difficulties[] = [
+            'title' => 'Akordi',
+            'sequence' => 1,
+            'description' => 'opis',
+            'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 0,
+                "ozka" => 100,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "maj" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0,
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "min7" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "maj7" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "dom7" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "min_maj7" => array(
+                        "exists" => 1,
+                        "lega1" => 1,
+                        "lega2" => 1,
+                        "lega3" => 0
+                    ),
+                    "dim7" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    ),
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "lega1" => 1,
+                        "lega2" => 0,
+                        "lega3" => 0
+                    )
+                ),
+                "meja" => 1
+            ]
+        ];
+
         foreach ($difficulties as $i => $difficulty) {
             $parameters = $difficulty['parameters'] ?? null;
             unset($difficulty['parameters']);
