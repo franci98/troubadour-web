@@ -14,7 +14,7 @@ class LevelResource extends JsonResource
             'id' => $this->resource->id,
             'value' => $this->resource->value,
             'title' => $this->resource->title,
-            'image_url' => 'TODO',
+            'image_url' => url('/img/levels/' . $this->resource->id . '.svg'),
             'min_rating' => $this->resource->min_rating,
             'max_rating' => $this->resource->max_rating,
         ];
