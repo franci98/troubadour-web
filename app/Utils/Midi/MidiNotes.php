@@ -13,15 +13,17 @@ use App\Models\RhythmExercise;
 use Exception;
 
 
-class MidiNotes {
+class MidiNotes
+{
 
     public $noteForce = 60;
 
-    public function generateExerciseSound($exId, $baseFilePath, $info) {
+    public function generateExerciseSound($exId, $baseFilePath, $info)
+    {
 
         $data = RhythmExercise::query()->find($exId);
 
-        if(!$data) {
+        if (!$data) {
             return null;
         }
         $data = (object) $data;
@@ -31,7 +33,8 @@ class MidiNotes {
         $BPM = isset($info->BPMOverride) ? $info->BPMOverride : $data->BPM;
 
         $file = $this->NotesToSound(
-            $exId, $baseFilePath,
+            $exId,
+            $baseFilePath,
             $data->notesCollection(),
             (object) [
                 "enableMetronome" => $enableMetronome,
@@ -41,20 +44,21 @@ class MidiNotes {
                     "exercise" => [[69]],
                     "metronome" => [60, 70]
                 ]
-            ], true
+            ],
+            true
         );
 
         RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
 
         return (object) ['ok' => true, 'file' => $file];
-
     }
 
-    public function generateIntervalExerciseSound($exId, $baseFilePath, $info) {
+    public function generateIntervalExerciseSound($exId, $baseFilePath, $info)
+    {
 
         $data = IntervalExercise::query()->find($exId);
 
-        if(!$data) {
+        if (!$data) {
             return null;
         }
         $data = (object) $data;
@@ -99,108 +103,182 @@ class MidiNotes {
 
         $enableMetronome = $info->metronome;
         $BPM = 60;
-//        Log::debug(collect($data->values));
+        //        Log::debug(collect($data->values));
 
         $file = $this->NotesToSound(
-            $exId, $baseFilePath,
+            $exId,
+            $baseFilePath,
             $data->notesCollection(),
             (object) [
                 "enableMetronome" => $enableMetronome,
                 "BPM" => $BPM,
                 "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
                 "pitch" => (object) [
-                    "exercise" => collect($data->value)->map(fn($item) => $midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]])->toArray()
+                    "exercise" => collect($data->value)->map(fn ($item) => $midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]])->toArray()
                 ]
-            ], true
+            ],
+            true
         );
 
-//        RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
+        //        RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
 
         return (object) ['ok' => true, 'file' => $file];
-
     }
 
-    public function generateHarmonyExerciseSound($exId, $baseFilePath, $info) {
+    private static function getMidi($key)
+    {
+        $midiPitchMap = [
+            'A3' => 57,
+            'Bb3' => 58,
+            'B3' => 59,
+            'C4' => 60,
+            'Db4' => 61,
+            'D4' => 62,
+            'Eb4' => 63,
+            'E4' => 64,
+            'F4' => 65,
+            'Gb4' => 66,
+            'G4' => 67,
+            'Ab4' => 68,
+            'A4' => 69,
+            'Bb4' => 70,
+            'B4' => 71,
+            'C5' => 72,
+            'Db5' => 73,
+            'D5' => 74,
+            'Eb5' => 75,
+            'E5' => 76,
+            'F5' => 77,
+            'Gb5' => 78,
+            'G5' => 79,
+            'Ab5' => 80,
+            'A5' => 81,
+            'Bb5' => 82,
+            'B5' => 83,
+            'C6' => 84,
+            'Db6' => 85,
+            'D6' => 86,
+            'Eb6' => 87,
+            'F6' => 88,
+            'Gb6' => 89,
+            'G6' => 90,
+            'Ab6' => 91,
+            'A6' => 92,
+            'Bb6' => 93,
+            'B6' => 94,
+            'C7' => 95,
+        ];
+
+        $lowerToUpperMap = [
+            'A#3' => 'Bb3',
+            'B#3' => 'C4',
+            'Cb4' => 'B3',
+            'C#4' => 'Db4',
+            'D#4' => 'Eb4',
+            'E#4' => 'F4',
+            'Fb4' => 'E4',
+            'F#4' => 'Gb4',
+            'G#4' => 'Ab4',
+            'A#4' => 'Bb4',
+            'B#4' => 'C5',
+            'Cb5' => 'B4',
+            'C#5' => 'Db5',
+            'D#5' => 'Eb5',
+            'E#5' => 'F5',
+            'Fb5' => 'E5',
+            'F#5' => 'Gb5',
+            'G#5' => 'Ab5',
+            'A#5' => 'Bb5',
+            'B#5' => 'C6',
+            'Cb6' => 'B5',
+            'C#6' => 'Db6',
+            'D#6' => 'Eb6',
+            'E#6' => 'F6',
+            'Fb6' => 'E6',
+            'F#6' => 'Gb6',
+            'G#6' => 'Ab6',
+            'A#6' => 'Bb6',
+            'B#6' => 'C7',
+            'Cb7' => 'B6',
+        ];
+
+        if (array_key_exists($key, $midiPitchMap)) {
+            return [$midiPitchMap[$key]];
+        } else {
+            return [$midiPitchMap[$lowerToUpperMap[$key]]];
+        }
+    }
+
+    private static function removeDoubleAccidentals($key)
+    {
+        // a b c d e f g
+//        Log::debug($key);
+        if (str_contains($key, '##')) {
+            $key = str_replace('##', '', $key);
+            if ($key[0] == 'g') $key = 'a' . substr($key, 1);
+            else $key = (chr(ord($key[0]) + 1)) . substr($key, 1, strlen($key) - 2) . (substr($key, strlen($key) - 1) + 1);
+            Log::debug($key);
+
+            return $key;
+        }
+        if (str_contains(substr($key, 1), 'bb')) {
+            $key = $key[0] + str_replace('bb', '', substr($key, 1));
+
+            if ($key[0] == 'a') $key = 'g' . substr($key, 1);
+            else $key = chr(ord($key[0]) - 1) . substr($key, 1, strlen($key) - 2) . (substr($key, strlen($key) - 1) + 1);
+//            Log::debug($key);
+
+            return $key;
+        }
+//        Log::debug($key);
+
+        return $key;
+    }
+
+    public function generateHarmonyExerciseSound($exId, $baseFilePath, $info)
+    {
 
         $data = HarmonyExercise::query()->find($exId);
 
-        if(!$data) {
+        if (!$data) {
             return null;
         }
         $data = (object) $data;
 
-        $midiPitchMap = [
-            'A3' => 57,
-            'Bb3' => 58,
-            'B3' => 59,
-            'C4' => 60,
-            'Db4' => 61,
-            'D4' => 62,
-            'Eb4' => 63,
-            'E4' => 64,
-            'F4' => 65,
-            'Gb4' => 66,
-            'G4' => 67,
-            'Ab4' => 68,
-            'A4' => 69,
-            'Bb4' => 70,
-            'B4' => 71,
-            'C5' => 72,
-            'Db5' => 73,
-            'D5' => 74,
-        ];
-
-        $lowerToUpperMap = [
-            'A#3' => 'Bb3',
-            'B#3' => 'C4',
-            'Cb4' => 'B3',
-            'C#4' => 'Db4',
-            'D#4' => 'Eb4',
-            'E#4' => 'F4',
-            'Fb4' => 'E4',
-            'F#4' => 'Gb4',
-            'G#4' => 'Ab4',
-            'A#4' => 'Bb4',
-            'B#4' => 'C5',
-            'Cb5' => 'B4',
-            'C#5' => 'Db5'
-        ];
-
 
         $enableMetronome = $info->metronome;
         $BPM = 60;
-//        Log::debug(collect($data->values));
-        //  "f/4",
-        //  "ab/4",
-        //  "c/5",
-        //  "db/5"
+        //Log::debug($data->value['keys']);
+
+        $formattedKeys = [];
+        foreach ($data->value['keys'] as $key) {
+            $t = str_replace('/', '', $key);
+            $t = self::removeDoubleAccidentals($t);
+            $formattedKeys[] = strtoupper($t[0]) . substr($t, 1, strlen($t) - 1);
+        }
+
 
         $file = $this->NotesToSound(
-            $exId, $baseFilePath,
+            $exId,
+            $baseFilePath,
             $data->notesCollection(),
             (object) [
                 "enableMetronome" => $enableMetronome,
                 "BPM" => $BPM,
                 "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
                 "pitch" => (object) [
-                    "exercise" => [
-                        [65],
-                        [68],
-                        [72],
-                        [73]
-                    ]
+                    "exercise" => array_map('self::getMidi', $formattedKeys)
                 ]
-            ], true
+            ],
+            true
         );
 
-//        RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
-
         return (object) ['ok' => true, 'file' => $file];
-
     }
 
 
-    public function SetupMidi($BPM, $trackCount = 2) {
+    public function SetupMidi($BPM, $trackCount = 2)
+    {
 
         $midi = new Midi();
         $midi->open();
@@ -214,17 +292,16 @@ class MidiNotes {
         }
 
         return $midi;
-
     }
 
-    public function Instrument($midi, $trId, $xylo = false) {
+    public function Instrument($midi, $trId, $xylo = false)
+    {
 
         $i = $xylo ? 13 : 4;
 
         $midi->addMsg($trId, MSG::Param(0, $trId, 0, 121));
         $midi->addMsg($trId, MSG::Param(0, $trId, 32, 0));
         $midi->addMsg($trId, MSG::ProgramChange(0, $trId, $i));
-
     }
 
     /*
@@ -251,7 +328,8 @@ class MidiNotes {
     */
 
 
-    public function GetMetronomePitches($bar, $num_bars = 1) {
+    public function GetMetronomePitches($bar, $num_bars = 1)
+    {
 
         // Original
         // [93, 86];
@@ -261,50 +339,49 @@ class MidiNotes {
 
         $pitches = [];
 
-        for($ooo = 0; $ooo < $num_bars; $ooo++){
-            if(isset($bar->subdivisions)){
+        for ($ooo = 0; $ooo < $num_bars; $ooo++) {
+            if (isset($bar->subdivisions)) {
 
-                foreach($bar->subdivisions as $s){
+                foreach ($bar->subdivisions as $s) {
                     $pitches[] = $hi;
-                    for ($i = 1; $i < $s->n; $i++) { $pitches[] = $lo; }
+                    for ($i = 1; $i < $s->n; $i++) {
+                        $pitches[] = $lo;
+                    }
                 }
-
-            } else if(!isset($bar->subdivisions) && $bar->base_note == 8 && $bar->num_beats == 6) {
+            } else if (!isset($bar->subdivisions) && $bar->base_note == 8 && $bar->num_beats == 6) {
 
                 // Special counting for 6/8 time...
                 $pitches = array_merge($pitches, [$hi, $lo, $lo, $hi, $lo, $lo]);
-
-            }
-            else if(!isset($bar->subdivisions) && $bar->base_note == 8 && $bar->num_beats == 9) {
+            } else if (!isset($bar->subdivisions) && $bar->base_note == 8 && $bar->num_beats == 9) {
 
                 // Special counting for 6/8 time...
                 $pitches = array_merge($pitches, [$hi, $lo, $lo, $hi, $lo, $lo, $hi, $lo, $lo]);
-
-            }else {
+            } else {
                 $pitches[] = ($hi);
-                for ($i = 1; $i < $bar->num_beats; $i++) { $pitches[] = $lo; }
+                for ($i = 1; $i < $bar->num_beats; $i++) {
+                    $pitches[] = $lo;
+                }
             }
         }
 
         return $pitches;
-
     }
 
-    public function GetMetronomeNotes($bar, $num_bars = 1){
+    public function GetMetronomeNotes($bar, $num_bars = 1)
+    {
 
         $countInNotes = [];
 
-        for($vv = 0; $vv < $num_bars; $vv++){
-            if(isset($bar->subdivisions)){
-                foreach($bar->subdivisions as $sd) {
-                    for($i = 0; $i < $sd->n; $i++){
-                        $countInNotes[] = (object) [ "type" => 'n', "value" => $sd->d ];
+        for ($vv = 0; $vv < $num_bars; $vv++) {
+            if (isset($bar->subdivisions)) {
+                foreach ($bar->subdivisions as $sd) {
+                    for ($i = 0; $i < $sd->n; $i++) {
+                        $countInNotes[] = (object) ["type" => 'n', "value" => $sd->d];
                     }
                 }
-
             } else {
-                for($i = 0; $i < $bar->num_beats; $i++){
-                    $countInNotes[] = (object)[ "type" => 'n', "value" => $bar->base_note ];
+                for ($i = 0; $i < $bar->num_beats; $i++) {
+                    $countInNotes[] = (object)["type" => 'n', "value" => $bar->base_note];
                 }
             }
         }
@@ -312,25 +389,25 @@ class MidiNotes {
         return $countInNotes;
     }
 
-    public function GetMIDIData($midi, $notes, $info, $trackInfo) {
+    public function GetMIDIData($midi, $notes, $info, $trackInfo)
+    {
 
         $durs = MusiSONUtils::toDurations($notes);
 
         $currentTime = $trackInfo->currentTime;
 
         $currentNoteID = 0;
-        foreach($durs as $dur) {
+        foreach ($durs as $dur) {
 
             $realDuration = $dur->toFloat() * $info->bar->base_note;
 
-            if($realDuration > 0)
-            {
+            if ($realDuration > 0) {
                 $pitchL = count($trackInfo->pitch) - 1;
                 $sPitch = $trackInfo->pitch[min($pitchL, $currentNoteID)];
 
                 $engineDuration = ($realDuration - 0.05);
 
-                if($trackInfo->constDuration != null) {
+                if ($trackInfo->constDuration != null) {
                     $engineDuration = $trackInfo->constDuration;
                 }
 
@@ -347,10 +424,7 @@ class MidiNotes {
                     $sPitch, // Note
                     0  // Kok useka
                 ));
-
-            }
-            else
-            {
+            } else {
                 // Rest or unknown
                 $realDuration = -$realDuration;
             }
@@ -363,11 +437,12 @@ class MidiNotes {
         return $currentTime;
     }
 
-    public function NotesToSound($exerciseId, $baseFilePath, $notes, $info, $convertToMP3) {
+    public function NotesToSound($exerciseId, $baseFilePath, $notes, $info, $convertToMP3)
+    {
         $timeDiff = 0;
         $midi = $this->SetupMidi($info->BPM, $info->enableMetronome ? 2 : count($info->pitch->exercise));
 
-        if($info->enableMetronome) {
+        if ($info->enableMetronome) {
             $countinNotes = $this->GetMetronomeNotes($info->bar, 1);
             $countinPitch = $this->GetMetronomePitches($info->bar, 1);
 
@@ -399,7 +474,7 @@ class MidiNotes {
         }
 
         // Metronome
-        if($info->enableMetronome) {
+        if ($info->enableMetronome) {
             $this->Instrument($midi, 2, true);
             $this->GetMIDIData($midi, $metronomeNotes, $info, (object) [
                 "trackId" => 2,
@@ -421,7 +496,5 @@ class MidiNotes {
         $mp3 = $c->toMP3($wavFileName, $mp3FileName);
 
         return $mp3FileName;
-
     }
-
 }

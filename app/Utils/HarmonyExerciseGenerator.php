@@ -5,6 +5,7 @@ namespace App\Utils;
 use App\Models\HarmonyExercise;
 use App\Models\IntervalExercise;
 use App\Models\RhythmExercise;
+use music_theory;
 
 class HarmonyExerciseGenerator extends ExerciseGenerator
 {
@@ -24,76 +25,10 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
     public function generateExercise(): HarmonyExercise
     {
         // Get parameters based on difficulty
-        $request = array(
-            "razlozen" => 0,
-            "ozka" => 100,
-            "chord" => array(
-                "min" => array(
-                    "exists" => 1,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "maj" => array(
-                    "exists" => 0,
-                    "obrat0" => 0,
-                    "obrat1" => 0,
-                    "obrat2" => 1,
-                ),
-                "dim" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0,
-                ),
-                "aug" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "min7" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "maj7" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "dom7" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "min_maj7" => array(
-                    "exists" => 0,
-                    "obrat0" => 0,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "dim7" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                ),
-                "half_dim" => array(
-                    "exists" => 0,
-                    "obrat0" => 1,
-                    "obrat1" => 0,
-                    "obrat2" => 0
-                )
-            ),
-            "meja" => 1
-        );
+        $parameters = $this->exercise->game->difficulty->parameters;
 
         /* Strummed or picked */
-        $razlozeniProbability = $request['razlozen'] / 100;
+        $razlozeniProbability = $parameters['razlozen'] / 100;
         $razlozen = Utils::weightedRandom([1 - $razlozeniProbability, $razlozeniProbability]);
 
         /*
@@ -104,11 +39,11 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         foreach (ChNames::getAll() as $cn) {
             $chords[] = new Chord(
                 $cn,
-                $request["chord"][$cn]['exists'],
+                $parameters["chord"][$cn]['exists'],
                 array(
-                    $request["chord"][$cn]['obrat0'],
-                    $request["chord"][$cn]['obrat1'],
-                    $request["chord"][$cn]['obrat2'],
+                    $parameters["chord"][$cn]['obrat0'],
+                    $parameters["chord"][$cn]['obrat1'],
+                    $parameters["chord"][$cn]['obrat2'],
                 )
             );
         }
@@ -125,198 +60,127 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         /* Pick one of available root notes (ones that have scales without double accidentals)*/
         $availableRootNotes = array(
             'major' => array(
-                'c', 'g', 'd', 'a', 'e', 'b', 'f#', 'db', 'ab', 'eb', 'bb', 'f'
+                'c', 'db', 'd', 'eb', 'e', 'f', 'f#', 'g', 'ab', 'a', 'bb', 'b'
             ),
             'minor' => array(
-                'a', 'e', 'b', 'f#', 'c#', 'g#', 'd#', 'bb', 'f', 'c', 'g', 'd'
+                'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'bb', 'b'
             )
         );
+        $majorStruct = [0, 2, 4, 5, 7, 9, 11];
+        $minorStruct = [0, 2, 3, 5, 7, 8, 10];
+
         $rootIndex = rand(0, 11);
         if ($chord->type === ChNames::MIN || $chord->type === ChNames::MIN7 || $chord->type === ChNames::DIM || $chord->type == ChNames::MIN_MAJ7) {
             $root = $availableRootNotes['minor'][$rootIndex];
+            $structure = $minorStruct;
         } else {
             $root = $availableRootNotes['major'][$rootIndex];
+            $structure = $majorStruct;
         }
 
         /*  Pick one of the available inversions and invert the chord
             (inversion means you take the bottom note and raise it by an octave (+12)
         */
-        $inversion = Utils::weightedRandom($chord->obrati); // 0=>? 1=>? 2=>?
+        $inversion = Utils::weightedRandom($chord->obrati);
         if ($inversion != null)
             self::obrati($chord->integerNotation, $inversion);
         sort($chord->integerNotation);
 
 
         /* If the harmony is open increase every other note by an octave (open harmony means more than an octave between first and last note)*/
-        $closeHarmonyProbability = $request['ozka'] / 100;
+        $closeHarmonyProbability = $parameters['ozka'] / 100;
         if (Utils::weightedRandom([$closeHarmonyProbability, 1 - $closeHarmonyProbability])) {
             self::siroka($chord->integerNotation);
         }
         sort($chord->integerNotation);
 
-        /* If notes are too high (?) lower the whole chord */
+        /* If notes are too high lower the whole chord */
         if ($chord->integerNotation[sizeof($chord->integerNotation) - 1] > 20) {
             for ($i = 0; $i < sizeof($chord->integerNotation); $i++) {
                 $chord->integerNotation[$i] = $chord->integerNotation[$i] - 12;
             }
         }
 
-
-        $majorScales = [
-            'c' => ['c/4', 'd/4', 'e/4', 'f/4', 'g/4', 'a/4', 'b/4'],
-            'g' => ['g/4', 'a/4', 'b/4', 'c/5', 'd/5', 'e/5', 'f#/5'],
-            'd' => ['d/4', 'e/4', 'f#/4', 'g/4', 'a/4', 'b/4', 'c#/5'],
-            'a' => ['a/4', 'b/4', 'c#/5', 'd/5', 'e/5', 'f#/5', 'g#/5'],
-            'e' => ['e/4', 'f#/4', 'g#/4', 'a/4', 'b/4', 'c#/5', 'd#/5'],
-            'b' => ['b/4', 'c#/5', 'd#/5', 'e/5', 'f#/5', 'g#/5', 'a#/5'],
-            'f#' => ['f#/4', 'g#/4', 'a#/4', 'b/4', 'c#/5', 'd#/5', 'e#/5'],
-            'db' => ['db/4', 'eb/4', 'f/4', 'gb/4', 'ab/4', 'bb/4', 'c/5'],
-            'ab' => ['ab/4', 'bb/4', 'c/5', 'db/5', 'eb/5', 'f/5', 'g/5'],
-            'eb' => ['eb/4', 'f/4', 'g/4', 'ab/4', 'bb/4', 'c/5', 'd/5'],
-            'bb' => ['bb/4', 'c/4', 'd/5', 'eb/5', 'f/5', 'g/5', 'a/5'],
-            'f' => ['f/4', 'g/4', 'a/4', 'bb/4', 'c/5', 'd/5', 'e/5']
-        ];
-
-        
-
-        $minorToMajorRoot = [
-            'a' => 'c',
-            'e' => 'g',
-            'b' => 'd',
-            'f#' => 'a',
-            'c#' => 'e',
-            'g#' => 'b',
-            'd#' => 'f#',
-            'bb' => 'db',
-            'f' => 'ab',
-            'c' => 'eb',
-            'g' => 'bb',
-            'd' => 'f'
-        ];
-
-        /* Minor scales have enharmonic major scales and vice-versa.
-            If the chord is minor then change the root note to enharmonic major so ?
-        */
-        if ($chord->type === 'min' || $chord->type === 'dim' || $chord->type === 'min7' || $chord->type === 'min_maj7') {
-            $root = $minorToMajorRoot[$root];
-        }
-
-        $majorStruct = [0, 2, 4, 5, 7, 9, 11, 12];
-
-        $structure = $majorStruct;
-
-
-        $offsetLookup = array(
-            'min' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ]
+        $offsetLookup = [
+            'minor' => [
+                1 => ['index' => 1, 'append' => 'b'],
+                4 => ['index' => 3, 'append' => 'b'],
+                6 => ['index' => 4, 'append' => 'b'],
+                9 => ['index' => 6, 'append' => 'b'],
+                11 => ['index' => 6, 'append' => '#'],
             ],
-            'min7' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ],
-                10 => [
-                    'index' => 11,
-                    'append' => 'b'
-                ]
-            ],
-            'dim' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ],
-                6 => [
-                    'index' => 7,
-                    'append' => 'b'
-                ]
-            ],
-            'aug' => [
-                8 => [
-                    'index' => 7,
-                    'append' => '#'
-                ]
-            ],
-            'dom7' => [
-                10 => [
-                    'index' => 11,
-                    'append' => 'b'
-                ]
-            ],
-            // TODO preglej ce gre skozi vse root note
-            'min_maj7' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ]
-            ],
-            'dim7' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ],
-                6 => [
-                    'index' => 7,
-                    'append' => 'b'
-                ],
-                9 => [
-                    'index' => 11,
-                    'append' => 'bb'
-                ]
-            ],
-            'half_dim' => [
-                3 => [
-                    'index' => 4,
-                    'append' => 'b'
-                ],
-                6 => [
-                    'index' => 7,
-                    'append' => 'b'
-                ],
-                10 => [
-                    'index' => 11,
-                    'append' => 'b'
-                ]
+            'major' => [
+                1 => ['index' => 1, 'append' => 'b'],
+                3 => ['index' => 2, 'append' => 'b'],
+                6 => ['index' => 4, 'append' => 'b'],
+                8 => ['index' => 4, 'append' => '#'],
+                10 => ['index' => 6, 'append' => 'b'],
             ]
-        );
+        ];
+
+        $scales = [
+            'major' => [
+                'c' => ['c', 'd', 'e', 'f', 'g', 'a', 'b'],
+                'g' => ['g', 'a', 'b', 'c', 'd', 'e', 'f#'],
+                'd' => ['d', 'e', 'f#', 'g', 'a', 'b', 'c#'],
+                'a' => ['a', 'b', 'c#', 'd', 'e', 'f#', 'g#'],
+                'e' => ['e', 'f#', 'g#', 'a', 'b', 'c#', 'd#'],
+                'b' => ['b', 'c#', 'd#', 'e', 'f#', 'g#', 'a#'],
+                'f#' => ['f#', 'g#', 'a#', 'b', 'c#', 'd#', 'e#'],
+                'db' => ['db', 'eb', 'f', 'gb', 'ab', 'bb', 'c'],
+                'ab' => ['ab', 'bb', 'c', 'db', 'eb', 'f', 'g'],
+                'eb' => ['eb', 'f', 'g', 'ab', 'bb', 'c', 'd'],
+                'bb' => ['bb', 'c', 'd', 'eb', 'f', 'g', 'a'],
+                'f' => ['f', 'g', 'a', 'bb', 'c', 'd', 'e'],
+            ],
+            'minor' => [
+                'a' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+                'e' => ['e', 'f#', 'g', 'a', 'b', 'c', 'd'],
+                'b' => ['b', 'c#', 'd', 'e', 'f#', 'g', 'a'],
+                'f#' => ['f#', 'g#', 'a', 'b', 'c#', 'd', 'e'],
+                'c#' => ['c#', 'd#', 'e', 'f#', 'g#', 'a', 'b'],
+                'g#' => ['g#', 'a#', 'b', 'c#', 'd#', 'e', 'f#'],
+                'd#' => ['d#', 'e#', 'f#', 'g#', 'a#', 'b', 'c#'],
+                'bb' => ['bb', 'c', 'db', 'eb', 'f', 'gb', 'ab'],
+                'f' => ['f', 'g', 'ab', 'bb', 'c', 'db', 'eb'],
+                'c' => ['c', 'd', 'eb', 'f', 'g', 'ab', 'bb'],
+                'g' => ['g', 'a', 'bb', 'c', 'd', 'eb', 'f'],
+                'd' => ['d', 'b', 'f', 'g', 'a', 'bb', 'c'],
+            ]
+        ];
 
         $keys = [];
+        $minorOrMajor = $structure == $minorStruct ? 'minor' : 'major';
+
+        $scale = $scales[$minorOrMajor][$root];
+
         foreach ($chord->integerNotation as $curr) {
-            $addToOctave = floor($curr / 12);
-            if ($curr < 0 && $curr >= -11) {
-                $addToOctave = -1;
+            $octave = floor(($curr + $rootIndex) / 12);
+
+            if ($curr < 0) {
+                $octave = -1;
                 $curr += 12;
-            } else if ($curr < -11) {
-                $addToOctave = -2;
-                $curr += 24;
             }
 
             $curr = $curr % 12;
-            $offset = false;
 
-            if (array_key_exists($chord->type, $offsetLookup)) {
-                if (array_key_exists($curr, $offsetLookup[$chord->type])) {
-                    $offset = $offsetLookup[$chord->type][$curr];
-                }
-            }
-            if (!$offset) {
-                $offset = [
-                    'index' => $curr,
-                    'append' => ''
-                ];
+            $octave = 4 + $octave;
+
+            $index = array_search($curr, $structure);
+            $append = '';
+            if (!in_array($curr, $structure)) {
+                $index = $offsetLookup[$minorOrMajor][$curr]['index'];
+                $append = $offsetLookup[$minorOrMajor][$curr]['append'];
             }
 
-            $indexOfNote = array_search($offset['index'], $structure);
-            $key = $majorScales[$root][$indexOfNote];
+            $key = $scale[$index];
 
             // append b or # (if duplicate remove accidentals).
-            if ($offset['append'] == 'b') $key = self::nizanje($key);
-            else if ($offset['append'] == 'bb') $key = self::nizanje(self::nizanje($key));
-            else if ($offset['append'] == '#') $key = self::visanje($key);
+            if ($append == 'b') $key = self::nizanje($key);
+            else if ($append == 'bb') $key = self::nizanje(self::nizanje($key));
+            else if ($append == '#') $key = self::visanje($key);
 
-            $key = substr($key, 0, strlen($key) - 1) . ($key[strlen($key) - 1] + $addToOctave);
+            $key = $key . "/$octave";
             $keys[] = $key;
         }
 
@@ -355,8 +219,9 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
     {
         $acc = self::hasAccidental($key);
         if (!$acc || $acc === 'b') {
-            $t = explode('/', $key);
-            return $t[0] . 'b/' . $t[1];
+            //$t = explode('/', $key);
+            //return $t[0] . 'b/' . $t[1];
+            return $key . 'b';
         }
         return str_replace('#', '', $key);
     }
@@ -365,10 +230,11 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
     {
         $acc = self::hasAccidental($key);
         if (!$acc || $acc === '#') {
-            $t = explode('/', $key);
-            return $t[0] . '#/' . $t[1];
+            //  $t = explode('/', $key);
+            // return $t[0] . '#/' . $t[1];
+            return $key . '#';
         }
-        return $key[0] + str_replace('b', '', substr($key, 1));
+        return $key[0] . str_replace('b', '', substr($key, 1));
     }
 
     private static function hasAccidental($ch)
