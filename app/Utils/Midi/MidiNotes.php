@@ -128,6 +128,15 @@ class MidiNotes
     private static function getMidi($key)
     {
         $midiPitchMap = [
+            'C3' => 48,
+            'Db3' => 49,
+            'D3' => 50,
+            'Eb3' => 51,
+            'E3' => 52,
+            'F3' => 53,
+            'Gb3' => 54,
+            'G3' => 55,
+            'Ab3' => 56,
             'A3' => 57,
             'Bb3' => 58,
             'B3' => 59,
@@ -170,6 +179,12 @@ class MidiNotes
         ];
 
         $lowerToUpperMap = [
+            'C#3' => 'Db3',
+            'D#3' => 'Eb3',
+            'E#3' => 'F3',
+            'Fb3' => 'E3',
+            'F#3' => 'Gb3',
+            'G#3' => 'Ab3',
             'A#3' => 'Bb3',
             'B#3' => 'C4',
             'Cb4' => 'B3',
