@@ -13,7 +13,7 @@ class ExerciseResource extends JsonResource
     {
         $resource = [
             'id' => $this->id,
-            'mp3_url' => "https://trubadur.koin.lgm.fri.ingress.si/audio/$this->id.mp3",
+            'mp3_url' => config('app.url') . "/audio/$this->id.mp3",//"https://trubadur.koin.lgm.fri.ingress.si/audio/$this->id.mp3",
         ];
 
         if ($this->game->gameType->id == GameType::INTERVALS)

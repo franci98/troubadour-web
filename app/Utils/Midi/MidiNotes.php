@@ -41,11 +41,10 @@ class MidiNotes
                 "BPM" => $BPM,
                 "bar" => (object) $data->barInfo->bar_info,
                 "pitch" => (object) [
-                    "exercise" => [[69]],
+                    "exercise" => [69],
                     "metronome" => [60, 70]
                 ]
             ],
-            true
         );
 
         RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
@@ -103,7 +102,14 @@ class MidiNotes
 
         $enableMetronome = $info->metronome;
         $BPM = 60;
-        //        Log::debug(collect($data->values));
+
+        // Log::debug(collect($data->value));
+        // Log::debug(
+        //     collect($data->value)->map(fn ($item) => [$midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]]])
+        // );
+        //["G#4","C5","C#5","A#4","A4","F4","A4","F#4"]  
+        //[[68],[72],[73],[70],[69],[65],[69],[66]] 
+        // ["C#5","B4","A#4","F4","A4","G#4","G#4","B4"]  
 
         $file = $this->NotesToSound(
             $exId,
@@ -117,7 +123,6 @@ class MidiNotes
                     "exercise" => collect($data->value)->map(fn ($item) => $midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]])->toArray()
                 ]
             ],
-            true
         );
 
         //        RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
@@ -168,14 +173,15 @@ class MidiNotes
             'Db6' => 85,
             'D6' => 86,
             'Eb6' => 87,
-            'F6' => 88,
-            'Gb6' => 89,
-            'G6' => 90,
-            'Ab6' => 91,
-            'A6' => 92,
-            'Bb6' => 93,
-            'B6' => 94,
-            'C7' => 95,
+            'E6' => 88,
+            'F6' => 89,
+            'Gb6' => 90,
+            'G6' => 91,
+            'Ab6' => 92,
+            'A6' => 93,
+            'Bb6' => 94,
+            'B6' => 95,
+            'C7' => 96,
         ];
 
         $lowerToUpperMap = [
@@ -226,32 +232,34 @@ class MidiNotes
 
     private static function removeDoubleAccidentals($key)
     {
-        // a b c d e f g
-//        Log::debug($key);
+        $increase = 0;
         if (str_contains($key, '##')) {
             $key = str_replace('##', '', $key);
-            if ($key[0] == 'g') $key = 'a' . substr($key, 1);
-            else $key = (chr(ord($key[0]) + 1)) . substr($key, 1, strlen($key) - 2) . (substr($key, strlen($key) - 1) + 1);
-            Log::debug($key);
 
-            return $key;
+            if ($key[0] == 'B') {
+                $increase = 1;
+            };
+
+
+            if ($key[0] == 'G') $key = 'A' . substr($key, 1);
+            else $key = (chr(ord($key[0]) + 1)) . substr($key, 1);
+        } else if (str_contains(substr($key, 1), 'bb')) {
+            $key = $key[0] . str_replace('bb', '', substr($key, 1));
+            if ($key[0] == 'C') {
+                $increase = -1;
+            };
+
+
+            if ($key[0] == 'A') $key = 'G' . substr($key, 1);
+            else $key = chr(ord($key[0]) - 1) . substr($key, 1);
         }
-        if (str_contains(substr($key, 1), 'bb')) {
-            $key = $key[0] + str_replace('bb', '', substr($key, 1));
 
-            if ($key[0] == 'a') $key = 'g' . substr($key, 1);
-            else $key = chr(ord($key[0]) - 1) . substr($key, 1, strlen($key) - 2) . (substr($key, strlen($key) - 1) + 1);
-//            Log::debug($key);
-
-            return $key;
-        }
-//        Log::debug($key);
-
-        return $key;
+        return substr($key, 0, strlen($key) - 1) . ((substr($key, strlen($key) - 1) + $increase));
     }
 
     public function generateHarmonyExerciseSound($exId, $baseFilePath, $info)
     {
+
 
         $data = HarmonyExercise::query()->find($exId);
 
@@ -263,15 +271,13 @@ class MidiNotes
 
         $enableMetronome = $info->metronome;
         $BPM = 60;
-        //Log::debug($data->value['keys']);
 
         $formattedKeys = [];
         foreach ($data->value['keys'] as $key) {
             $t = str_replace('/', '', $key);
             $t = self::removeDoubleAccidentals($t);
-            $formattedKeys[] = strtoupper($t[0]) . substr($t, 1, strlen($t) - 1);
+            $formattedKeys[] = $t;
         }
-
 
         $file = $this->NotesToSound(
             $exId,
@@ -282,10 +288,11 @@ class MidiNotes
                 "BPM" => $BPM,
                 "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
                 "pitch" => (object) [
-                    "exercise" => array_map('self::getMidi', $formattedKeys)
+                    "exercise" => collect(array_map('self::getMidi', $formattedKeys))->toArray()
                 ]
             ],
             true
+            //!$data->value['razlozen']
         );
 
         return (object) ['ok' => true, 'file' => $file];
@@ -452,7 +459,7 @@ class MidiNotes
         return $currentTime;
     }
 
-    public function NotesToSound($exerciseId, $baseFilePath, $notes, $info, $convertToMP3)
+    public function NotesToSound($exerciseId, $baseFilePath, $notes, $info, $isChord = false)
     {
         $timeDiff = 0;
         $midi = $this->SetupMidi($info->BPM, $info->enableMetronome ? 2 : count($info->pitch->exercise));
@@ -475,13 +482,22 @@ class MidiNotes
             ]);
         }
 
-
-        foreach ($info->pitch->exercise as $i => $item) {
-            // Melody
-            $this->Instrument($midi, 1, false);
+        // Melody
+        $this->Instrument($midi, 1, false);
+        if ($isChord) {
+            foreach ($info->pitch->exercise as $i => $item) {
+                $this->GetMIDIData($midi, $notes, $info, (object) [
+                    "trackId" => $i + 1,
+                    "pitch" => $item,
+                    "currentTime" => $timeDiff,
+                    "constDuration" => null,
+                    "noteForce" => 50,
+                ]);
+            }
+        } else {
             $this->GetMIDIData($midi, $notes, $info, (object) [
-                "trackId" => $i + 1,
-                "pitch" => $item,
+                "trackId" => 1,
+                "pitch" => $info->pitch->exercise,
                 "currentTime" => $timeDiff,
                 "constDuration" => null,
                 "noteForce" => 50,

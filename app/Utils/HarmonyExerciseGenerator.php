@@ -44,6 +44,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                     $parameters["chord"][$cn]['obrat0'],
                     $parameters["chord"][$cn]['obrat1'],
                     $parameters["chord"][$cn]['obrat2'],
+                    $parameters["chord"][$cn]['obrat3'] ?? 0,
                 )
             );
         }
@@ -60,10 +61,10 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         /* Pick one of available root notes (ones that have scales without double accidentals)*/
         $availableRootNotes = array(
             'major' => array(
-                'c', 'db', 'd', 'eb', 'e', 'f', 'f#', 'g', 'ab', 'a', 'bb', 'b'
+                'C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'
             ),
             'minor' => array(
-                'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'bb', 'b'
+                'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'
             )
         );
         $majorStruct = [0, 2, 4, 5, 7, 9, 11];
@@ -89,8 +90,10 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
 
         /* If the harmony is open increase every other note by an octave (open harmony means more than an octave between first and last note)*/
         $closeHarmonyProbability = $parameters['ozka'] / 100;
+        $close = true;
         if (Utils::weightedRandom([$closeHarmonyProbability, 1 - $closeHarmonyProbability])) {
             self::siroka($chord->integerNotation);
+            $close = false;
         }
         sort($chord->integerNotation);
 
@@ -120,32 +123,32 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
 
         $scales = [
             'major' => [
-                'c' => ['c', 'd', 'e', 'f', 'g', 'a', 'b'],
-                'g' => ['g', 'a', 'b', 'c', 'd', 'e', 'f#'],
-                'd' => ['d', 'e', 'f#', 'g', 'a', 'b', 'c#'],
-                'a' => ['a', 'b', 'c#', 'd', 'e', 'f#', 'g#'],
-                'e' => ['e', 'f#', 'g#', 'a', 'b', 'c#', 'd#'],
-                'b' => ['b', 'c#', 'd#', 'e', 'f#', 'g#', 'a#'],
-                'f#' => ['f#', 'g#', 'a#', 'b', 'c#', 'd#', 'e#'],
-                'db' => ['db', 'eb', 'f', 'gb', 'ab', 'bb', 'c'],
-                'ab' => ['ab', 'bb', 'c', 'db', 'eb', 'f', 'g'],
-                'eb' => ['eb', 'f', 'g', 'ab', 'bb', 'c', 'd'],
-                'bb' => ['bb', 'c', 'd', 'eb', 'f', 'g', 'a'],
-                'f' => ['f', 'g', 'a', 'bb', 'c', 'd', 'e'],
+                'C' => ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+                'G' => ['G', 'A', 'B', 'C', 'D', 'E', 'F#'],
+                'D' => ['D', 'E', 'F#', 'G', 'A', 'B', 'C#'],
+                'A' => ['A', 'B', 'C#', 'D', 'E', 'F#', 'G#'],
+                'E' => ['E', 'F#', 'G#', 'A', 'B', 'C#', 'D#'],
+                'B' => ['B', 'C#', 'D#', 'E', 'F#', 'G#', 'A#'],
+                'F#' => ['F#', 'G#', 'A#', 'B', 'C#', 'D#', 'E#'],
+                'Db' => ['Db', 'Eb', 'F', 'Gb', 'Ab', 'Bb', 'C'],
+                'Ab' => ['Ab', 'Bb', 'C', 'Db', 'Eb', 'F', 'G'],
+                'Eb' => ['Eb', 'F', 'G', 'Ab', 'Bb', 'C', 'D'],
+                'Bb' => ['Bb', 'C', 'D', 'Eb', 'F', 'G', 'A'],
+                'F' => ['F', 'G', 'A', 'Bb', 'C', 'D', 'E'],
             ],
             'minor' => [
-                'a' => ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
-                'e' => ['e', 'f#', 'g', 'a', 'b', 'c', 'd'],
-                'b' => ['b', 'c#', 'd', 'e', 'f#', 'g', 'a'],
-                'f#' => ['f#', 'g#', 'a', 'b', 'c#', 'd', 'e'],
-                'c#' => ['c#', 'd#', 'e', 'f#', 'g#', 'a', 'b'],
-                'g#' => ['g#', 'a#', 'b', 'c#', 'd#', 'e', 'f#'],
-                'd#' => ['d#', 'e#', 'f#', 'g#', 'a#', 'b', 'c#'],
-                'bb' => ['bb', 'c', 'db', 'eb', 'f', 'gb', 'ab'],
-                'f' => ['f', 'g', 'ab', 'bb', 'c', 'db', 'eb'],
-                'c' => ['c', 'd', 'eb', 'f', 'g', 'ab', 'bb'],
-                'g' => ['g', 'a', 'bb', 'c', 'd', 'eb', 'f'],
-                'd' => ['d', 'b', 'f', 'g', 'a', 'bb', 'c'],
+                'A' => ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                'E' => ['E', 'F#', 'G', 'A', 'B', 'C', 'D'],
+                'B' => ['B', 'C#', 'D', 'E', 'F#', 'G', 'A'],
+                'F#' => ['F#', 'G#', 'A', 'B', 'C#', 'D', 'E'],
+                'C#' => ['C#', 'D#', 'E', 'F#', 'G#', 'A', 'B'],
+                'G#' => ['G#', 'A#', 'B', 'C#', 'D#', 'E', 'F#'],
+                'D#' => ['D#', 'E#', 'F#', 'G#', 'A#', 'B', 'C#'],
+                'Bb' => ['Bb', 'C', 'Db', 'Eb', 'F', 'Gb', 'Ab'],
+                'C' => ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb'],
+                'F' => ['F', 'G', 'Ab', 'Bb', 'C', 'Db', 'Eb'],
+                'G' => ['G', 'A', 'Bb', 'C', 'D', 'Eb', 'F'],
+                'D' => ['D', 'E', 'F', 'G', 'A', 'Bb', 'C'],
             ]
         ];
 
@@ -190,9 +193,11 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                 'exercise_id' => $this->exercise->id,
                 'value' => [
                     'keys' => $keys,
-                    'razlozen' => $razlozen,
+                    'razlozen' => boolval($razlozen),
                     'root' => $root,
                     'chord_type' => $chord->type,
+                    'inversion' => $inversion,
+                    'close' => $close,
                 ]
             ]
         );
