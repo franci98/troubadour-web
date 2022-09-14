@@ -20,7 +20,7 @@ class BadgeResource extends JsonResource
             'title' => $this->resource->title,
             'description' => $this->resource->description,
             'image_url' => url('/img/badges/' . $this->resource->id . '.svg'),
-            'progress' => 100,
+            'progress' => 0,
             'is_achieved' => $this->resource->hasBeenAchievedBy(auth()->user()),
         ];
         if ($data['is_achieved']) {

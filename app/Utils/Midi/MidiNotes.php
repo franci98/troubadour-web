@@ -11,10 +11,101 @@ use App\Utils\Midi\MidiMsg as MSG;
 use App\Models\RhythmExercise;
 
 use Exception;
-
+use Symfony\Component\ErrorHandler\Debug;
 
 class MidiNotes
 {
+
+    private static $midiPitchMap = [
+        'C3' => 48,
+        'Db3' => 49,
+        'D3' => 50,
+        'Eb3' => 51,
+        'E3' => 52,
+        'F3' => 53,
+        'Gb3' => 54,
+        'G3' => 55,
+        'Ab3' => 56,
+        'A3' => 57,
+        'Bb3' => 58,
+        'B3' => 59,
+        'C4' => 60,
+        'Db4' => 61,
+        'D4' => 62,
+        'Eb4' => 63,
+        'E4' => 64,
+        'F4' => 65,
+        'Gb4' => 66,
+        'G4' => 67,
+        'Ab4' => 68,
+        'A4' => 69,
+        'Bb4' => 70,
+        'B4' => 71,
+        'C5' => 72,
+        'Db5' => 73,
+        'D5' => 74,
+        'Eb5' => 75,
+        'E5' => 76,
+        'F5' => 77,
+        'Gb5' => 78,
+        'G5' => 79,
+        'Ab5' => 80,
+        'A5' => 81,
+        'Bb5' => 82,
+        'B5' => 83,
+        'C6' => 84,
+        'Db6' => 85,
+        'D6' => 86,
+        'Eb6' => 87,
+        'E6' => 88,
+        'F6' => 89,
+        'Gb6' => 90,
+        'G6' => 91,
+        'Ab6' => 92,
+        'A6' => 93,
+        'Bb6' => 94,
+        'B6' => 95,
+        'C7' => 96,
+    ];
+
+    private static $lowerToUpperMap = [
+        'C#3' => 'Db3',
+        'D#3' => 'Eb3',
+        'E#3' => 'F3',
+        'Fb3' => 'E3',
+        'F#3' => 'Gb3',
+        'G#3' => 'Ab3',
+        'A#3' => 'Bb3',
+        'B#3' => 'C4',
+        'Cb4' => 'B3',
+        'C#4' => 'Db4',
+        'D#4' => 'Eb4',
+        'E#4' => 'F4',
+        'Fb4' => 'E4',
+        'F#4' => 'Gb4',
+        'G#4' => 'Ab4',
+        'A#4' => 'Bb4',
+        'B#4' => 'C5',
+        'Cb5' => 'B4',
+        'C#5' => 'Db5',
+        'D#5' => 'Eb5',
+        'E#5' => 'F5',
+        'Fb5' => 'E5',
+        'F#5' => 'Gb5',
+        'G#5' => 'Ab5',
+        'A#5' => 'Bb5',
+        'B#5' => 'C6',
+        'Cb6' => 'B5',
+        'C#6' => 'Db6',
+        'D#6' => 'Eb6',
+        'E#6' => 'F6',
+        'Fb6' => 'E6',
+        'F#6' => 'Gb6',
+        'G#6' => 'Ab6',
+        'A#6' => 'Bb6',
+        'B#6' => 'C7',
+        'Cb7' => 'B6',
+    ];
 
     public $noteForce = 60;
 
@@ -62,54 +153,9 @@ class MidiNotes
         }
         $data = (object) $data;
 
-        $midiPitchMap = [
-            'A3' => 57,
-            'Bb3' => 58,
-            'B3' => 59,
-            'C4' => 60,
-            'Db4' => 61,
-            'D4' => 62,
-            'Eb4' => 63,
-            'E4' => 64,
-            'F4' => 65,
-            'Gb4' => 66,
-            'G4' => 67,
-            'Ab4' => 68,
-            'A4' => 69,
-            'Bb4' => 70,
-            'B4' => 71,
-            'C5' => 72,
-            'Db5' => 73,
-            'D5' => 74,
-        ];
-
-        $lowerToUpperMap = [
-            'A#3' => 'Bb3',
-            'B#3' => 'C4',
-            'Cb4' => 'B3',
-            'C#4' => 'Db4',
-            'D#4' => 'Eb4',
-            'E#4' => 'F4',
-            'Fb4' => 'E4',
-            'F#4' => 'Gb4',
-            'G#4' => 'Ab4',
-            'A#4' => 'Bb4',
-            'B#4' => 'C5',
-            'Cb5' => 'B4',
-            'C#5' => 'Db5'
-        ];
-
-
         $enableMetronome = $info->metronome;
         $BPM = 60;
 
-        // Log::debug(collect($data->value));
-        // Log::debug(
-        //     collect($data->value)->map(fn ($item) => [$midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]]])
-        // );
-        //["G#4","C5","C#5","A#4","A4","F4","A4","F#4"]  
-        //[[68],[72],[73],[70],[69],[65],[69],[66]] 
-        // ["C#5","B4","A#4","F4","A4","G#4","G#4","B4"]  
 
         $file = $this->NotesToSound(
             $exId,
@@ -120,7 +166,7 @@ class MidiNotes
                 "BPM" => $BPM,
                 "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
                 "pitch" => (object) [
-                    "exercise" => collect($data->value)->map(fn ($item) => $midiPitchMap[$item] ?? $midiPitchMap[$lowerToUpperMap[$item]])->toArray()
+                    "exercise" => collect($data->value)->map(fn ($item) => MidiNotes::$midiPitchMap[$item] ?? MidiNotes::$midiPitchMap[MidiNotes::$lowerToUpperMap[$item]])->toArray()
                 ]
             ],
         );
@@ -132,101 +178,12 @@ class MidiNotes
 
     private static function getMidi($key)
     {
-        $midiPitchMap = [
-            'C3' => 48,
-            'Db3' => 49,
-            'D3' => 50,
-            'Eb3' => 51,
-            'E3' => 52,
-            'F3' => 53,
-            'Gb3' => 54,
-            'G3' => 55,
-            'Ab3' => 56,
-            'A3' => 57,
-            'Bb3' => 58,
-            'B3' => 59,
-            'C4' => 60,
-            'Db4' => 61,
-            'D4' => 62,
-            'Eb4' => 63,
-            'E4' => 64,
-            'F4' => 65,
-            'Gb4' => 66,
-            'G4' => 67,
-            'Ab4' => 68,
-            'A4' => 69,
-            'Bb4' => 70,
-            'B4' => 71,
-            'C5' => 72,
-            'Db5' => 73,
-            'D5' => 74,
-            'Eb5' => 75,
-            'E5' => 76,
-            'F5' => 77,
-            'Gb5' => 78,
-            'G5' => 79,
-            'Ab5' => 80,
-            'A5' => 81,
-            'Bb5' => 82,
-            'B5' => 83,
-            'C6' => 84,
-            'Db6' => 85,
-            'D6' => 86,
-            'Eb6' => 87,
-            'E6' => 88,
-            'F6' => 89,
-            'Gb6' => 90,
-            'G6' => 91,
-            'Ab6' => 92,
-            'A6' => 93,
-            'Bb6' => 94,
-            'B6' => 95,
-            'C7' => 96,
-        ];
 
-        $lowerToUpperMap = [
-            'C#3' => 'Db3',
-            'D#3' => 'Eb3',
-            'E#3' => 'F3',
-            'Fb3' => 'E3',
-            'F#3' => 'Gb3',
-            'G#3' => 'Ab3',
-            'A#3' => 'Bb3',
-            'B#3' => 'C4',
-            'Cb4' => 'B3',
-            'C#4' => 'Db4',
-            'D#4' => 'Eb4',
-            'E#4' => 'F4',
-            'Fb4' => 'E4',
-            'F#4' => 'Gb4',
-            'G#4' => 'Ab4',
-            'A#4' => 'Bb4',
-            'B#4' => 'C5',
-            'Cb5' => 'B4',
-            'C#5' => 'Db5',
-            'D#5' => 'Eb5',
-            'E#5' => 'F5',
-            'Fb5' => 'E5',
-            'F#5' => 'Gb5',
-            'G#5' => 'Ab5',
-            'A#5' => 'Bb5',
-            'B#5' => 'C6',
-            'Cb6' => 'B5',
-            'C#6' => 'Db6',
-            'D#6' => 'Eb6',
-            'E#6' => 'F6',
-            'Fb6' => 'E6',
-            'F#6' => 'Gb6',
-            'G#6' => 'Ab6',
-            'A#6' => 'Bb6',
-            'B#6' => 'C7',
-            'Cb7' => 'B6',
-        ];
 
-        if (array_key_exists($key, $midiPitchMap)) {
-            return [$midiPitchMap[$key]];
+        if (array_key_exists($key, MidiNotes::$midiPitchMap)) {
+            return MidiNotes::$midiPitchMap[$key];
         } else {
-            return [$midiPitchMap[$lowerToUpperMap[$key]]];
+            return MidiNotes::$midiPitchMap[MidiNotes::$lowerToUpperMap[$key]];
         }
     }
 
@@ -260,7 +217,6 @@ class MidiNotes
     public function generateHarmonyExerciseSound($exId, $baseFilePath, $info)
     {
 
-
         $data = HarmonyExercise::query()->find($exId);
 
         if (!$data) {
@@ -272,13 +228,19 @@ class MidiNotes
         $enableMetronome = $info->metronome;
         $BPM = 60;
 
-        $formattedKeys = [];
+        
+        $midiKeys = [];
         foreach ($data->value['keys'] as $key) {
             $t = str_replace('/', '', $key);
             $t = self::removeDoubleAccidentals($t);
-            $formattedKeys[] = $t;
+            $midiKey = self::getMidi($t);
+            $midiKeys[] = $midiKey;
         }
-
+    
+        if (!$data->value['razlozen']) {
+            $midiKeys = array_map(fn($value) => [$value],  $midiKeys);
+        }
+        
         $file = $this->NotesToSound(
             $exId,
             $baseFilePath,
@@ -288,11 +250,10 @@ class MidiNotes
                 "BPM" => $BPM,
                 "bar" => (object) ['base_note' => 4, 'num_beats' => 3],
                 "pitch" => (object) [
-                    "exercise" => collect(array_map('self::getMidi', $formattedKeys))->toArray()
+                    "exercise" => $midiKeys
                 ]
             ],
-            true
-            //!$data->value['razlozen']
+            !$data->value['razlozen']
         );
 
         return (object) ['ok' => true, 'file' => $file];

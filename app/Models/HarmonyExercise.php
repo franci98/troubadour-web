@@ -7,6 +7,7 @@ use App\Utils\Utils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @property Collection value
@@ -33,6 +34,10 @@ class HarmonyExercise extends Model
 
     public function notesCollection(): array
     {
-        return [['type' => 'n', 'value' => 2]];
+        if ($this->value['razlozen']) {
+            return collect($this->value['keys'])->map(fn($item) => ['type' => 'n', 'value' => 4])->toArray();
+        } else {
+            return [['type' => 'n', 'value' => 2]];
+        }
     }
 }
