@@ -475,26 +475,26 @@ class DifficultySeeder extends Seeder
         ];
 
         $difficulties[] = [
-            'title' => 'min_maj7_new',
-            'sequence' => 10,
-            'description' => 'Min maj akordi v razlicnih legah',
+            'title' => 'Durovi in molovi akordi z obrati',
+            'sequence' => 7,
+            'description' => 'Durovi in molovi akordi z obrati',
             'game_type_id' => GameType::HARMONIC,
             'parameters' => [
-                'razlozen' => 1,
+                'razlozen' => 50,
                 "ozka" => 100,
                 "chord" => array(
                     "min" => array(
-                        "exists" => 0,
+                        "exists" => 1,
                         "obrat0" => 1,
-                        "obrat1" => 2,
-                        "obrat2" => 2,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
                         "obrat3" => 0,
                     ),
                     "maj" => array(
-                        "exists" => 0,
+                        "exists" => 1,
                         "obrat0" => 1,
-                        "obrat1" => 2,
-                        "obrat2" => 2,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
                         "obrat3" => 0,
 
                     ),
@@ -536,7 +536,7 @@ class DifficultySeeder extends Seeder
                         "obrat3" => 0,
                     ), 
                     "min_maj7" => array(
-                        "exists" => 1,
+                        "exists" => 0,
                         "obrat0" => 0,
                         "obrat1" => 0,
                         "obrat2" => 0,
@@ -562,31 +562,31 @@ class DifficultySeeder extends Seeder
         ];
 
         $difficulties[] = [
-            'title' => 'razlozeni',
-            'sequence' => 10,
-            'description' => 'razlozeni',
+            'title' => 'Zmanjšani in zvišani akordi',
+            'sequence' => 8,
+            'description' => 'Zmanjšani in zvišani akordi',
             'game_type_id' => GameType::HARMONIC,
             'parameters' => [
-                'razlozen' => 100,
+                'razlozen' => 50,
                 "ozka" => 100,
                 "chord" => array(
                     "min" => array(
-                        "exists" => 1,
+                        "exists" => 0,
                         "obrat0" => 1,
-                        "obrat1" => 0,
-                        "obrat2" => 0,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
                         "obrat3" => 0,
                     ),
                     "maj" => array(
-                        "exists" => 1,
+                        "exists" => 0,
                         "obrat0" => 1,
-                        "obrat1" => 0,
-                        "obrat2" => 0,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
                         "obrat3" => 0,
 
                     ),
                     "dim" => array(
-                        "exists" => 0,
+                        "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0, 
@@ -594,7 +594,7 @@ class DifficultySeeder extends Seeder
 
                     ),
                     "aug" => array(
-                        "exists" => 0,
+                        "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
@@ -642,6 +642,180 @@ class DifficultySeeder extends Seeder
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
+                    ) 
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
+            'title' => 'Sedmi akordi z vsemi obrati',
+            'sequence' => 9,
+            'description' => 'Sedmi akordi z vsemi obrati',
+            'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 50,
+                "ozka" => 50,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0, 
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "maj7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "dom7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "min_maj7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "dim7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "half_dim" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ) 
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
+            'title' => 'Molovi in durovi akordi v široki legi',
+            'sequence' => 10,
+            'description' => 'Molovi in durovi akordi v široki legi',
+            'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 50,
+                "ozka" => 0,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0, 
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "dom7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "min_maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "dim7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ), 
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
                     ) 
                 ),
                 "meja" => 1
