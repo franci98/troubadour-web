@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 /**
  * @property Collection value
+ * @property Exercise exercise
  */
 class HarmonyExercise extends Model
 {
@@ -39,5 +40,10 @@ class HarmonyExercise extends Model
         } else {
             return [['type' => 'n', 'value' => 2]];
         }
+    }
+
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class);
     }
 }

@@ -77,4 +77,20 @@ class Exercise extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    /**
+     * Get MIDI instrument code
+     *
+     * This method returns an integer representing a specific MIDI instrument. In this way, every exercise,
+     * can have its own instrument sound when generating a mp3 file. All MIDI instruments found at https://fmslogo.sourceforge.io/manual/midi-instrument.html
+     *
+     * @return int
+     */
+    public function getMidiInstrumentCode(): int
+    {
+        return match ($this->game->gameType->id) {
+            GameType::RHYTHM => 18,
+            default => 4,
+        };
+    }
 }

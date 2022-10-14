@@ -46,4 +46,11 @@ Route::middleware(['auth', 'classroom-teacher'])->group(function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('home');
 });
 
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['auth', 'admin'],
+], function () {
+    Route::resource('game-types', 'GameTypeController');
+});
 

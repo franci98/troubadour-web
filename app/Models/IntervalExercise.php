@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @property Collection value
+ * @property Exercise exercise
  */
 class IntervalExercise extends Model
 {
@@ -34,5 +35,10 @@ class IntervalExercise extends Model
     public function notesCollection(): Collection
     {
         return collect($this->value)->map(fn($item) => ['type' => 'n', 'value' => 4]);
+    }
+
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class);
     }
 }

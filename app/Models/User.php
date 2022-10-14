@@ -75,6 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasAnyRole([Role::TEACHER]);
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->hasAnyRole([Role::ADMIN]);
+    }
+
     public function hasAnyRole(array $roleIds): bool
     {
         return $this->roles()

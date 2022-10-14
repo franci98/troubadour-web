@@ -10,6 +10,8 @@ return [
     'email_greeting' => 'Živijo!',
     'save' => 'Shrani',
     'cancel' => 'Prekliči',
+    'actions' => 'Dejanja',
+    'total' => 'Skupaj',
 
     'register_welcome_title' => "Učiteljski portal Trubadur",
     'register_welcome_subtitle' => "Upravljajte z učenci in spremljajte njihovo aktivnost z učiteljskim portalom.",
@@ -63,4 +65,9 @@ return [
     'homeworks_create_games_required_title' => 'Število iger',
     'homeworks_create_available_at_title' => 'Odprtje domače naloge',
     'homeworks_create_finished_at_title' => 'Zaprtje domače naloge',
+
+    'game_type_index_title' => 'Seznam vseh vrst iger',
+    'game_type_index_column_title' => 'Ime igre',
+    'game_type_index_column_description' => 'Opis',
+    'game_type_index_button_edit' => 'Uredi',
 ];

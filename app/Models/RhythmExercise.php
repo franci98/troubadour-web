@@ -12,6 +12,7 @@ use Ramsey\Uuid\Type\Integer;
 /**
  * @property int id
  * @property Collection bars
+ * @property Exercise exercise
  */
 class RhythmExercise extends Model
 {
@@ -33,6 +34,11 @@ class RhythmExercise extends Model
             return RhythmExerciseGenerator::generateForTapLevel($exercise->game->difficulty->title, $exercise);
         }
         return RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
+    }
+
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class);
     }
 
     public function barInfo()
