@@ -19,12 +19,14 @@
                         <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="profileMenuDropdownButton">
+                        @if(auth()->user()->isAdmin())
                         <li>
-                            <a class="dropdown-item border-radius-md" href="#">
-                                <i class="fa fa-user-cog me-2" aria-hidden="true"></i>
-                                <span>@lang('messages.profile')</span>
+                            <a class="dropdown-item border-radius-md" href="{{ route('admin.game-types.index') }}">
+                                <i class="fa fa-gear me-2" aria-hidden="true"></i>
+                                <span>@lang('messages.topnav_dropdown_game_types')</span>
                             </a>
                         </li>
+                        @endif
                         <li>
                             <form class="mb-0" action="{{ route('logout') }}" method="POST">
                                 @csrf

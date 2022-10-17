@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
  * @property int id
  * @property string title
  * @property Collection parameters
+ * @property GameType gameType
  * @property int sequence
  */
 class Difficulty extends Model
@@ -21,6 +22,11 @@ class Difficulty extends Model
     protected $casts = [
         'parameters' => 'array'
     ];
+
+    public function gameType()
+    {
+        return $this->belongsTo(GameType::class);
+    }
 
     public function getEasierDifficulties(bool $including = false): Collection
     {

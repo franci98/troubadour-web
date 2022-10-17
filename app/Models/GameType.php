@@ -21,6 +21,11 @@ class GameType extends Model
     const RHYTHM_GUESS = 4;
     const RHYTHM_TAP = 5;
 
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
     public function generateExercise(Game $game)
     {
         $exercise = Exercise::query()->create([

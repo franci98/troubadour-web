@@ -33,7 +33,11 @@ Route::middleware(['guest'])->group(function () {
     Route::post('password/reset', 'ForgotPasswordController@reset')->name("password.reset");
 });
 
-Route::middleware(['auth', 'classroom-teacher'])->group(function () {
+Route::group([
+    'prefix' => 'teacher',
+    'as' => '',
+    'middleware' => ['auth', 'classroom-teacher'],
+], function () {
     Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
     Route::post('logout', 'AuthController@logout')->name('logout');
 
@@ -51,6 +55,9 @@ Route::group([
     'as' => 'admin.',
     'middleware' => ['auth', 'admin'],
 ], function () {
-    Route::resource('game-types', 'GameTypeController');
+    Route::resource('game-types', 'GameType\GameTypeController');
+    Route::get('game-types/{gameType}/restore', 'GameType\GameTypeController@restore')->name('game-types.restore');
+    Route::resource('game-types.difficulties', 'GameType\DifficultyController');
+    Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
 });
 
