@@ -140,16 +140,13 @@
                         </div>
                     </div>
                 </div>
+                @foreach($homeworks as $homework)
                 <div class="col">
                     <div class="card mb-3 p-3 shadow border border-primary border-primary">
-                        <h6>1. Domača naloga</h6>
+                        <h6>{{ $homework->name }}</h6>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-3 p-3 shadow border border-primary border-primary">
-                        <h6>2. Domača naloga</h6>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
