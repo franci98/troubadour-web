@@ -17,141 +17,75 @@ class DifficultySeeder extends Seeder
     {
         $difficulties = [];
         $difficulties[] = [
-            'title' => '1',
-            'sequence' => 1,
-            'description' => 'Splošni intervali',
-            'game_type_id' => GameType::INTERVALS
-        ];
-        $difficulties[] = [
-            'title' => '1',
-            'sequence' => 1,
-            'description' => '1. razred - level 1',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '2',
-            'sequence' => 2,
-            'description' => '1. razred - level 2',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '3',
-            'sequence' => 3,
-            'description' => '1. razred - level 3',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '4',
-            'sequence' => 4,
-            'description' => '1. razred - level 4',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '5',
-            'sequence' => 5,
-            'description' => '2. razred - level 1',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '6',
-            'sequence' => 6,
-            'description' => '2. razred - level 2',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '7',
-            'sequence' => 7,
-            'description' => '2. razred - level 3',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '8',
-            'sequence' => 8,
-            'description' => '2. razred - level 4',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '9',
-            'sequence' => 9,
-            'description' => '3. razred - level 1 (cetrtinka s piko, vezaj cetrtink, vezaj cetrtink s piko)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '10',
-            'sequence' => 10,
-            'description' => '3. razred - level 2 (osminski takt + 3 osminke + cetrtinska pavza s piko)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
             'title' => '11',
-            'sequence' => 11,
-            'description' => '3. razred - level 3 (4 sestnajstinke)',
+            'sequence' => 1,
+            'description' => '1. letnik - level 1',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '12',
-            'sequence' => 12,
-            'description' => '3. razred - level 4 (3 sestnajstinke + sestnajstinske pavze)',
+            'sequence' => 2,
+            'description' => '1. letnik - level 2',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '13',
-            'sequence' => 13,
-            'description' => '3. razred - level 5 (6 sestnajstink + 5 sestanjstink + 2 sestnajstinki z osminko)',
+            'sequence' => 3,
+            'description' => '1. letnik - level 3',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '14',
-            'sequence' => 14,
-            'description' => '4. razred - level 1 (osminka 2 sestnajstinki osminka)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '15',
-            'sequence' => 15,
-            'description' => '4. razred - level 2 (triole)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '16',
-            'sequence' => 16,
-            'description' => '4. razred - level 3 (pavza med 4 sestnajstinke + 4 sestnajstinke z osminko)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '17',
-            'sequence' => 17,
-            'description' => '4. razred - level 4 (osminka s piko sestnajstinka + 2 sestnajstinki osminka 2 sestanjstinki)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '18',
-            'sequence' => 18,
-            'description' => '5. razred - level 1 (2 sestnajstinki + osminki vezaj na osminko)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '19',
-            'sequence' => 19,
-            'description' => '5. razred - level 2 (sestnajstinka osminka sestnajstinka)',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '20',
-            'sequence' => 20,
-            'description' => '5. razred - level 3 (osminka s piko 3 sestnajstinke + osminka s piko sestnajstinka osminka)',
+            'sequence' => 4,
+            'description' => '1. letnik - level 4',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '21',
-            'sequence' => 21,
-            'description' => '5. razred - level 4 (5/8 7/8 9/8 5/4 + cetrtinka s piko vezaj na cetrtinko)',
+            'sequence' => 1,
+            'description' => '2. letnik - level 1',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '22',
-            'sequence' => 22,
-            'description' => '5. razred - level 5 (triplet cetrtink + celinka + celinka s piko + 3/2 2/2)',
+            'sequence' => 2,
+            'description' => '2. letnik - level 2',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '23',
+            'sequence' => 3,
+            'description' => '2. letnik - level 3',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '24',
+            'sequence' => 4,
+            'description' => '2. letnik - level 4',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '31',
+            'sequence' => 1,
+            'description' => '3. letnik - level 1',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '32',
+            'sequence' => 2,
+            'description' => '3. letnik - level 2',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '33',
+            'sequence' => 3,
+            'description' => '3. letnik - level 3',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '34',
+            'sequence' => 4,
+            'description' => '3. letnik - level 4',
             'game_type_id' => 2
         ];
         $difficulties[] = [
@@ -502,7 +436,7 @@ class DifficultySeeder extends Seeder
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
-                        "obrat2" => 0, 
+                        "obrat2" => 0,
                         "obrat3" => 0,
 
                     ),
@@ -520,42 +454,42 @@ class DifficultySeeder extends Seeder
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "maj7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "dom7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "min_maj7" => array(
                         "exists" => 0,
                         "obrat0" => 0,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dim7" => array(
                         "exists" => 0,
                         "obrat0" => 0,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "half_dim" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ) 
+                    )
                 ),
                 "meja" => 1
             ]
@@ -589,7 +523,7 @@ class DifficultySeeder extends Seeder
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 0,
-                        "obrat2" => 0, 
+                        "obrat2" => 0,
                         "obrat3" => 0,
 
                     ),
@@ -607,42 +541,42 @@ class DifficultySeeder extends Seeder
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "maj7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "dom7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ), 
+                    ),
                     "min_maj7" => array(
                         "exists" => 0,
                         "obrat0" => 0,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dim7" => array(
                         "exists" => 0,
                         "obrat0" => 0,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "half_dim" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
                         "obrat2" => 0,
                         "obrat3" => 0,
-                    ) 
+                    )
                 ),
                 "meja" => 1
             ]
@@ -676,7 +610,7 @@ class DifficultySeeder extends Seeder
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
-                        "obrat2" => 0, 
+                        "obrat2" => 0,
                         "obrat3" => 0,
 
                     ),
@@ -694,42 +628,42 @@ class DifficultySeeder extends Seeder
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "maj7" => array(
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dom7" => array(
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "min_maj7" => array(
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dim7" => array(
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "half_dim" => array(
                         "exists" => 1,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ) 
+                    )
                 ),
                 "meja" => 1
             ]
@@ -763,7 +697,7 @@ class DifficultySeeder extends Seeder
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 0,
-                        "obrat2" => 0, 
+                        "obrat2" => 0,
                         "obrat3" => 0,
 
                     ),
@@ -781,42 +715,42 @@ class DifficultySeeder extends Seeder
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "maj7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dom7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "min_maj7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "dim7" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ), 
+                    ),
                     "half_dim" => array(
                         "exists" => 0,
                         "obrat0" => 1,
                         "obrat1" => 1,
                         "obrat2" => 1,
                         "obrat3" => 1,
-                    ) 
+                    )
                 ),
                 "meja" => 1
             ]
