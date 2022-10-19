@@ -2,7 +2,7 @@
     <div class="form-group col-12 d-none" id="input-difficulty_id-container">
         <label class="form-control-label w-100">
             <div class="mb-2">
-                <span class="h6 ml-2 mb-2">@lang('messages.homeworks_create_difficulty_id_title')</span>
+                <span class="h6 ml-2 mb-2">@lang('messages.homework_create_difficulty_id_title')</span>
             </div>
         </label>
         <div class="input-group mb-3 ps-3">

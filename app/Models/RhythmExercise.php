@@ -7,6 +7,7 @@ use App\Models\GameType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Integer;
 
 /**
@@ -59,5 +60,11 @@ class RhythmExercise extends Model
         }
 
         return $notes;
+    }
+
+    public function delete()
+    {
+        DB::table('rhythm_exercise_bars')->where('rhythm_exercise_id', $this->id)->delete();
+        return parent::delete();
     }
 }

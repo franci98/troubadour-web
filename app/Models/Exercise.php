@@ -93,4 +93,13 @@ class Exercise extends Model
             default => 4,
         };
     }
+
+    public function delete()
+    {
+        optional($this->rhythmExercise)->delete();
+        optional($this->intervalExercise)->delete();
+        $this->answers()->delete();
+
+        return parent::delete();
+    }
 }

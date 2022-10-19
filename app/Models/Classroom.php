@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 
 /**
  * @property int id
+ * @property string name
  * @property Collection users
  * @property Collection homeworks
  */

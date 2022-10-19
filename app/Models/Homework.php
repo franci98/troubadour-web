@@ -2,12 +2,21 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int id
+ * @property string name
+ * @property int games_required
+ * @property Carbon available_at
+ * @property Carbon finished_at
+ * @property Difficulty difficulty
+ * @property GameType gameType
+ * @property Collection games
  */
 class Homework extends Model
 {
@@ -49,6 +58,16 @@ class Homework extends Model
         return $this->belongsTo(Classroom::class);
     }
 
+    public function gameType()
+    {
+        return $this->belongsTo(GameType::class);
+    }
+
+    public function difficulty()
+    {
+        return $this->belongsTo(Difficulty::class);
+    }
+
     public function createGames()
     {
         for ($i = 0; $i < $this->games_required; $i++) {
@@ -60,5 +79,14 @@ class Homework extends Model
             $game->save();
             $game->createExercises();
         }
+    }
+
+    public function delete()
+    {
+        HomeworkUser::query()->where('homework_id', $this->id)->delete();
+        foreach ($this->games as $game) {
+            $game->delete();
+        }
+        return parent::delete();
     }
 }

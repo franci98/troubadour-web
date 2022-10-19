@@ -108,4 +108,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->whereBetween('game_user.created_at', [$date->startOfDay(), $date->copy()->endOfDay()])
             ->sum('points');
     }
+
+    public function isTeacherOf(Classroom $classroom)
+    {
+        return $this->isTeacher() && $this->teachersClassrooms()->where('id', $classroom->id)->exists();
+    }
 }

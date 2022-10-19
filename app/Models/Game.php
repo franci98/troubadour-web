@@ -62,4 +62,13 @@ class Game extends Model
         $points = $this->answers()->where('user_id', $user->id)->sum('score');
         GameUser::query()->where('user_id', $user->id)->firstWhere('game_id', $this->id)->addPoints($points);
     }
+
+    public function delete()
+    {
+        GameUser::query()->where('game_id', $this->id)->delete();
+        foreach ($this->exercises as $item) {
+            $item->delete();
+        }
+        return parent::delete();
+    }
 }

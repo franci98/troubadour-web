@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 /**
  * @property int id
  * @property string title
+ * @property string description
  * @property Collection parameters
  * @property GameType gameType
  * @property int sequence
