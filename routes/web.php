@@ -20,6 +20,11 @@ Route::get('/', function () {
 Route::group([
     'prefix' => 'administracija',
 ], function () {
+    Route::get('/', function () {
+        return redirect()
+            ->route('classrooms.index');
+    });
+
 
     Route::get('terms', 'AuthController@terms')->name('terms');
 
@@ -35,22 +40,20 @@ Route::group([
         Route::get('password/reset/{token}', 'ForgotPasswordController@change')->name('password.change');
         Route::post('password/reset', 'ForgotPasswordController@reset')->name("password.reset");
     });
+    Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
 
     Route::group([
         'prefix' => 'teacher',
         'as' => '',
-        'middleware' => ['auth', 'classroom-teacher'],
+        'middleware' => ['auth', 'teacher'],
     ], function () {
-        Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
         Route::post('logout', 'AuthController@logout')->name('logout');
 
-        Route::get('/classrooms/select', 'ClassroomController@showSelect')->name('classrooms.select.show')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
-        Route::get('/classrooms/{classroom}/select', 'ClassroomController@select')->name('classrooms.select')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
-        Route::resource('classrooms', 'ClassroomController')->withoutMiddleware(\App\Http\Middleware\EnsureClassroomIsSelected::class);
+        Route::resource('classrooms', 'ClassroomController');
         Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
         Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
         Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('classroom-teacher');
-        Route::get('/dashboard', 'HomeController@dashboard')->name('home');
+        Route::get('classrooms/{classroom}/dashboard', 'HomeController@dashboard')->name('home');
     });
 
     Route::group([

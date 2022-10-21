@@ -37,7 +37,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($data)) {
-            return redirect()->route('home');
+            return redirect()->route('classrooms.index');
         } else {
             return redirect()->route('login')->with('status', __('messages.login_failed'));
         }

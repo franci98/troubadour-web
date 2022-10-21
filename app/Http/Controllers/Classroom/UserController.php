@@ -13,9 +13,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected function addBaseBreadcrumbs(Classroom $classroom)
+    {
+        $this->addBreadcrumbItem($classroom->name, route('classrooms.show', $classroom));
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_classroom_user_index'), route('classrooms.users.index', $classroom));
+    }
+
     public function index(Request $request, Classroom $classroom)
     {
         $this->authorize('view', $classroom);
+
+        $this->addBaseBreadcrumbs($classroom);
+        $this->shareBreadcrumbs();
 
         $query = $classroom->users();
 
@@ -32,10 +41,13 @@ class UserController extends Controller
     public function create(Classroom $classroom)
     {
         $this->authorize('update', $classroom);
+        $this->addBaseBreadcrumbs($classroom);
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_classroom_user_create'), route('classrooms.users.create', $classroom), true);
+
 
         $dataForm = DataForm::make(__('messages.classroom_users_create_title'), 'POST', route('classrooms.users.store', $classroom), route('classrooms.users.index', $classroom));
 
-        $dataForm->addInput(DataFormInput::select(__('messages.user'), 'user_id', true, User::query()->select('name AS title', 'id AS value')->get()));
+        $dataForm->addInput(DataFormInput::select(__('messages.classroom_users_create_user'), 'user_id', true, User::query()->select('name AS title', 'id AS value')->get()));
 
         return $dataForm->response();
     }

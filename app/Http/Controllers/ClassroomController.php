@@ -3,23 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Homework;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ClassroomController extends Controller
 {
-    public function showSelect()
+    public function index()
     {
-        $classrooms = Auth::user()->teachersClassrooms;
-
-        return view('classroom.select', compact('classrooms'));
+        if (Auth::user()->teachersClassrooms()->exists())
+            return redirect()
+                ->route('classrooms.show', \auth()->user()->teachersClassrooms->first());
+        else
+            return redirect()
+                ->route('classrooms.create');
     }
 
-    public function select(Request $request, Classroom $classroom)
+    public function show(Classroom $classroom)
     {
-        $this->selectClassroom($classroom->id);
+        $this->addBreadcrumbItem($classroom->name, route('classrooms.show', $classroom), true);
 
-        return redirect()->route('home');
+        $homeworks = Homework::query()
+            ->where('classroom_id', $classroom->id)
+            ->whereDate('available_at', '>', now()->subWeek())
+            ->get();
+
+        return view('dashboard', compact('classroom', 'homeworks'));
+    }
+
+    public function create()
+    {
+        return view('classroom.create');
     }
 
     public function store(Request $request)
@@ -32,8 +46,7 @@ class ClassroomController extends Controller
         $classroom->user()->associate(Auth::user());
         $classroom->school()->associate(Auth::user()->school_id);
         $classroom->save();
-        $this->selectClassroom($classroom->id);
 
-        return redirect()->route('home');
+        return redirect()->route('classrooms.show', $classroom);
     }
 }

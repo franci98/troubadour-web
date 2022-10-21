@@ -42,8 +42,10 @@ return [
     'login_to_register' => 'Se še niste registrirali? <a href=":0" class="text-dark font-weight-bolder">Registrirajte se</a>.',
 
     'role_invalid_alert' => 'Žal trenutno nimate pravic za dostop do tega dela aplikacije. Prosimo, obrnite se na upravitelja.',
-    'classroom_select_title' => 'Izberi ali ustvari učilnico.',
+    'classroom_create_title' => 'Ustvarite novo učilnico',
     'classroom_create_button' => 'Ustvari učilnico',
+    'classroom_show_users_empty' => 'Vaša učilnica trenutno nima učencev. <a href=":0" class="text-dark font-weight-bolder">Dodajte jih.</a>',
+    'classroom_show_homeworks_empty' => 'Učenci še nimajo domače naloge. <a href=":0" class="text-dark font-weight-bolder">Ustvarite jo.</a>',
 
     'stats_users_count' => 'Število učencev',
     'stats_open_homeworks_count' => 'Število odprtih domačih nalog',
@@ -57,12 +59,17 @@ return [
     'dashboard_homeworks_list_title' => 'Domače naloge',
     'dashboard_homeworks_index_button' => 'Vse domače naloge',
     'dashboard_students_title' => 'Moji študentje',
-    'dashboard_welcome' => 'Pozdravljeni <small class="text-muted">:0</small>!',
+    'dashboard_welcome' => 'Pozdravljeni, <small class="text-muted">:0</small>!',
     'breadcrumbs_homework_index' => 'Domače naloge',
+    'sidenav_classroom_create' => 'Nova učilnica',
+    'breadcrumbs_classroom_user_index' => 'Učenci',
+    'breadcrumbs_classroom_user_create' => 'Dodaj učenca',
+    'breadcrumbs_homework_create' => 'Dodaj domačo nalogo',
 
     'classroom_users_index_title' => 'Učenci',
     'classroom_users_index_button_add' => 'Dodaj učenca',
     'classroom_users_create_title' => 'Dodajte učenca v učilnico',
+    'classroom_users_create_user' => 'Uporabnik',
     'classroom_users_store_success' => 'Učenec je bil uspešno dodan v učilnico.',
 
     'homework_index_title' => 'Domače naloge',

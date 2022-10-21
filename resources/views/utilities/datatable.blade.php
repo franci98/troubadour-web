@@ -20,7 +20,7 @@
                 <div class="row justify-content-end align-items-center">
                     @if($dataTable->containsSearchable())
                         <div class="col-12 col-md-auto">
-                            <form method="GET" action="{{ request()->fullUrl() }}" class="w-100">
+                            <form method="GET" action="/{{ request()->path() }}" class="w-100">
                                 <div class="input-group mb-3">
                                     <input type="search" name="search" class="form-control" aria-describedby="data-table-search-submit" minlength="3" aria-label="@lang("messages.search")" placeholder="@lang("messages.search")" value="{{ $dataTable->search ?? "" }}">
                                     <button class="btn btn-outline-primary mb-0" type="submit" id="data-table-search-submit">

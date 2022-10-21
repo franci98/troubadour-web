@@ -37,23 +37,32 @@
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0">
                                     <tbody>
-                                    <tr>
-                                        @foreach($classroom->users as $user)
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
-                                                             class="avatar avatar-sm me-3"
-                                                        />
-                                                </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
-                                                        <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
+                                        @if(!$classroom->users()->exists())
+                                            <tr>
+                                                <td>
+                                                    <div class="text-center">
+                                                        @lang("messages.classroom_show_users_empty", [route('classrooms.users.create', $classroom)])
                                                     </div>
-                                            </div>
-                                        </td>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        @foreach($classroom->users as $user)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
+                                                                     class="avatar avatar-sm me-3"
+                                                                />
+                                                        </div>
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                                <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
+                                                            </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -118,8 +127,13 @@
                     <div class="vanilla-calendar mx-auto px-0"></div>
                     @push('scripts')
                         <script>
-                          const calendar = new VanillaCalendar({
-                            HTMLElement: document.querySelector('.vanilla-calendar'),
+                          const calendar = new VanillaCalendar(document.querySelector('.vanilla-calendar'), {
+                            popups: {
+                                '2022-10-22': {
+                                    modifier: 'bg-red',
+                                    html: 'Meeting at 9:00 PM',
+                                },
+                            }
                           });
 
                           calendar.init();
@@ -140,10 +154,17 @@
                         </div>
                     </div>
                 </div>
+                @if(!$classroom->homeworks()->exists())
+                    <div class="col text-center mb-2">
+                        @lang('messages.classroom_show_homeworks_empty', [route('classrooms.homeworks.create', $classroom)])
+                    </div>
+                @endif
                 @foreach($homeworks as $homework)
                 <div class="col">
-                    <div class="card mb-3 p-3 shadow border border-primary border-primary">
-                        <h6>{{ $homework->name }}</h6>
+                    <div class="card mb-3 p-2 shadow border border-primary">
+                        <a href="{{ route('classrooms.homeworks.show', [$classroom, $homework]) }}">
+                            <h6>{{ $homework->name }}</h6>
+                        </a>
                     </div>
                 </div>
                 @endforeach

@@ -19,9 +19,7 @@
 @include('base.app.head')
 <body class="g-sidenav-show bg-gray-100">
 @auth
-    @if(request()->session()->has('classroom'))
-        @include('base.app.sidenav')
-    @endif
+    @include('base.app.sidenav')
 @endauth
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @auth

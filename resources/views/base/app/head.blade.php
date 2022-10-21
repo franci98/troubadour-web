@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- Vanilla calendar -->
-    <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.3.5/vanilla-calendar.min.css" rel="stylesheet">
+    <link href="{{ asset('/app/css/vanilla-calendar.min.css') }}" rel="stylesheet">
 
     <!-- Filepond stylesheet -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">

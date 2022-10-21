@@ -9,14 +9,9 @@
                     <div class="col-lg-5 text-center mx-auto">
                         <div class="card z-index-0">
                             <div class="card-header text-center pt-4">
-                                <h5>@lang('messages.classroom_select_title')</h5>
+                                <h5>@lang('messages.classroom_create_title')</h5>
                             </div>
                             <div class="card-body row justify-content-center">
-                                @foreach($classrooms as $classroom)
-                                    <a href="{{ route('classrooms.select', ['classroom' => $classroom->id]) }}" class="col-8 btn btn-block btn-primary">
-                                        {{ $classroom->name }}
-                                    </a><br />
-                                @endforeach
                                 <form  action="{{ route('classrooms.store') }}" method="POST" class="text-center row align-content-center mt-2">
                                     @csrf
                                     <input class="col-8 form-control mb-3" type="text" name="name">

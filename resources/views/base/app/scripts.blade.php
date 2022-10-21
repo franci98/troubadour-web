@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- Vanilla calendar -->
-<script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar@1.3.5/vanilla-calendar.min.js"></script>
+<script src="{{ asset('/app/js/plugins/vanilla-calendar.min.js') }}"></script>
 
 <!-- Load FilePond library -->
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>

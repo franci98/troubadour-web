@@ -89,8 +89,8 @@ class Exercise extends Model
     public function getMidiInstrumentCode(): int
     {
         return match ($this->game->gameType->id) {
-            GameType::RHYTHM => 18,
-            default => 4,
+            GameType::RHYTHM => 5,
+            default => 1,
         };
     }
 

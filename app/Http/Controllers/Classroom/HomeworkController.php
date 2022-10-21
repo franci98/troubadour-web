@@ -56,6 +56,9 @@ class HomeworkController extends Controller
     {
 //        $this->authorize('create', [Homework::class]);
 
+        $this->addBaseBreadcrumbs($classroom);
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_homework_create'), route('classrooms.homeworks.create', $classroom), true);
+
         $dataForm = DataForm::make(__('messages.homework_create_title'), 'POST', route('classrooms.homeworks.store', $classroom), route('classrooms.homeworks.index', $classroom));
 
         $query = GameType::query()->select('title', 'id AS value')->orderBy('title')->get();
@@ -69,7 +72,7 @@ class HomeworkController extends Controller
         return $dataForm->response();
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Classroom $classroom)
     {
 //        $this->authorize('create', [Homework::class]);
 
@@ -83,14 +86,14 @@ class HomeworkController extends Controller
         ]);
 
         $homework = new Homework($data);
-        $homework->classroom()->associate($this->classroom);
+        $homework->classroom()->associate($classroom);
         $homework->save();
-        foreach ($this->classroom->users as $user) {
+        foreach ($classroom->users as $user) {
             $homework->addUser($user);
         }
         $homework->createGames();
 
-        return redirect()->route('classrooms.homeworks.index', $this->classroom);
+        return redirect()->route('classrooms.homeworks.index', $classroom);
     }
 
     public function show(Classroom $classroom, Homework $homework)
