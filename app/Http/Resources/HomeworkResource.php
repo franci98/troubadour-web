@@ -22,7 +22,7 @@ class HomeworkResource extends JsonResource
             "finished_at" => $this->finished_at,
             "users" => $this->users->pluck('id'),
             "game_type" => $this->gameType->title,
-            "challenge_type" => $this->challenge_type,
+            "difficulty" => DifficultyResource::make($this->difficulty),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             "games" => GameResource::collection($this->whenLoaded('games'))
