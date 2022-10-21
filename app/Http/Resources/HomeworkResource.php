@@ -21,7 +21,7 @@ class HomeworkResource extends JsonResource
             "available_at" => $this->available_at,
             "finished_at" => $this->finished_at,
             "users" => $this->users->pluck('id'),
-            "game_type" => $this->game_type,
+            "game_type" => $this->gameType->title,
             "challenge_type" => $this->challenge_type,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
