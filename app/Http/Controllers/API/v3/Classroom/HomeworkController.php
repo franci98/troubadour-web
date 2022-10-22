@@ -29,6 +29,9 @@ class HomeworkController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful response.",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
      *      ),
      * )
      */
@@ -67,6 +70,9 @@ class HomeworkController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful response.",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
      *      ),
      * )
      */

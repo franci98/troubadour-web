@@ -40,10 +40,7 @@ class GameController extends Controller
         ]);
 
         $game = Game::query()->create($data);
-        $gameUser = GameUser::query()->create([
-            'game_id' => $game->id,
-            'user_id' => auth()->user()->id,
-        ]);
+        $game->assign(auth()->user());
         $game->createExercises();
 
         return GameResource::make($game);
@@ -64,13 +61,16 @@ class GameController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Game details object is returned.",
+     *         description="Game details object is returned. When calling this for a game in the scope of a homework it will let the homework modul know that you started this game and it will not be available anymore.",
      *         @OA\JsonContent(ref="#/components/schemas/GameResource")
      *     ),
      * )*/
     public function show(Request $request, Game $game)
     {
         //$this->authorize('view', $game);
+        if (GameUser::query()->where('user_id', auth()->user()->id)->where('game_id', $game->id)->doesntExist())
+            $game->assign(auth()->user());
+
         return GameResource::make($game);
     }
 }

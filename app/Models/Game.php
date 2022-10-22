@@ -40,6 +40,11 @@ class Game extends Model
         return $this->hasMany(Exercise::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'game_user');
+    }
+
     public function answers()
     {
         return $this->hasManyThrough(Answer::class, Exercise::class);
@@ -55,6 +60,14 @@ class Game extends Model
         foreach (range(1, self::EXERCISES_PER_GAME) as $i) {
             $this->gameType->generateExercise($this);
         }
+    }
+
+    public function assign(User $user)
+    {
+        GameUser::query()->create([
+            'game_id' => $this->id,
+            'user_id' => $user->id,
+        ]);
     }
 
     public function finishGameFor(User $user)

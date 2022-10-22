@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Game;
+use App\Models\GameUser;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HomeworkResource extends JsonResource
@@ -14,7 +16,7 @@ class HomeworkResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             "id" => $this->id,
             "name" => $this->name,
             "games_required" => $this->games_required,
@@ -25,7 +27,17 @@ class HomeworkResource extends JsonResource
             "difficulty" => DifficultyResource::make($this->difficulty),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "games" => GameResource::collection($this->whenLoaded('games'))
         ];
+
+        $data['games_finished'] = GameUser::query()
+            ->where('user_id', auth()->id())
+            ->whereIn('game_id', $this->games->pluck('id'))
+            ->count();
+        $data['next_game'] = Game::query()
+            ->where('homework_id', $this->id)
+            ->whereDoesntHave('users', fn($query) => $query->where('users.id', auth()->id()))
+            ->first();
+
+        return $data;
     }
 }
