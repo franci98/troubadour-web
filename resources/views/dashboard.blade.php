@@ -72,50 +72,27 @@
                 <div class="col-6 mt-3 p-0">
                     <div class="card">
                         <div class="card-header pb-0">
-                            <h6 class="my-auto">@lang('messages.dashboard_success_ratio_title')</h6>
+                            <h6 class="my-auto">@lang('messages.classroom_show_activity_title')</h6>
                         </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <canvas id="chart"></canvas>
-                            @push('scripts')
-                                <script>
-                                  const ctx = document.getElementById('chart').getContext('2d');
-                                  const DATA_COUNT = 5;
-                                  const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
-                                  const CHART_COLORS = {
-                                    red: 'rgb(255, 99, 132)',
-                                    orange: 'rgb(255, 159, 64)',
-                                    yellow: 'rgb(255, 205, 86)',
-                                    green: 'rgb(75, 192, 192)',
-                                    blue: 'rgb(54, 162, 235)',
-                                    purple: 'rgb(153, 102, 255)',
-                                    grey: 'rgb(201, 203, 207)'
-                                  };
-
-                                  const data = {
-                                    datasets: [
-                                      {
-                                        label: 'Dataset 1',
-                                        data: [20, 30, 10, 15, 25],
-                                        backgroundColor: Object.values(CHART_COLORS),
-                                      }
-                                    ]
-                                  };
-                                  const config = {
-                                    type: 'doughnut',
-                                    data: data,
-                                    options: {
-                                      responsive: true,
-                                      cutout: 140,
-                                      plugins: {
-                                        title: {
-                                          display: true,
-                                        }
-                                      }
-                                    },
-                                  };
-                                  const myChart = new Chart(ctx, config);
-                                </script>
-                            @endpush
+                        <div class="card-body p-2">
+                            @if($gameUsers->isEmpty())
+                                <div class="col text-center mb-2">
+                                    @lang('messages.classroom_show_activity_empty')
+                                </div>
+                            @endif
+                            @foreach($gameUsers as $gameUser)
+                            <div class="timeline timeline-one-side">
+                                <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                    <i class="fa fa-user text-success text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">@lang('messages.classroom_show_activity_game_user_created', [$gameUser->user->name, $gameUser->game->homework->name])</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ $gameUser->created_at->format('j. n. Y G:i') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

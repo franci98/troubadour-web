@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Game;
+use App\Models\GameUser;
 use App\Models\Homework;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,13 @@ class ClassroomController extends Controller
             ->whereDate('available_at', '>', now()->subWeek())
             ->get();
 
-        return view('dashboard', compact('classroom', 'homeworks'));
+        $gameUsers = GameUser::query()
+            ->whereIn('game_id', Game::query()->whereIn('homework_id', $homeworks->pluck('id'))->pluck('id'))
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return view('dashboard', compact('classroom', 'homeworks', 'gameUsers'));
     }
 
     public function create()
