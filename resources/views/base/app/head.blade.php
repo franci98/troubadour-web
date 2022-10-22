@@ -39,4 +39,6 @@
 
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('/app/css/soft-ui-dashboard.css?v=1.0.2') }}" rel="stylesheet" />
+    <link href="{{ asset('/app/css/app.css') }}" rel="stylesheet" />
+
 </head>

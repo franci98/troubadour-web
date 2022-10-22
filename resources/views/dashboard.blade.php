@@ -128,14 +128,13 @@
                     @push('scripts')
                         <script>
                           const calendar = new VanillaCalendar(document.querySelector('.vanilla-calendar'), {
-                            popups: {
-                                '2022-10-22': {
-                                    modifier: 'bg-red',
-                                    html: 'Meeting at 9:00 PM',
+                            settings: {
+                                selection: {
+                                    day: false,
                                 },
-                            }
+                            },
+                            popups: @json($classroom->homeworks->mapWithKeys(fn ($item, $key) => [$item->available_at->format('Y-m-d') => ['modifier' => 'bg-red', 'html' => $item->available_at->format('G:i') . ' - ' . __('messages.classroom_index_calendar_homework_start') . $item->name]])->toArray())
                           });
-
                           calendar.init();
                         </script>
                     @endpush

@@ -65,6 +65,7 @@ return [
     'breadcrumbs_classroom_user_index' => 'Učenci',
     'breadcrumbs_classroom_user_create' => 'Dodaj učenca',
     'breadcrumbs_homework_create' => 'Dodaj domačo nalogo',
+    'classroom_index_calendar_homework_start' => 'Začne se domača naloga ',
 
     'classroom_users_index_title' => 'Učenci',
     'classroom_users_index_button_add' => 'Dodaj učenca',
