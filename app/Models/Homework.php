@@ -89,4 +89,20 @@ class Homework extends Model
         }
         return parent::delete();
     }
+
+    public function countGamesOf(User $user): int
+    {
+        return GameUser::query()
+            ->whereIn('game_id', $this->games->pluck('id'))
+            ->where('user_id', $user->id)
+            ->count();
+    }
+
+    public function scoreOf(User $user): int
+    {
+        return GameUser::query()
+            ->whereIn('game_id', $this->games->pluck('id'))
+            ->where('user_id', $user->id)
+            ->sum('points');
+    }
 }

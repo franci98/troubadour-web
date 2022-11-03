@@ -92,6 +92,10 @@ return [
     'homework_show_finished_at' => 'Naloga na voljo do',
     'homework_show_games_required' => 'Število iger',
     'homework_show_game_type' => 'Tip igre',
+    'homework_show_students_title' => 'Rezultati',
+    'homework_show_students_name' => 'Študent',
+    'homework_show_students_finished_games' => 'Rešene naloge',
+    'homework_show_students_score' => 'Točke',
     'homework_show_difficulty' => 'Zahtevnost',
     'homework_destroy_success' => 'Domača naloga je bila izbrisana.',
 

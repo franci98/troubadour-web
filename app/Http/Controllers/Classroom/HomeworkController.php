@@ -113,6 +113,13 @@ class HomeworkController extends Controller
         $dataView->addItem(DataViewItem::text(__('messages.homework_show_difficulty'), $homework->difficulty->description, 'col-4'));
         $dataView->addItem(DataViewItem::text(__('messages.homework_show_games_required'), $homework->games_required, 'col-4'));
 
+        $dataView->addItem(DataViewItem::category(__('messages.homework_show_students_title'), 'col-12'));
+        foreach ($homework->users as $user) {
+            $dataView->addItem(DataViewItem::text(__('messages.homework_show_students_name'), $user->name, 'col-4'));
+            $dataView->addItem(DataViewItem::text(__('messages.homework_show_students_finished_games'), $homework->countGamesOf($user) . "/" . $homework->games_required, 'col-4'));
+            $dataView->addItem(DataViewItem::text(__('messages.homework_show_students_score'), $homework->scoreOf($user), 'col-4'));
+        }
+
         return $dataView->response();
     }
 
