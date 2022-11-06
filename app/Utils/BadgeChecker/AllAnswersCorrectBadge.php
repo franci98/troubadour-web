@@ -8,7 +8,7 @@ use App\Models\User;
 class AllAnswersCorrectBadge implements BadgeCheckInterface
 {
 
-    public function check(User $user, array $options = []): bool
+    public static function check(User $user, array $options = []): bool
     {
         $gameUser = GameUser::query()
             ->where('user_id', $user->id)

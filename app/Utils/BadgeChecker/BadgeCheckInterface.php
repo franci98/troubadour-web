@@ -6,5 +6,5 @@ use App\Models\User;
 
 interface BadgeCheckInterface
 {
-    public function check(User $user, array $options = []): bool;
+    public static function check(User $user, array $options = []): bool;
 }

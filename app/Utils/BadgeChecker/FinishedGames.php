@@ -8,7 +8,7 @@ use App\Models\User;
 
 class FinishedGames implements BadgeCheckInterface
 {
-    public function check(User $user, array $options = []): bool
+    public static function check(User $user, array $options = []): bool
     {
         if (
             isset($options['game_type_id']) &&
@@ -24,7 +24,7 @@ class FinishedGames implements BadgeCheckInterface
                 ->where('user_id', $user->id)
                 ->where('is_finished', true)
                 ->whereIn('game_id', $relevantGames->pluck('id'))
-                ->first();
+                ->get();
             return $gameUser->count() >= $options['count'];
         }
         return false;

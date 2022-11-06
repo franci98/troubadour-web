@@ -74,6 +74,13 @@ class Game extends Model
     {
         $points = $this->answers()->where('user_id', $user->id)->sum('score');
         GameUser::query()->where('user_id', $user->id)->firstWhere('game_id', $this->id)->addPoints($points);
+
+        // Check for badges
+        $user->unachievedBadges()->each(function ($badge) use ($user) {
+            if ($badge->checkIfAchievedBy($user)) {
+                $user->badges()->attach($badge);
+            }
+        });
     }
 
     public function delete()

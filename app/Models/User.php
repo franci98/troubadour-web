@@ -113,4 +113,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->isTeacher() && $this->teachersClassrooms()->where('id', $classroom->id)->exists();
     }
+
+    public function unachievedBadges(): Collection
+    {
+        return Badge::query()->whereDoesntHave('users', function ($query) {
+            $query->where('user_id', $this->id);
+        })->get();
+    }
 }
