@@ -55,7 +55,7 @@
                 <a class="{{ $item->extras["classes"] }}" href="{{ $item->value }}">{{ $item->title }}</a>
             @break
             @case("component")
-                @component($item->viewName, ["objects" => $item->objects])@endcomponent
+                @component($item->viewName, $item->objects)@endcomponent
             @break
             @case("span")
                 @isset($item->title)

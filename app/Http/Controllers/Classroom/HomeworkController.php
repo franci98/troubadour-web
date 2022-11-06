@@ -119,6 +119,19 @@ class HomeworkController extends Controller
             $dataView->addItem(DataViewItem::text(__('messages.homework_show_students_finished_games'), $homework->countGamesOf($user) . "/" . $homework->games_required, 'col-4'));
             $dataView->addItem(DataViewItem::text(__('messages.homework_show_students_score'), $homework->scoreOf($user), 'col-4'));
         }
+        $dataView->addItem(DataViewItem::category(__('messages.homework_show_games_title'), 'col-12'));
+        foreach ($homework->games as $i => $game) {
+            $dataView->addItem(DataViewItem::category(__('messages.homework_show_game_title', [$i +1]), 'col-6'));
+            if ($game->gameType->id == GameType::INTERVALS) {
+                foreach ($game->exercises as $i => $question) {
+                    $dataView->addItem(DataViewItem::component('exercise.interval', ['exercise' => $question->intervalExercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+                }
+            } else if ($game->gameType->id == GameType::RHYTHM) {
+                foreach ($game->exercises as $i => $question) {
+                    $dataView->addItem(DataViewItem::component('exercise.rhythm', ['rhythmExercise' => $question->rhythmExercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+                }
+            }
+        }
 
         return $dataView->response();
     }

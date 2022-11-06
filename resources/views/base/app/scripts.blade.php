@@ -33,6 +33,8 @@
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('/app/js/soft-ui-dashboard.min.js?v=1.0.2') }}"></script>
 
+<!-- Music rendering library -->
+<script src="https://unpkg.com/vexflow/releases/vexflow-min.js" type="text/javascript"></script>
 
 <script>
 

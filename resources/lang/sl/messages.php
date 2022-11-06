@@ -107,6 +107,7 @@ return [
     'homework_show_students_score' => 'Točke',
     'homework_show_difficulty' => 'Zahtevnost',
     'homework_destroy_success' => 'Domača naloga je bila izbrisana.',
+    'homework_show_game_title' => "Igra :0",
 
     'game_type_index_title' => 'Seznam vseh vrst iger',
     'game_type_index_column_title' => 'Ime igre',
