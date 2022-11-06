@@ -21,6 +21,15 @@ return [
     'yes' => 'Da',
     'topnav_dropdown_game_types' => 'Vrste iger',
 
+    'password_reset_title' => "Ponastavitev gesla",
+    'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
+    'password_reset_card_title' => "Ponastavite si geslo",
+    'password_reset_input_email_label' => "Elektronski naslov",
+    'password_reset_input_password_label' => "Geslo",
+    'password_reset_input_password_confirmation_label' => "Potrditev gesla",
+    'password_reset_input_submit_label' => "Ponastavi",
+    'password_reset_success' => "Geslo je bilo uspešno ponastavljeno. Lahko se prijavite z novim geslom.",
+
     'register_welcome_title' => "Učiteljski portal Trubadur",
     'register_welcome_subtitle' => "Upravljajte z učenci in spremljajte njihovo aktivnost z učiteljskim portalom.",
     'register_card_title' => "Registracija",

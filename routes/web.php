@@ -25,7 +25,6 @@ Route::group([
             ->route('classrooms.index');
     });
 
-
     Route::get('terms', 'AuthController@terms')->name('terms');
 
     Route::middleware(['guest'])->group(function () {
@@ -37,8 +36,8 @@ Route::group([
 
         Route::get('password/request', 'ForgotPasswordController@request')->name('password.request');
         Route::post('password/request', 'ForgotPasswordController@send')->name("password.send");
-        Route::get('password/reset/{token}', 'ForgotPasswordController@change')->name('password.change');
-        Route::post('password/reset', 'ForgotPasswordController@reset')->name("password.reset");
+        Route::get('password/reset', 'AuthController@passwordResetShow')->name('password.change');
+        Route::post('password/reset', 'AuthController@passwordUpdate')->name("password.reset");
     });
     Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
 
@@ -47,12 +46,12 @@ Route::group([
         'as' => '',
         'middleware' => ['auth', 'teacher'],
     ], function () {
-        Route::post('logout', 'AuthController@logout')->name('logout');
+        Route::post('logout', 'AuthController@logout')->name('logout')->withoutMiddleware('teacher');
 
         Route::resource('classrooms', 'ClassroomController');
         Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
         Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
-        Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('classroom-teacher');
+        Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('teacher');
         Route::get('classrooms/{classroom}/dashboard', 'HomeController@dashboard')->name('home');
     });
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -109,5 +110,39 @@ class AuthController extends Controller
     public function currentUser()
     {
         return UserResource::make(Auth::user());
+    }
+
+    /**
+     * @OA\Post (
+     *      path="/forgot-password",
+     *      tags={"Authorization"},
+     *      summary="Forgot password",
+     *      description="Request a password reset link.",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(ref="#/components/schemas/ForgotPasswordRequest")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful response",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      )
+     * )
+     */
+    public function resetLinkSend(Request $request) {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? response()->json(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
     }
 }

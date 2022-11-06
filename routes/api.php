@@ -22,6 +22,8 @@ Route::group([
     Route::post('/login', 'Auth\AuthController@login');
     Route::get('/users/leaderboard', 'UserController@leaderboard');
 
+    Route::post('/forgot-password', 'Auth\AuthController@resetLinkSend')->middleware('guest')->name('password.email');
+
     Route::middleware('auth:sanctum')->get('/users/me', 'Auth\AuthController@currentUser');
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('answers', 'AnswerController')->only(['store']);
