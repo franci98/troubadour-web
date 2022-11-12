@@ -84,7 +84,7 @@ class SchoolController extends Controller
             $schoolAdmin = User::query()->findOrFail($request->input('school_admin_id'));
             $schoolAdmin->school_id = $school->id;
             $schoolAdmin->save();
-            $schoolAdmin->assignRole(Role::SCHOOL_ADMIN, RoleUser::STATUS_ACTIVE);
+            $schoolAdmin->assignRole(Role::SCHOOL_ADMIN);
         }
 
         return redirect()
@@ -139,7 +139,7 @@ class SchoolController extends Controller
             $schoolAdmin = User::query()->findOrFail($request->input('school_admin_id'));
             $schoolAdmin->school_id = $school->id;
             $schoolAdmin->save();
-            $schoolAdmin->assignRole(Role::SCHOOL_ADMIN, RoleUser::STATUS_ACTIVE);
+            $schoolAdmin->assignRole(Role::SCHOOL_ADMIN);
         }
 
         return redirect()

@@ -33,6 +33,7 @@ return [
     'breadcrumbs_user_index' => 'Uporabniki',
     'breadcrumbs_user_create' => 'Ustvari',
     'breadcrumbs_user_edit' => 'Uredi',
+    'breadcrumbs_user_edit_roles' => 'Uredi vloge',
 
     'password_reset_title' => "Ponastavitev gesla",
     'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
@@ -179,6 +180,12 @@ return [
     'user_show_item_name' => 'Ime',
     'user_show_item_email' => 'E-pošta',
     'user_show_item_school' => 'Šola',
+    'user_show_item_role' => 'Vloga uporabnika',
+    'user_show_item_role_super_admin' => 'Super administrator',
+    'user_show_item_role_teacher' => 'Učitelj v šoli :0',
+    'user_show_item_roles' => 'Vloge',
+    'user_show_item_role_edit' => 'Uredi pravice',
+    'user_show_item_role_school_admin' => 'Šolski administrator šole :0',
     'user_show_item_created_at' => 'Registriran',
     'user_edit_title' => 'Uredi uporabnika :0',
     'user_edit_input_name' => 'Ime',
@@ -186,4 +193,6 @@ return [
     'user_edit_input_school' => 'Šola',
     'user_update_success' => 'Uporabnik je bil uspešno posodobljen.',
     'user_destroy_success' => 'Uporabnik je bil uspešno izbrisan.',
+    'user_edit_roles_title' => 'Uredi pravice uporabnika :0',
+    'user_update_roles_success' => 'Pravice uporabnika so bile uspešno posodobljene.',
 ];

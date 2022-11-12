@@ -67,9 +67,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(School::class);
     }
 
-    public function assignRole(int $roleId, int $status = RoleUser::STATUS_UNCONFIRMED)
+    public function assignRole(int $roleId)
     {
-        $this->roles()->attach($roleId, ['status' => $status]);
+        if ($this->roles()->where('role_id', $roleId)->exists()) {
+            return;
+        }
+        $this->roles()->attach($roleId);
+    }
+
+    public function removeRole(int $roleId)
+    {
+        $this->roles()->detach($roleId);
     }
 
     public function isTeacher(): bool
@@ -86,7 +94,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->roles()
             ->whereIn('role_id', $roleIds)
-            ->wherePivot('status', RoleUser::STATUS_ACTIVE)
             ->exists();
     }
 

@@ -142,9 +142,9 @@
                     @break
                     @case("checkbox")
                     <div class="form-group col-{{ $input->divSize }} " id="input-{{ $input->name }}-container">
-                        <div class="custom-control ml-3 custom-checkbox col-{{ $input->inputSize }}" >
-                            <input type="hidden" name="{{ $input->name }}" id="input-{{ $input->name }}-value" value="@if(old($input->name) || $input->value == true) 1 @else 0 @endif">
-                            <input type="checkbox" class="custom-control-input mt-5 @if($errors->has($name)) is-invalid @endif" id="input-{{ $input->name }}" @if(old($input->name) || $input->value == true) checked @endif
+                        <input type="hidden" name="{{ $input->name }}" id="input-{{ $input->name }}-value" value="@if(old($input->name) || $input->value == true) 1 @else 0 @endif">
+                        <div class="form-check ml-3 col-{{ $input->inputSize }}" >
+                            <input type="checkbox" class="form-check-input @if($errors->has($name)) is-invalid @endif" id="input-{{ $input->name }}" @if(old($input->name) || $input->value == true) checked @endif
                             @isset($input->extras["disables"]) data-disables="{{ join(",", $input->extras["disables"]) }}" @endisset
                                    @isset($input->extras["enables"]) data-enables="{{ join(",", $input->extras["enables"]) }}" @endisset
                                    @isset($input->extras["hides"]) data-hides="{{ join(",", $input->extras["hides"]) }}" @endisset

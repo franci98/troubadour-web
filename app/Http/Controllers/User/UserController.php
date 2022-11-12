@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\School;
 use App\Models\User;
 use App\Utilities\DataForm;
@@ -118,6 +119,19 @@ class UserController extends Controller
         $dataView->addItem(DataViewItem::text(__('messages.user_show_item_school'), $user->school->name, 'col-12 col-md-6'));
         $dataView->addItem(DataViewItem::text(__('messages.user_show_item_created_at'), $user->created_at->format('j. n. Y'), 'col-12 col-md-6'));
 
+        // ROles
+        $dataView->addItem(DataViewItem::category(__('messages.user_show_item_roles'), 'col-12 col-md-6'));
+        $dataView->addItem(DataViewItem::button(__('messages.user_show_item_role_edit'), route('users.roles.edit', $user->id), 'col-12 col-md-6'));
+        if ($user->isSuperAdmin()) {
+            $dataView->addItem(DataViewItem::text(__('messages.user_show_item_role'), __('messages.user_show_item_role_super_admin'), 'col-12 col-md-6'));
+        }
+        if ($user->isSchoolAdmin()) {
+            $dataView->addItem(DataViewItem::text(__('messages.user_show_item_role'), __('messages.user_show_item_role_school_admin', [$user->school->name]), 'col-12 col-md-6'));
+        }
+        if ($user->isTeacher()) {
+            $dataView->addItem(DataViewItem::text(__('messages.user_show_item_role'), __('messages.user_show_item_role_teacher', [$user->school->name]), 'col-12 col-md-6'));
+        }
+
         return $dataView->response();
     }
 
@@ -176,5 +190,51 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('status', __('messages.user_destroy_success'));
+    }
+
+    public function editRoles(User $user)
+    {
+        $this->authorize('update', $user);
+        $this->addBreadcrumbItem($user->name, route('users.show', $user->id));
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_user_edit_roles'), route('users.roles.edit', $user->id), true);
+
+        $postRoute = route('users.roles.update', $user->id);
+        $cancelRoute = route('users.show', $user->id);
+        $dataForm = DataForm::make(__('messages.user_edit_roles_title', [$user->name]), 'PUT', $postRoute, $cancelRoute);
+
+        $allowedRoles = [];
+        if (auth()->user()->isSuperAdmin()) {
+            $allowedRoles = Role::all();
+        } else if (auth()->user()->isSchoolAdmin()) {
+            $allowedRoles = Role::query()
+                ->where('id', '!=', Role::SUPER_ADMIN)
+                ->get();
+        }
+        foreach ($allowedRoles as $role) {
+            $dataForm->addInput(DataFormInput::checkbox($role->name, 'role_' . $role->id, false, $user->hasAnyRole([$role->id])));
+        }
+
+        return $dataForm->response();
+    }
+
+    public function updateRoles(Request $request, User $user)
+    {
+        $this->authorize('update', $user);
+
+        $request->validate(Role::all()->mapWithKeys(function ($role) {
+            return ['role_' . $role->id => 'boolean'];
+        })->toArray());
+
+        foreach (Role::all() as $role) {
+            if ($request->input('role_' . $role->id) == 1) {
+                $user->assignRole($role->id);
+            } else {
+                $user->removeRole($role->id);
+            }
+        }
+
+        return redirect()
+            ->route('users.show', $user->id)
+            ->with('status', __('messages.user_update_roles_success'));
     }
 }

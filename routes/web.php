@@ -77,6 +77,8 @@ Route::group([
     });
     Route::resource('schools', 'School\SchoolController');
     Route::resource('users', 'User\UserController');
+    Route::get('users/{user}/roles/edit', 'User\UserController@editRoles')->name('users.roles.edit');
+    Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
 });
 
 
