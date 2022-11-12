@@ -14,9 +14,10 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Role::ROLES as $role) {
+        foreach (Role::ROLES as $id => $role) {
             Role::query()->firstOrCreate([
-                'name' => $role
+                'id' => $id,
+                'name' => $role,
             ]);
         }
     }

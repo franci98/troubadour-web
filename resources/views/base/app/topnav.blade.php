@@ -19,7 +19,7 @@
                         <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="profileMenuDropdownButton">
-                        @if(auth()->user()->isAdmin())
+                        @if(auth()->user()->isSuperAdmin())
                         <li>
                             <a class="dropdown-item border-radius-md" href="{{ route('admin.game-types.index') }}">
                                 <i class="fa fa-gear me-2" aria-hidden="true"></i>

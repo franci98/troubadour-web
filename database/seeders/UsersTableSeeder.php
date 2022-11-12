@@ -25,6 +25,6 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('test1234'),
         ]);
-        $user->roles()->sync([Role::ADMIN => ['status' => RoleUser::STATUS_ACTIVE], Role::TEACHER => ['status' => RoleUser::STATUS_ACTIVE]]);
+        $user->roles()->sync([Role::SUPER_ADMIN => ['status' => RoleUser::STATUS_ACTIVE]]);
     }
 }

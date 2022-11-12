@@ -12,4 +12,18 @@ use Illuminate\Database\Eloquent\Model;
 class School extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function classrooms()
+    {
+        return $this->hasManyThrough(Classroom::class, User::class);
+    }
 }

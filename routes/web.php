@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SuperAdminController;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +68,16 @@ Route::group([
         Route::resource('game-types.difficulties', 'GameType\DifficultyController');
         Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
     });
+
+    // NEW ROUTES
+    Route::group([
+        'prefix' => 'super-admin',
+        'as' => 'super-admin.',
+        'middleware' => ['auth', 'role:' . Role::SUPER_ADMIN],
+    ], function () {
+        Route::get('/', [SuperAdminController::class, 'index'])->name('index');
+    });
+    Route::resource('schools', 'SchoolController');
 });
 
 

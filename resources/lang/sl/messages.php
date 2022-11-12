@@ -19,7 +19,15 @@ return [
     'total' => 'Skupaj',
     'really_perform_destructive_action' => 'Ste prepričani?',
     'yes' => 'Da',
+    'none' => 'Brez',
     'topnav_dropdown_game_types' => 'Vrste iger',
+
+    'sidenav_school_index' => 'Šole',
+
+    'breadcrumbs_super_admin_index' => 'Sistemska administracija',
+    'breadcrumbs_school_index' => 'Šole',
+    'breadcrumbs_school_create' => 'Ustvari',
+    'breadcrumbs_school_edit' => 'Uredi šolo',
 
     'password_reset_title' => "Ponastavitev gesla",
     'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
@@ -130,4 +138,23 @@ return [
     'difficulty_index_button_restore' => 'Omogoči',
     'difficulty_destroy_success' => 'Uspešno onemogočeno.',
     'difficulty_restore_success' => 'Uspešno omogočeno.',
+
+    'school_index_title' => 'Seznam vseh šol',
+    'super_admin_index_stats_games' => 'Odigrane igre',
+
+    'school_index_column_name' => 'Ime',
+    'school_index_column_users_count' => 'Število uporabnikov',
+    'school_index_column_created_at' => 'Ustvarjeno',
+    'school_index_column_action_show' => 'Prikaži',
+    'school_index_button_create' => 'Nova šola',
+    'school_index_column_users_count_suffix' => 'uporabnikov',
+    'school_index_column_classrooms_count_suffix' => 'učilnic',
+    'school_create_title' => 'Nova šola',
+    'school_create_input_name' => 'Ime',
+    'school_create_input_school_admin' => 'Šolski administrator',
+    'school_store_success' => 'Šola je bila uspešno ustvarjena.',
+    'school_edit_title' => 'Uredi šolo :0',
+    'school_edit_input_name' => 'Ime',
+    'school_update_success' => 'Šola je bila uspešno posodobljena.',
+    'school_destroy_success' => 'Šola je bila uspešno izbrisana.',
 ];

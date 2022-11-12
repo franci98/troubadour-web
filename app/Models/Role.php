@@ -9,8 +9,13 @@ class Role extends Model
 {
     use HasFactory;
 
-    const ADMIN = 1;
-    const TEACHER = 2;
+    const SUPER_ADMIN = 1;
+    const SCHOOL_ADMIN = 2;
+    const TEACHER = 3;
 
-    const ROLES = [self::ADMIN, self::TEACHER,];
+    const ROLES = [
+        self::SUPER_ADMIN => 'Super Admin',
+        self::SCHOOL_ADMIN => 'School Admin',
+        self::TEACHER => 'Teacher',
+    ];
 }
