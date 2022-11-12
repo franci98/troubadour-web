@@ -39,8 +39,16 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($data)) {
-            return redirect()->route('classrooms.index');
+        if (auth()->attempt($data)) {
+            if (auth()->user()->isSuperAdmin()) {
+                return redirect()->route('super-admin.index');
+            } else if (auth()->user()->isSchoolAdmin()) {
+                return redirect()->route('schools.show', auth()->user()->school);
+            } else if (auth()->user()->isTeacher()) {
+                return redirect()->route('teacher.index');
+            } else {
+                abort(403);
+            }
         } else {
             return redirect()->route('login')->with('status', __('messages.login_failed'));
         }

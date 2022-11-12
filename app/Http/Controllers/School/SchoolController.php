@@ -18,8 +18,10 @@ class SchoolController extends Controller
 {
     public function __construct()
     {
-        $this->addBreadcrumbItem(__('messages.breadcrumbs_super_admin_index'), route('super-admin.index'));
-        $this->addBreadcrumbItem(__('messages.breadcrumbs_school_index'), route('schools.index'));
+        parent::__construct();
+        if (auth()->user()->isSuperAdmin()) {
+            $this->addBreadcrumbItem(__('messages.breadcrumbs_school_index'), route('schools.index'));
+        }
     }
 
     public function index(Request $request)

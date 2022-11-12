@@ -2,37 +2,37 @@
 
 namespace App\Policies;
 
-use App\Models\CLassroom;
+use App\Models\Classroom;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ClassroomPolicy
 {
     use HandlesAuthorization;
-    
+
     public function viewAny(User $user)
     {
-        //
+        return $user->isSuperAdmin() || $user->isSchoolAdmin() || $user->isTeacher();
     }
 
-    public function view(User $user, CLassroom $Classroom)
+    public function view(User $user, Classroom $classroom)
     {
-        return $Classroom->user()->is($user); 
+        return $user->isTeacherOf($classroom);
     }
 
     public function create(User $user)
     {
+        return $user->isTeacher();
+    }
+
+    public function update(User $user, Classroom $classroom)
+    {
+        return $user->isTeacherOf($classroom);
+    }
+
+    public function delete(User $user, Classroom $Classroom)
+    {
         //
     }
 
-    public function update(User $user, CLassroom $Classroom)
-    {
-        return $Classroom->user()->is($user);
-    }
-
-    public function delete(User $user, CLassroom $Classroom)
-    {
-        //
-    }
-    
 }

@@ -21,7 +21,7 @@
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="profileMenuDropdownButton">
                         @if(auth()->user()->isSuperAdmin())
                         <li>
-                            <a class="dropdown-item border-radius-md" href="{{ route('admin.game-types.index') }}">
+                            <a class="dropdown-item border-radius-md" href="{{ route('super-admin.game-types.index') }}">
                                 <i class="fa fa-gear me-2" aria-hidden="true"></i>
                                 <span>@lang('messages.topnav_dropdown_game_types')</span>
                             </a>

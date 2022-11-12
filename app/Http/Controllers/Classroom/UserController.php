@@ -47,7 +47,11 @@ class UserController extends Controller
 
         $dataForm = DataForm::make(__('messages.classroom_users_create_title'), 'POST', route('classrooms.users.store', $classroom), route('classrooms.users.index', $classroom));
 
-        $dataForm->addInput(DataFormInput::select(__('messages.classroom_users_create_user'), 'user_id', true, User::query()->select('name AS title', 'id AS value')->get()));
+        $options = User::query()
+            ->select('name AS title', 'id AS value')
+            ->where('school_id', $classroom->school_id)
+            ->get();
+        $dataForm->addInput(DataFormInput::select(__('messages.classroom_users_create_user'), 'user_id', true, $options));
 
         return $dataForm->response();
     }

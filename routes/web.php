@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\TeacherController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
@@ -41,31 +42,10 @@ Route::group([
         Route::post('password/reset', 'AuthController@passwordUpdate')->name("password.reset");
     });
     Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
+    Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('teacher');
+    Route::post('logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
-    Route::group([
-        'prefix' => 'teacher',
-        'as' => '',
-        'middleware' => ['auth', 'teacher'],
-    ], function () {
-        Route::post('logout', 'AuthController@logout')->name('logout')->withoutMiddleware('teacher');
-
-        Route::resource('classrooms', 'ClassroomController');
-        Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
-        Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
-        Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('teacher');
-        Route::get('classrooms/{classroom}/dashboard', 'HomeController@dashboard')->name('home');
-    });
-
-    Route::group([
-        'prefix' => 'admin',
-        'as' => 'admin.',
-        'middleware' => ['auth', 'admin'],
-    ], function () {
-        Route::resource('game-types', 'GameType\GameTypeController');
-        Route::get('game-types/{gameType}/restore', 'GameType\GameTypeController@restore')->name('game-types.restore');
-        Route::resource('game-types.difficulties', 'GameType\DifficultyController');
-        Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
-    });
+    Route::get('teacher/', [TeacherController::class, 'index'])->name('teacher.index')->middleware(['auth', 'role:' . Role::TEACHER]);
 
     // NEW ROUTES
     Route::group([
@@ -74,11 +54,23 @@ Route::group([
         'middleware' => ['auth', 'role:' . Role::SUPER_ADMIN],
     ], function () {
         Route::get('/', [SuperAdminController::class, 'index'])->name('index');
+        Route::get('settings', [SuperAdminController::class, 'settings'])->name('settings');
+
+        Route::resource('game-types', 'GameType\GameTypeController');
+        Route::get('game-types/{gameType}/restore', 'GameType\GameTypeController@restore')->name('game-types.restore');
+        Route::resource('game-types.difficulties', 'GameType\DifficultyController');
+        Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
     });
     Route::resource('schools', 'School\SchoolController');
     Route::resource('users', 'User\UserController');
     Route::get('users/{user}/roles/edit', 'User\UserController@editRoles')->name('users.roles.edit');
     Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
+
+    Route::resource('classrooms', 'ClassroomController');
+    Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
+    Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
+
+
 });
 
 

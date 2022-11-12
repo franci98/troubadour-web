@@ -19,7 +19,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->addBreadcrumbItem(__('messages.breadcrumbs_super_admin_index'), route('super-admin.index'));
+        parent::__construct();
         $this->addBreadcrumbItem(__('messages.breadcrumbs_user_index'), route('users.index'));
     }
 
