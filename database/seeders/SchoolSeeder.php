@@ -15,7 +15,8 @@ class SchoolSeeder extends Seeder
     public function run()
     {
         School::query()->firstOrCreate([
-            'name' => 'Konzorcij za glasbo in balet Ljubljana'
+            'id' => 1,
+            'name' => 'Brez Šole'
         ]);
     }
 }

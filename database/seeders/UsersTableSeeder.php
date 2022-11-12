@@ -20,7 +20,6 @@ class UsersTableSeeder extends Seeder
         $user = User::query()->firstOrCreate([
             'name' => 'Trubadur admin',
             'email' => 'info@trubadur.si',
-            'school_id' => 1
         ], [
             'email_verified_at' => now(),
             'password' => Hash::make('test1234'),

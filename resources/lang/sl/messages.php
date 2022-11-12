@@ -146,6 +146,7 @@ return [
     'school_index_column_users_count' => 'Število uporabnikov',
     'school_index_column_created_at' => 'Ustvarjeno',
     'school_index_column_action_show' => 'Prikaži',
+    'school_index_column_action_delete' => 'Izbriši',
     'school_index_button_create' => 'Nova šola',
     'school_index_column_users_count_suffix' => 'uporabnikov',
     'school_index_column_classrooms_count_suffix' => 'učilnic',

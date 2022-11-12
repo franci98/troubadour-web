@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\School;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('school_id')->constrained();
+            $table->foreignId('school_id')->default(School::NO_SCHOOL_ID)->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

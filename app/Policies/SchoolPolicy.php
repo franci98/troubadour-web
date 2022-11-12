@@ -27,11 +27,11 @@ class SchoolPolicy
 
     public function update(User $user, School $school)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID;
     }
 
     public function delete(User $user, School $school)
     {
-        return $user->isSuperAdmin() && $school->users()->doesntExist();
+        return $user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID && $school->classrooms()->doesntExist();
     }
 }

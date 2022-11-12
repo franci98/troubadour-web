@@ -13,6 +13,8 @@ class School extends Model
 {
     use HasFactory;
 
+    const NO_SCHOOL_ID = 1;
+
     protected $fillable = [
         'name',
     ];
@@ -25,5 +27,14 @@ class School extends Model
     public function classrooms()
     {
         return $this->hasManyThrough(Classroom::class, User::class);
+    }
+
+    public function schoolAdmins()
+    {
+        return $this->users()
+            ->where('school_id', $this->id)
+            ->whereHas('roles', function ($query) {
+                $query->where('roles.id', Role::SCHOOL_ADMIN);
+            });
     }
 }
