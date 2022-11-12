@@ -33,6 +33,16 @@
                     </a>
                 </li>
             @endcan
+            @can('viewAny', \App\Models\User::class)
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs("users.*")) active @endif" href="{{ route('users.index') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">@lang('messages.sidenav_user_index')</span>
+                    </a>
+                </li>
+            @endcan
 
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>

@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int id
  * @property string name
  * @property string email
+ * @property int school_id
  * @property School school
  * @property Collection classrooms
  * @property Collection teachersClassrooms
@@ -120,5 +121,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return Badge::query()->whereDoesntHave('users', function ($query) {
             $query->where('user_id', $this->id);
         })->get();
+    }
+
+    public function isSchoolAdmin(): bool
+    {
+        return $this->hasAnyRole([Role::SCHOOL_ADMIN]);
+    }
+
+    public function isSchoolAdminOf(School $school): bool
+    {
+        return $this->isSchoolAdmin() && $this->school_id === $school->id;
     }
 }

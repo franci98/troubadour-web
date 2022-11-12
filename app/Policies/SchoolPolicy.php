@@ -17,7 +17,7 @@ class SchoolPolicy
 
     public function view(User $user, School $school)
     {
-        return $user->isSuperAdmin();
+        return $user->isSuperAdmin() || ($user->isSchoolAdminOf($school));
     }
 
     public function create(User $user)

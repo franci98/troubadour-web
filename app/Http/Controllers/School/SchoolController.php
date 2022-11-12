@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\School;
 
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\School;

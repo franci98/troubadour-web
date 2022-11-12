@@ -25,5 +25,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('test1234'),
         ]);
         $user->roles()->sync([Role::SUPER_ADMIN => ['status' => RoleUser::STATUS_ACTIVE]]);
+
+        if (app()->environment('local'))
+            User::factory()->count(20)->create();
     }
 }

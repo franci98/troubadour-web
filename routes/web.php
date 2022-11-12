@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SuperAdminController;
 use App\Models\Role;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,7 +75,8 @@ Route::group([
     ], function () {
         Route::get('/', [SuperAdminController::class, 'index'])->name('index');
     });
-    Route::resource('schools', 'SchoolController');
+    Route::resource('schools', 'School\SchoolController');
+    Route::resource('users', 'User\UserController');
 });
 
 
