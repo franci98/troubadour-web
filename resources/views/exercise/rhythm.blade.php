@@ -1,9 +1,10 @@
 <div>
     <audio controls>
-        <source src="/audio/base{{ $rhythmExercise->id }}.mp3" type="audio/mpeg">
+        <source src="/audio/{{ $rhythmExercise->id }}.mp3" type="audio/mpeg">
     </audio>
 </div>
 <div id="rhythm_exercise_{{ $rhythmExercise->id }}"></div>
+<a href="{{ route('exercises.recreate', $rhythmExercise->exercise) }}" class="btn btn-sm btn-primary">Recreate</a>
 @push('scripts')
 <script>
     var array = [].concat(@json($rhythmExercise->notesCollection()));

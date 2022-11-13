@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Utils\RhythmExerciseGenerator;
 use App\Models\GameType;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Type\Integer;
 
 /**
@@ -34,7 +36,15 @@ class RhythmExercise extends Model
         } elseif ($gameType == 5) {
             return RhythmExerciseGenerator::generateForTapLevel($exercise->game->difficulty->title, $exercise);
         }
-        return RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
+        $rhythmExercise = null;
+        while ($rhythmExercise == null) {
+            try {
+                $rhythmExercise = RhythmExerciseGenerator::generateForLevel($exercise->game->difficulty->title, $exercise);
+            } catch (Exception $e) {
+                Log::error($e->getMessage());
+            }
+        }
+        return $rhythmExercise;
     }
 
     public function exercise()

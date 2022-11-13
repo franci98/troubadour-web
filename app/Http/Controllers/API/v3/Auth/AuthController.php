@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v3\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\School;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -39,12 +40,14 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => 'required|string|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'school_id' => '',//'required|exists:schools,id',
+            'school_id' => 'nullable|exists:schools,id',
             'password' => 'required|min:8|confirmed'
         ]);
 
         $data['password'] = Hash::make($data['password']);
-        $data['school_id'] = 1;
+        if (!isset($data['school_id'])) {
+            $data['school_id'] = School::NO_SCHOOL_ID;
+        }
         $user = new User($data);
         $user->save();
         event(new Registered($user));

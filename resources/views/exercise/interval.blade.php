@@ -4,6 +4,7 @@
     @endforeach
     <div id="interval_exercise_{{ $exercise->id }}"></div>
 </div>
+<a href="{{ route('exercises.recreate', $exercise->exercise) }}" class="btn btn-sm btn-primary">Recreate</a>
 @push('scripts')
     <script>
         var array = [].concat(@json($exercise->value));

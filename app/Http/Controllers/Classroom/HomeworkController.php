@@ -6,6 +6,7 @@ use App\Enum\ChallengeType;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\Difficulty;
+use App\Models\Exercise;
 use App\Models\GameType;
 use App\Models\Homework;
 use App\Utilities\DataForm;
@@ -136,14 +137,11 @@ class HomeworkController extends Controller
         return $dataView->response();
     }
 
-    public function edit(Classroom $classroom, Homework $homework)
+    public function recreateExercise(Exercise $exercise)
     {
-        //
-    }
-
-    public function update(Request $request, Classroom $classroom, Homework $homework)
-    {
-        //
+        $exercise
+            ->recreate();
+        return redirect()->back();
     }
 
     public function destroy(Classroom $classroom, Homework $homework)

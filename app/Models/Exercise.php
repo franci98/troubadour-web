@@ -102,4 +102,14 @@ class Exercise extends Model
 
         return parent::delete();
     }
+
+    public function recreate()
+    {
+        if ($this->game->gameType->id == GameType::RHYTHM) {
+            $this->rhythmExercise->delete();
+        } else if ($this->game->gameType->id == GameType::INTERVALS) {
+            $this->intervalExercise->delete();
+        }
+        $this->game->gameType->regenerateExercise($this);
+    }
 }

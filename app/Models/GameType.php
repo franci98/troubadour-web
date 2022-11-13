@@ -46,6 +46,22 @@ class GameType extends Model
         $exercise->generateMp3File();
     }
 
+    public function regenerateExercise(Exercise $exercise)
+    {
+        if ($this->id == self::INTERVALS) {
+            IntervalExercise::generate($exercise);
+        } elseif ($this->id == self::RHYTHM) {
+            RhythmExercise::generate($exercise, self::RHYTHM);
+        } elseif ($this->id == self::RHYTHM_GUESS) {
+            RhythmExercise::generate($exercise, self::RHYTHM_GUESS);
+        } elseif ($this->id == self::RHYTHM_TAP) {
+            RhythmExercise::generate($exercise, self::RHYTHM_TAP);
+        } elseif ($this->id == self::HARMONIC) {
+            HarmonyExercise::generate($exercise);
+        }
+        $exercise->generateMp3File();
+    }
+
     public function difficulties()
     {
         return $this->hasMany(Difficulty::class);

@@ -69,6 +69,7 @@ Route::group([
     Route::resource('classrooms', 'ClassroomController');
     Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
     Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
+    Route::get('exercises/{exercise}/recreate', 'Classroom\HomeworkController@recreateExercise')->name('exercises.recreate');
 
 
 });
