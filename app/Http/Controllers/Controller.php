@@ -17,12 +17,14 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        if (auth()->user()->isSuperAdmin()) {
-            $this->addBreadcrumbItem(__('messages.breadcrumbs_super_admin_index'), route('super-admin.index'));
-        } elseif (auth()->user()->isSchoolAdmin()) {
-            $this->addBreadcrumbItem(auth()->user()->school->name, route('schools.show', auth()->user()->school));
-        } elseif (auth()->user()->isTeacher()) {
-            $this->addBreadcrumbItem(__('messages.breadcrumbs_teacher_index'), route('teacher.index'));
+        if (auth()->check()) {
+            if (auth()->user()->isSuperAdmin()) {
+                $this->addBreadcrumbItem(__('messages.breadcrumbs_super_admin_index'), route('super-admin.index'));
+            } elseif (auth()->user()->isSchoolAdmin()) {
+                $this->addBreadcrumbItem(auth()->user()->school->name, route('schools.show', auth()->user()->school));
+            } elseif (auth()->user()->isTeacher()) {
+                $this->addBreadcrumbItem(__('messages.breadcrumbs_teacher_index'), route('teacher.index'));
+            }
         }
     }
 

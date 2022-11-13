@@ -23,9 +23,9 @@ class DifficultyController extends Controller
         $dataTable->addColumn(DataTableColumn::text('name', __('messages.difficulty_index_column_title'), true, true, fn($item) => $item->title, fn($item) => $item->description));
 
         $actions = DataTableColumn::actions();
-        $actions->addAction(DataTableColumnAction::normal(__('messages.difficulty_index_button_show'), fn($item)=> route('admin.game-types.difficulties.show', [$item->gameType, $item]))->setCondition(fn($item) => !$item->trashed()));
-        $actions->addAction(DataTableColumnAction::destructive(__('messages.difficulty_index_button_destroy'), fn($item)=> route('admin.game-types.difficulties.destroy', [$item->gameType, $item]))->setCondition(fn($item) => !$item->trashed()));
-        $actions->addAction(DataTableColumnAction::confirmable(__('messages.difficulty_index_button_restore'), fn($item)=> route('admin.game-types.difficulties.restore', [$item->gameType, $item]))->setCondition(fn($item) => $item->trashed()));
+        $actions->addAction(DataTableColumnAction::normal(__('messages.difficulty_index_button_show'), fn($item)=> route('super-admin.game-types.difficulties.show', [$item->gameType, $item]))->setCondition(fn($item) => !$item->trashed()));
+        $actions->addAction(DataTableColumnAction::destructive(__('messages.difficulty_index_button_destroy'), fn($item)=> route('super-admin.game-types.difficulties.destroy', [$item->gameType, $item]))->setCondition(fn($item) => !$item->trashed()));
+        $actions->addAction(DataTableColumnAction::confirmable(__('messages.difficulty_index_button_restore'), fn($item)=> route('super-admin.game-types.difficulties.restore', [$item->gameType, $item]))->setCondition(fn($item) => $item->trashed()));
         $dataTable->addColumn($actions);
 
         return $dataTable->response();
@@ -51,7 +51,7 @@ class DifficultyController extends Controller
         $difficulty->delete();
 
         return redirect()
-            ->route('admin.game-types.difficulties.index', $gameType)
+            ->route('super-admin.game-types.difficulties.index', $gameType)
             ->with('status', __('messages.difficulty_destroy_success'));
     }
 
@@ -61,7 +61,7 @@ class DifficultyController extends Controller
         Difficulty::onlyTrashed()->find($difficultyId)->restore();
 
         return redirect()
-            ->route('admin.game-types.difficulties.index', $gameType)
+            ->route('super-admin.game-types.difficulties.index', $gameType)
             ->with('status', __('messages.difficulty_restore_success'));
     }
 }

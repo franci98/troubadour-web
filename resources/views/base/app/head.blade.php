@@ -30,7 +30,7 @@
     />
 
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4b767d74ef.js" crossorigin="anonymous"></script>
     <link href="{{ asset('/app/css/nucleo-svg.css') }}" rel="stylesheet" />
 
     <!-- Font Awesome Icons -->

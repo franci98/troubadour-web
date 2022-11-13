@@ -17,7 +17,7 @@ class ClassroomPolicy
 
     public function view(User $user, Classroom $classroom)
     {
-        return $user->isTeacherOf($classroom);
+        return $user->isSuperAdmin() || $user->isSchoolAdmin() || $user->isTeacherOf($classroom);
     }
 
     public function create(User $user)
@@ -27,7 +27,7 @@ class ClassroomPolicy
 
     public function update(User $user, Classroom $classroom)
     {
-        return $user->isTeacherOf($classroom);
+        return $user->isSuperAdmin() || $user->isSchoolAdmin() || $user->isTeacherOf($classroom);
     }
 
     public function delete(User $user, Classroom $Classroom)

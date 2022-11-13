@@ -136,6 +136,7 @@ return [
     'homework_show_difficulty' => 'Zahtevnost',
     'homework_destroy_success' => 'Domača naloga je bila izbrisana.',
     'homework_show_game_title' => "Igra :0",
+    'homework_show_games_title' => "Seznam iger",
 
     'game_type_index_title' => 'Seznam vseh vrst iger',
     'game_type_index_column_title' => 'Ime igre',
@@ -160,7 +161,29 @@ return [
     'difficulty_restore_success' => 'Uspešno omogočeno.',
 
     'school_index_title' => 'Seznam vseh šol',
+    'super_admin_index_title' => 'Statistika in pregled sistema',
     'super_admin_index_stats_games' => 'Odigrane igre',
+    'super_admin_index_stats_users' => 'Uporabniki',
+    'super_admin_index_stats_schools' => 'Vključene šole',
+    'super_admin_index_stats_classrooms' => 'Učilnice',
+    'super_admin_index_chart_games_per_day' => 'Število iger na dan',
+    'super_admin_index_chart_users_per_day' => 'Število novih uporabnikov na dan',
+
+    'school_show_title' => 'Statistika in pregled šole :0',
+    'school_show_stats_games' => 'Odigrane igre',
+    'school_show_stats_users' => 'Uporabniki',
+    'school_show_stats_schools' => 'Vključene šole',
+    'school_show_stats_classrooms' => 'Učilnice',
+    'school_show_chart_games_per_day' => 'Število iger na dan',
+    'school_show_chart_users_per_day' => 'Število novih uporabnikov na dan',
+
+    'teacher_index_title' => 'Statistika in pregled šole :0',
+    'teacher_index_stats_games' => 'Odigrane igre',
+    'teacher_index_stats_users' => 'Uporabniki',
+    'teacher_index_stats_schools' => 'Vključene šole',
+    'teacher_index_stats_classrooms' => 'Učilnice',
+    'teacher_index_chart_games_per_day' => 'Število iger na dan',
+    'teacher_index_chart_users_per_day' => 'Število novih uporabnikov na dan',
 
     'school_index_column_name' => 'Ime',
     'school_index_column_users_count' => 'Število uporabnikov',

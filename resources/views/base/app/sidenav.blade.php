@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(request()->routeIs("super-admin.settings")) active @endif" href="{{ route('super-admin.settings') }}">
+                    <a class="nav-link @if(request()->routeIs("super-admin.game-types.*")) active @endif" href="{{ route('super-admin.game-types.index')  }}">
                         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa fa-columns"></i>
                         </div>
@@ -43,6 +43,16 @@
                     </a>
                 </li>
             @endif
+            @can('viewAny', \App\Models\School::class)
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs("schools.*")) active @endif" href="{{ route('schools.index') }}">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-columns"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">@lang('messages.sidenav_school_index')</span>
+                    </a>
+                </li>
+            @endcan
             @can('viewAny', \App\Models\Classroom::class)
                 <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs("classrooms.*")) active @endif" href="{{ route('classrooms.index') }}">
@@ -50,16 +60,6 @@
                             <i class="fa fa-columns"></i>
                         </div>
                         <span class="nav-link-text ms-1">@lang('messages.sidenav_classroom_index')</span>
-                    </a>
-                </li>
-            @endcan
-            @can('viewAny', \App\Models\School::class)
-                <li class="nav-item">
-                    <a class="nav-link @if(request()->routeIs("schools.*") && !request()->routeIs("schools.show")) active @endif" href="{{ route('schools.index') }}">
-                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-columns"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">@lang('messages.sidenav_school_index')</span>
                     </a>
                 </li>
             @endcan
