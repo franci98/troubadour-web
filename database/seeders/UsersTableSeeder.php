@@ -19,14 +19,12 @@ class UsersTableSeeder extends Seeder
     {
         $user = User::query()->firstOrCreate([
             'name' => 'Trubadur admin',
-            'email' => 'info@trubadur.si',
+            'email' => 'admin@trubadur.si',
         ], [
             'email_verified_at' => now(),
             'password' => Hash::make('test1234'),
         ]);
         $user->roles()->sync([Role::SUPER_ADMIN]);
-
-        if (app()->environment('local'))
-            User::factory()->count(20)->create();
+        
     }
 }
