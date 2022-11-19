@@ -137,6 +137,36 @@ class HomeworkController extends Controller
         return $dataView->response();
     }
 
+    public function edit(Classroom $classroom, Homework $homework)
+    {
+        $this->addBaseBreadcrumbs($classroom);
+        $this->addBreadcrumbItem($homework->name, route('classrooms.homeworks.show', [$classroom, $homework]), true);
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_homework_edit'), route('classrooms.homeworks.edit', [$classroom, $homework]), true);
+
+        $dataForm = DataForm::make(__('messages.homework_edit_title'), 'PUT', route('classrooms.homeworks.update', [$classroom, $homework]), route('classrooms.homeworks.index', $classroom));
+
+        $dataForm->addInput(DataFormInput::text(__('messages.homework_edit_name_title'), 'name', true, 3, 255, $homework->name));
+        $dataForm->addInput(DataFormInput::datetime(__('messages.homework_edit_available_at_title'), 'available_at', true, $homework->available_at));
+        $dataForm->addInput(DataFormInput::datetime(__('messages.homework_edit_finished_at_title'), 'finished_at', true, $homework->finished_at));
+
+        return $dataForm->response();
+    }
+
+    public function update(Request $request, Classroom $classroom, Homework $homework)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'available_at' => 'required|date',
+            'finished_at' => 'required|date',
+        ]);
+
+        $homework->update($data);
+
+        return redirect()
+            ->route('classrooms.homeworks.show', [$classroom, $homework])
+            ->with('status', __('messages.homework_update_success'));
+    }
+
     public function recreateExercise(Exercise $exercise)
     {
         $exercise

@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  * @property Carbon finished_at
  * @property Difficulty difficulty
  * @property GameType gameType
- * @property Collection games
+ * @property Game[] games
  */
 class Homework extends Model
 {

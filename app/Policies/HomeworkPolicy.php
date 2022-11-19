@@ -27,11 +27,11 @@ class HomeworkPolicy
 
     public function update(User $user, Homework $homework)
     {
-        //
+        return $user->isTeacherOf($homework->classroom);
     }
 
     public function delete(User $user, Homework $homework)
     {
-        return $user->isTeacherOf($homework->classroom) ;
+        return $user->isTeacherOf($homework->classroom);
     }
 }

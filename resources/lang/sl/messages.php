@@ -45,6 +45,7 @@ return [
     'breadcrumbs_classroom_user_index' => 'Učenci',
     'breadcrumbs_classroom_user_create' => 'Dodaj učenca',
     'breadcrumbs_classroom_edit' => 'Uredi',
+    'breadcrumbs_homework_edit' => 'Uredi',
 
     'password_reset_title' => "Ponastavitev gesla",
     'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
@@ -146,6 +147,10 @@ return [
     'homework_destroy_success' => 'Domača naloga je bila izbrisana.',
     'homework_show_game_title' => "Igra :0",
     'homework_show_games_title' => "Seznam iger",
+    'homework_edit_title' => 'Uredi domačo nalogo',
+    'homework_edit_name_title' => 'Ime',
+    'homework_edit_available_at_title' => 'Odprtje domače naloge',
+    'homework_edit_finished_at_title' => 'Zaprtje domače naloge',
 
     'game_type_index_title' => 'Seznam vseh vrst iger',
     'game_type_index_column_title' => 'Ime igre',
