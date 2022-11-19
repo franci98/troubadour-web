@@ -67,7 +67,7 @@ Route::group([
     Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
 
     Route::resource('classrooms', 'ClassroomController');
-    Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store');
+    Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store', 'destroy');
     Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
     Route::get('exercises/{exercise}/recreate', 'Classroom\HomeworkController@recreateExercise')->name('exercises.recreate');
 

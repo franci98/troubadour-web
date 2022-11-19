@@ -16,7 +16,7 @@ class LoginRequest
      * @OA\Property(
      *      title="email",
      *      description="A valid email address.",
-     *      example="john@example.com"
+     *      example="admin@trubadur.si"
      * )
      */
     public $email;

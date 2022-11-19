@@ -9,6 +9,7 @@ use App\Utilities\DataForm;
 use App\Utilities\DataFormInput;
 use App\Utilities\DataTable;
 use App\Utilities\DataTableColumn;
+use App\Utilities\DataTableColumnAction;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,6 +33,10 @@ class UserController extends Controller
 
         $dataTable->addColumn(DataTableColumn::component('user-avatar', '', false, false, 'user.avatar-column', fn($item) => []));
         $dataTable->addColumn(DataTableColumn::text('name', __('messages.name'), true, true, fn($item) => $item->name, fn($item) => $item->email));
+
+        $actionsColumn = DataTableColumn::actions();
+        $actionsColumn->addAction(DataTableColumnAction::destructive(__('messages.classroom_users_index_column_action_remove'), fn($item) => route('classrooms.users.destroy', [$classroom, $item]), 'DELETE'));
+        $dataTable->addColumn($actionsColumn);
 
         $dataTable->addButton(route('classrooms.users.create', $classroom), __('messages.classroom_users_index_button_add'));
 
@@ -68,8 +73,12 @@ class UserController extends Controller
         return redirect()->route('classrooms.users.index', $request->classroom)->with('success', __('messages.classroom_users_store_success'));
     }
 
-    public function destroy()
+    public function destroy(Classroom $classroom, User $user)
     {
+        $this->authorize('update', $classroom);
 
+        $classroom->users()->detach($user);
+
+        return redirect()->route('classrooms.users.index', $classroom)->with('success', __('messages.classroom_users_destroy_success'));
     }
 }

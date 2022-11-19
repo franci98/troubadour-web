@@ -38,8 +38,14 @@ class HomeworkController extends Controller
     public function index(Classroom $classroom)
     {
 //        $this->authorize('viewAny', [Homework::class, $classroom]);
+        $lastMonthHomeWorks = $classroom
+            ->homeworks()
+            ->where('finished_at', '>=', now()->subMonth())
+            ->where('available_at', '<=', now())
+            ->latest('available_at')
+            ->get();
 
-        return HomeworkResource::collection($classroom->homeworks);
+        return HomeworkResource::collection($lastMonthHomeWorks);
     }
 
     /**

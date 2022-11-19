@@ -21,6 +21,10 @@ namespace App\Http\Controllers\API\v3;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Local"
  * )
+ * @OA\Server(
+ *     url="https://new.trubadur.si/api/v3",
+ *     description="Production"
+ * )
  *
  * @OA\Tag(
  *     name="Users",

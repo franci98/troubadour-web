@@ -121,6 +121,7 @@ return [
     'classroom_update_success' => 'Učilnica je bila uspešno posodobljena.',
     'classroom_delete_success' => 'Učilnica je bila uspešno izbrisana.',
     'classroom_show_edit' => 'Uredi učilnico',
+    'classroom_users_index_column_action_remove' => 'Odstrani',
 
     'homework_index_title' => 'Domače naloge',
     'homework_index_column_name' => 'Ime',
