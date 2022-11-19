@@ -9,6 +9,11 @@
                         <h2 class="font-weight-bolder mb-0">@lang('messages.school_show_title', [$school->name])</h2>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="{{ route('schools.edit', $school) }}" class="btn btn-sm btn-primary me-2">@lang('messages.school_show_button_edit')</a>
+                        </div>
+                </div>
             </div>
         </div>
     </div>

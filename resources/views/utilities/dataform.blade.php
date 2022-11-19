@@ -243,7 +243,7 @@
         @break
         @case("info")
             <div class="{{ $input->extras["class"] ?: "col-$input->divSize text-justify" }} mb-2" id="input-{{ $input->name }}-container">
-                <h4 class="mb-0 text-primary ml-2">{{ $input->title }}</h4>
+                <h6 class="mb-0 text-primary ml-2">{{ $input->title }}</h6>
                 <span class="text-muted">{!! $input->value !!} </span>
             </div>
         @break

@@ -32,6 +32,6 @@ class SchoolPolicy
 
     public function delete(User $user, School $school)
     {
-        return $user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID && $school->classrooms()->doesntExist();
+        return $user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID;
     }
 }

@@ -44,6 +44,7 @@ class SchoolController extends Controller
         $actionsColumn = DataTableColumn::actions();
         $actionsColumn->addAction(DataTableColumnAction::normal(__('messages.school_index_column_action_show'), fn($item) => route('schools.show', $item->id)));
         $actionsColumn->addAction(DataTableColumnAction::destructive(__('messages.school_index_column_action_delete'), fn($item) => route('schools.destroy', $item->id)));
+        $actionsColumn->addAction(DataTableColumnAction::normal(__('messages.school_index_column_action_edit'), fn($item) => route('schools.edit', $item->id)));
         $dataTable->addColumn($actionsColumn);
 
         $dataTable->addButton(route('schools.create'), __('messages.school_index_button_create'));
@@ -184,14 +185,7 @@ class SchoolController extends Controller
         $dataForm = DataForm::make(__('messages.school_edit_title', [$school->name]), 'PUT', $editRoute, $cancelRoute);
 
         $dataForm->addInput(DataFormInput::text(__('messages.school_edit_input_name'), 'name', true, 0, 1024, $school->name));
-        $users = User::query()
-            ->select('id AS value', 'name AS title')
-            ->where('school_id', School::NO_SCHOOL_ID)
-            ->whereDoesntHave('roles', fn($query) => $query->where('roles.id', Role::SUPER_ADMIN))
-            ->orderBy('name')
-            ->get();
-        $dataForm->addInput(DataFormInput::select(__('messages.school_edit_input_school_admin'), 'school_admin_id', false, $users, $school->schoolAdmin()->first()?->id));
-
+        $dataForm->addInput(DataFormInput::info(__('messages.school_edit_input_school_admin'),__('messages.school_edit_input_school_admin_info')));
         return $dataForm->response();
     }
 
@@ -201,18 +195,10 @@ class SchoolController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:1024',
-            'school_admin_id' => 'nullable|exists:users,id',
         ]);
 
         $school->name = $request->input('name');
         $school->save();
-
-        if ($request->get('school_admin_id') != null) {
-            $schoolAdmin = User::query()->findOrFail($request->input('school_admin_id'));
-            $schoolAdmin->school_id = $school->id;
-            $schoolAdmin->save();
-            $schoolAdmin->assignRole(Role::SCHOOL_ADMIN);
-        }
 
         return redirect()
             ->route('schools.show', $school)
@@ -223,7 +209,6 @@ class SchoolController extends Controller
     {
         $this->authorize('delete', $school);
 
-        $school->users()->update(['school_id' => School::NO_SCHOOL_ID]);
         $school->delete();
 
         return redirect()
