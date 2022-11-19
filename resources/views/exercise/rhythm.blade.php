@@ -1,6 +1,6 @@
 <div>
     <audio controls>
-        <source src="/audio/{{ $rhythmExercise->id }}.mp3" type="audio/mpeg">
+        <source src="/audio/{{ $rhythmExercise->exercise->id }}.mp3" type="audio/mpeg">
     </audio>
 </div>
 <div id="rhythm_exercise_{{ $rhythmExercise->id }}"></div>
