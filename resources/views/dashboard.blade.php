@@ -13,6 +13,9 @@
                             <p class="lead">
                                 Vaši učenci napredujejo.
                             </p>
+                            <a href="{{ route('classrooms.edit', $classroom) }}" class="btn btn-primary">
+                                @lang('messages.classroom_show_edit')
+                            </a>
                         </div>
                         <div class="col-4 text-end">
                             <img style="width: 150px" src="{{ asset('img/dashboard_welcome_image.jpg') }}" class="img-fluid">

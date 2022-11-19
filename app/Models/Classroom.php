@@ -39,4 +39,13 @@ class Classroom extends Model
     {
         return $this->hasMany(Homework::class);
     }
+
+    public function delete()
+    {
+        $this->users()->detach();
+        $this->homeworks->each(function ($homework) {
+            $homework->delete();
+        });
+        return parent::delete();
+    }
 }

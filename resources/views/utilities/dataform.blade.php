@@ -353,7 +353,7 @@
 
 <div class="row justify-content-center mt-4">
     <div class="col-auto">
-        <button type="submit" class="btn btn-success">@if(isset($dataForm->formButtonTitle)) {{ $dataForm->formButtonTitle }} @else @lang("messages.save") @endif</button>
+        <button type="submit" onclick="this.form.submit(); this.disabled=true; this.value='@lang("messages.dataform_sending")';" class="btn btn-success">@if(isset($dataForm->formButtonTitle)) {{ $dataForm->formButtonTitle }} @else @lang("messages.save") @endif</button>
     </div>
     @isset($dataForm->cancelRoute)
         <div class="col-auto">

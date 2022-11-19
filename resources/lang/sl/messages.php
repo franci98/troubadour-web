@@ -22,6 +22,7 @@ return [
     'yes' => 'Da',
     'none' => 'Brez',
     'topnav_dropdown_game_types' => 'Vrste iger',
+    'dataform_sending' => 'Pošiljanje...',
 
     'sidenav_school_index' => 'Šole',
     'sidenav_user_index' => 'Uporabniki',
@@ -43,6 +44,7 @@ return [
     'breadcrumbs_homework_index' => 'Domače naloge',
     'breadcrumbs_classroom_user_index' => 'Učenci',
     'breadcrumbs_classroom_user_create' => 'Dodaj učenca',
+    'breadcrumbs_classroom_edit' => 'Uredi',
 
     'password_reset_title' => "Ponastavitev gesla",
     'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
@@ -111,6 +113,13 @@ return [
     'classroom_users_create_user' => 'Uporabnik',
     'classroom_users_store_success' => 'Učenec je bil uspešno dodan v učilnico.',
     'classroom_create_input_name' => 'Ime učilnice',
+    'classroom_index_column_action_edit' => 'Uredi',
+    'classroom_index_column_action_delete' => 'Izbriši',
+    'classroom_edit_title' => 'Uredi učilnico',
+    'classroom_edit_input_name' => 'Ime učilnice',
+    'classroom_update_success' => 'Učilnica je bila uspešno posodobljena.',
+    'classroom_delete_success' => 'Učilnica je bila uspešno izbrisana.',
+    'classroom_show_edit' => 'Uredi učilnico',
 
     'homework_index_title' => 'Domače naloge',
     'homework_index_column_name' => 'Ime',

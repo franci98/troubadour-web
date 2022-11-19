@@ -25,6 +25,24 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('test1234'),
         ]);
         $user->roles()->sync([Role::SUPER_ADMIN]);
-        
+
+        $user = User::query()->firstOrCreate([
+            'name' => 'KGBL admin',
+            'email' => 'kgbl.admin@trubadur.si',
+        ], [
+            'email_verified_at' => now(),
+            'password' => Hash::make('kgblmozart123'),
+        ]);
+        $user->roles()->sync([Role::SCHOOL_ADMIN]);
+
+        $user = User::query()->firstOrCreate([
+            'name' => 'Peter Šavli',
+            'email' => 'peter.savli@kgbl.si',
+        ], [
+            'email_verified_at' => now(),
+            'password' => Hash::make('mozart123'),
+        ]);
+        $user->roles()->sync([Role::TEACHER]);
+
     }
 }

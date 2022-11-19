@@ -48,6 +48,8 @@ class ClassroomController extends Controller
 
         $actionsColumn = DataTableColumn::actions();
         $actionsColumn->addAction(DataTableColumnAction::normal(__('messages.classroom_index_column_action_show'), fn($item) => route('classrooms.show', $item)));
+        $actionsColumn->addAction(DataTableColumnAction::normal(__('messages.classroom_index_column_action_edit'), fn($item) => route('classrooms.edit', $item)));
+        $actionsColumn->addAction(DataTableColumnAction::destructive(__('messages.classroom_index_column_action_delete'), fn($item) => route('classrooms.destroy', $item)));
         $dataTable->addColumn($actionsColumn);
 
         $dataTable->addButton(route('classrooms.create'), __('messages.classroom_index_button_create'));
@@ -102,5 +104,40 @@ class ClassroomController extends Controller
         $classroom->save();
 
         return redirect()->route('classrooms.show', $classroom);
+    }
+
+    public function edit(Classroom $classroom)
+    {
+        $this->authorize('update', $classroom);
+        $this->addBreadcrumbItem($classroom->name, route('classrooms.show', $classroom));
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_classroom_edit'), route('classrooms.edit', $classroom), true);
+        $this->shareBreadcrumbs();
+
+        $postRoute = route('classrooms.update', $classroom);
+        $cancelRoute = route('classrooms.index');
+        $dataForm = DataForm::make(__('messages.classroom_edit_title'), 'PUT', $postRoute, $cancelRoute);
+
+        // Add data form inputs
+        $dataForm->addInput(DataFormInput::text(__('messages.classroom_edit_input_name'), 'name', true, 1, 1024, $classroom->name));
+
+        return $dataForm->response();
+    }
+
+    public function update(Request $request, Classroom $classroom)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $classroom->update($data);
+
+        return redirect()->route('classrooms.show', $classroom);
+    }
+
+    public function destroy(Classroom $classroom)
+    {
+        $this->authorize('delete', $classroom);
+        $classroom->delete();
+        return redirect()->route('classrooms.index');
     }
 }

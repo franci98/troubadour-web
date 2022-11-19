@@ -30,9 +30,9 @@ class ClassroomPolicy
         return $user->isSuperAdmin() || $user->isSchoolAdmin() || $user->isTeacherOf($classroom);
     }
 
-    public function delete(User $user, Classroom $Classroom)
+    public function delete(User $user, Classroom $classroom)
     {
-        //
+        return $user->isSuperAdmin() || $user->isSchoolAdmin() || $user->isTeacherOf($classroom);
     }
 
 }

@@ -27,7 +27,7 @@ class SchoolPolicy
 
     public function update(User $user, School $school)
     {
-        return $user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID;
+        return ($user->isSuperAdmin() && $school->id !== School::NO_SCHOOL_ID) || ($user->isSchoolAdminOf($school));
     }
 
     public function delete(User $user, School $school)
