@@ -18,5 +18,9 @@ class SchoolSeeder extends Seeder
             'id' => 1,
             'name' => 'Brez Šole'
         ]);
+        School::query()->firstOrCreate([
+            'id' => 2,
+            'name' => 'KGBL'
+        ]);
     }
 }

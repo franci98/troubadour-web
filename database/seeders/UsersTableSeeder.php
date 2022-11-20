@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
         $user = User::query()->firstOrCreate([
             'name' => 'Trubadur admin',
             'email' => 'admin@trubadur.si',
+            'school_id' => 1,
         ], [
             'email_verified_at' => now(),
             'password' => Hash::make('test1234'),
@@ -29,6 +30,7 @@ class UsersTableSeeder extends Seeder
         $user = User::query()->firstOrCreate([
             'name' => 'KGBL admin',
             'email' => 'kgbl.admin@trubadur.si',
+            'school_id' => 2,
         ], [
             'email_verified_at' => now(),
             'password' => Hash::make('kgblmozart123'),
@@ -38,6 +40,7 @@ class UsersTableSeeder extends Seeder
         $user = User::query()->firstOrCreate([
             'name' => 'Peter Šavli',
             'email' => 'peter.savli@kgbl.si',
+            'school_id' => 2,
         ], [
             'email_verified_at' => now(),
             'password' => Hash::make('mozart123'),
