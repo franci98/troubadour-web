@@ -20,7 +20,7 @@ class SchoolSeeder extends Seeder
         ]);
         School::query()->firstOrCreate([
             'id' => 2,
-            'name' => 'KGBL'
+            'name' => 'Konservatorij za glasbo in balet Ljubljana'
         ]);
     }
 }
