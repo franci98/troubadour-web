@@ -354,61 +354,6 @@ class DifficultySeeder extends Seeder
         ];
 
         $difficulties[] = [
-            'title' => 'Nižja glasbena šola - vsi letniki',
-            'sequence' => 1,
-            'description' => '2 - 4 note, poltonski razpon = 3',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 3, 'min_notes' => 2, 'max_notes' => 4
-            ]
-        ];
-        $difficulties[] = [
-            'title' => 'Srednja glasbena šola - 1. letnik',
-            'sequence' => 2,
-            'description' => '4 - 6 not, poltonski razpon = 5',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 5, 'min_notes' => 4, 'max_notes' => 6
-            ]
-        ];
-        $difficulties[] = [
-            'title' => 'Srednja glasbena šola - 2. letnik',
-            'sequence' => 3,
-            'description' => '4 - 6 not, poltonski razpon = 12',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 12, 'min_notes' => 4, 'max_notes' => 6
-            ]
-        ];
-        $difficulties[] = [
-            'title' => 'Srednja glasbena šola - 3. letnik',
-            'sequence' => 4,
-            'description' => '6 - 8 not, poltonski razpon = 12',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 12, 'min_notes' => 6, 'max_notes' => 8
-            ]
-        ];
-        $difficulties[] = [
-            'title' => 'Srednja glasbena šola - 4. letnik',
-            'sequence' => 5,
-            'description' => '6 - 10 not, poltonski razpon = 12',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 12, 'min_notes' => 6, 'max_notes' => 10
-            ]
-        ];
-        $difficulties[] = [
-            'title' => 'Univerzitetni nivo',
-            'sequence' => 6,
-            'description' => '8 - 10 not, poltonski razpon = 12',
-            'game_type_id' => GameType::INTERVALS,
-            'parameters' => [
-                'range' => 12, 'min_notes' => 8, 'max_notes' => 10
-            ]
-        ];
-
-        $difficulties[] = [
             'title' => 'Durovi in molovi akordi brez obratov (v ozki legi)',
             'sequence' => 7,
             'description' => 'Durovi in molovi akordi brez obratov (v ozki legi)',
@@ -2077,5 +2022,31 @@ class DifficultySeeder extends Seeder
             unset($difficulty['parameters']);
             Difficulty::query()->firstOrCreate($difficulty, ['parameters' => $parameters]);
         }
+
+        $firstline = true;
+        $sequence = 1;
+        $file = fopen(base_path("database/data/interval_difficulties.csv"), 'r');
+        while (($line = fgetcsv($file)) !== FALSE) {
+            if (!$firstline) {
+                Difficulty::query()->firstOrCreate(
+                    [
+                        "title" => "Razpon " . $line[1] . ", št. not " . $line[2] . " - " . $line[3],
+                        "description" => "Intervalni razpon " . $line[1] . ", št. not " . $line[2] . " - " . $line[3],
+                        "game_type_id" => GameType::INTERVALS,
+                        "sequence" => $sequence++,
+                    ],
+                    [
+                        'parameters' => [
+                            'range' => intval($line[1]),
+                            'min_notes' => intval($line[2]),
+                            'max_notes' => intval($line[3]),
+                        ]
+                    ]
+                );
+            }
+            $firstline = false;
+        }
+        fclose($file);
+
     }
 }

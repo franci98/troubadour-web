@@ -34,7 +34,7 @@
 <script src="{{ asset('/app/js/soft-ui-dashboard.min.js?v=1.0.2') }}"></script>
 
 <!-- Music rendering library -->
-<script src="https://unpkg.com/vexflow/releases/vexflow-min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vexflow@4.0.3/build/cjs/vexflow.js"></script>
 
 <script>
 

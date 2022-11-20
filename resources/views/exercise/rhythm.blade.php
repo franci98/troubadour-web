@@ -5,65 +5,83 @@
 </div>
 <div id="rhythm_exercise_{{ $rhythmExercise->id }}"></div>
 <a href="{{ route('exercises.recreate', $rhythmExercise->exercise) }}" class="btn btn-sm btn-primary">Recreate</a>
+@once
+    @push('scripts')
+        <script>
+            var elementToStaveNote = function (element) {
+                let key = "g/4";
+                let duration = "w";
+                switch (element['value']) {
+                    case 2:
+                        duration = "h"
+                        break;
+                    case 4:
+                        duration = "q"
+                        break;
+                    case 8:
+                        duration = "8"
+                        break;
+                    case 16:
+                        duration = "16"
+                        break;
+                }
+                if (element['type'] === 'r') {
+                    duration += 'r'
+                    key = "b/4"
+                }
+                let staveNote =  new StaveNote({
+                    keys: [key],
+                    duration: duration
+                });
+                if (element['dot'] === true) {
+                    Dot.buildAndAttach([staveNote], {
+                        all: true,
+                    });
+                }
+                return staveNote;
+            }
+        </script>
+    @endpush
+@endonce
 @push('scripts')
 <script>
     var array = [].concat(@json($rhythmExercise->notesCollection()));
-    VF = Vex.Flow;
+    console.log(array);
+    var part1 = array.slice(0, array.map(e => e.type).indexOf('bar'));
+    var part2 = array.slice(array.map(e => e.type).indexOf('bar') + 1);
+    // This approach to importing classes works in CJS contexts (i.e., a regular <script src="..."> tag).
+    var { Stave, StaveNote, Beam, Formatter, Renderer, Dot } = Vex;
 
-    // Create an SVG renderer and attach it to the DIV element named "boo".
-    var svg = document.getElementById("rhythm_exercise_{{ $rhythmExercise->id }}")
-    var renderer = new VF.Renderer(svg, VF.Renderer.Backends.SVG);
+    // Create an SVG renderer and attach it to the DIV element with id="output".
+    var div = document.getElementById("rhythm_exercise_{{ $rhythmExercise->id }}");
+    var renderer = new Renderer(div, Renderer.Backends.SVG);
 
-    // Size our SVG:
-    renderer.resize(600, 100);
-
-    // And get a drawing context:
+    // Configure the rendering context.
+    renderer.resize(720, 130);
     var context = renderer.getContext();
 
-    var stave = new VF.Stave(0, 0, 300)
+    // Measure 1
+    var staveMeasure1 = new Stave(10, 0, 400);
+    staveMeasure1
         .addClef("treble")
         .addTimeSignature("{{ $rhythmExercise->barInfo->bar_info['num_beats'] }}/{{ $rhythmExercise->barInfo->bar_info['base_note'] }}")
         .setContext(context)
         .draw();
 
-    var notes = [];
-    for (i = 0; i < array.length; i++) {
-        var note = array[i];
-        if (note['type'] === 'bar') {
-            Vex.Flow.Formatter.FormatAndDraw(context, stave, notes);
-            stave = new VF.Stave(stave.width + stave.x, 0, 300)
-                .setContext(context)
-                .draw();
-            notes = []
-        } else if (note['type'] === 'r' || note['type'] === 'n') {
-            let duration = "w";
-            switch (note['value']) {
-                case 2:
-                    duration = "w"
-                    break;
-                case 4:
-                    duration = "q"
-                    break;
-                case 8:
-                    duration = "8"
-                    break;
-                case 16:
-                    duration = "16"
-                    break;
-            }
-            if (note['type'] === 'r') {
-                duration += 'r'
-            }
-            let staveNote = new VF.StaveNote({clef: "treble", keys: ["g/4"], duration: duration})
-            if (note['dot'] === true)
-                staveNote.addDot(0)
-            notes = notes.concat(staveNote)
-        }
-    }
+    var notesMeasure1 = part1.map(elementToStaveNote)
 
-    Vex.Flow.Formatter.FormatAndDraw(context, stave, notes);
+    // Helper function to justify and draw a 4/4 voice
+    Formatter.FormatAndDraw(context, staveMeasure1, notesMeasure1);
 
-    // Render voice
-    voice.draw(context, stave);
+    // Measure 2 - second measure is placed adjacent to first measure.
+    var staveMeasure2 = new Stave(staveMeasure1.width + staveMeasure1.x, 0, 400);
+
+    var notesMeasure2_part1 = part2.map(elementToStaveNote);
+
+    var notesMeasure2 = notesMeasure2_part1;
+
+    staveMeasure2.setContext(context).draw();
+    Formatter.FormatAndDraw(context, staveMeasure2, notesMeasure2);
+
 </script>
 @endpush

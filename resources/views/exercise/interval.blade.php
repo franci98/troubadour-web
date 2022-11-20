@@ -1,4 +1,9 @@
 <div>
+    <audio controls>
+        <source src="/audio/{{ $exercise->exercise->id }}.mp3" type="audio/mpeg">
+    </audio>
+</div>
+<div>
     @foreach($exercise->value as $note)
         {{ $note }}
     @endforeach
@@ -29,10 +34,10 @@
         for (i = 0; i < array.length; i++) {
             var note = array[i];
             let key = [note.slice(0, note.length - 1), '/', note.slice(note.length - 1)].join('')
-            console.log(key);
             let staveNote = new VF.StaveNote({clef: "treble", keys: [key], duration: 'w'})
             if (note.includes('#'))
-                staveNote.addAccidental(0, new VF.Accidental("#"))
+                staveNote
+                    .addModifier(new VF.Accidental("#"))
             notes = notes.concat(staveNote)
         }
         Vex.Flow.Formatter.FormatAndDraw(context, stave, notes);
