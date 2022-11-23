@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\School;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -21,10 +22,17 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function verifyEmail(EmailVerificationRequest $request) {
-        $request->fulfill();
+    public function verifyEmail(Request $request) {
+        $user = User::find($request->route('id'));
 
-        return redirect()->route('login')->with('status', __('messages.email_verified'));
+        if (!hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+            throw new AuthorizationException;
+        }
+
+        if ($user->markEmailAsVerified())
+            event(new Verified($user));
+
+        return view('auth.verified');
     }
 
     public function showLoginForm()

@@ -25,7 +25,7 @@ Route::group([
     Route::get('/', function () {
         return redirect()
             ->route('classrooms.index');
-    });
+    })->middleware('auth');
 
     Route::get('terms', 'AuthController@terms')->name('terms');
 
@@ -61,15 +61,18 @@ Route::group([
         Route::resource('game-types.difficulties', 'GameType\DifficultyController');
         Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
     });
-    Route::resource('schools', 'School\SchoolController');
-    Route::resource('users', 'User\UserController');
-    Route::get('users/{user}/roles/edit', 'User\UserController@editRoles')->name('users.roles.edit');
-    Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
 
-    Route::resource('classrooms', 'ClassroomController');
-    Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store', 'destroy');
-    Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
-    Route::get('exercises/{exercise}/recreate', 'Classroom\HomeworkController@recreateExercise')->name('exercises.recreate');
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('schools', 'School\SchoolController');
+        Route::resource('users', 'User\UserController');
+        Route::get('users/{user}/roles/edit', 'User\UserController@editRoles')->name('users.roles.edit');
+        Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
+
+        Route::resource('classrooms', 'ClassroomController');
+        Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store', 'destroy');
+        Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');
+        Route::get('exercises/{exercise}/recreate', 'Classroom\HomeworkController@recreateExercise')->name('exercises.recreate');
+    });
 
 
 });

@@ -22,7 +22,7 @@ class SchoolController extends Controller
     public function __construct()
     {
         parent::__construct();
-        if (auth()->user()->isSuperAdmin()) {
+        if (auth()->check() && auth()->user()->isSuperAdmin()) {
             $this->addBreadcrumbItem(__('messages.breadcrumbs_school_index'), route('schools.index'));
         }
     }
