@@ -139,4 +139,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->isSchoolAdmin() && $this->school_id === $school->id;
     }
+
+    public function delete()
+    {
+        $this->roles()->detach();
+        $this->classrooms()->detach();
+        foreach ($this->teachersClassrooms as $teachersClassroom) {
+            $teachersClassroom->delete();
+        }
+        $this->games()->detach();
+        $this->badges()->detach();
+
+        return parent::delete();
+    }
 }

@@ -31,7 +31,7 @@ class UserPolicy
 
     public function delete(User $user, User $model)
     {
-        return $user->isSuperAdmin() || ($user->isSchoolAdminOf($model->school));
+        return ($user->isSuperAdmin() && !$model->isSuperAdmin()) || ($user->isSchoolAdminOf($model->school));
     }
 
 }
