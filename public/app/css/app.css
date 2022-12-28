@@ -1,3 +1,8 @@
 .bg-red {
     background-color: #6cc757;
 }
+
+.form-control {
+    color: #8cfcc6;
+    background-color: rgba(40, 49, 73, 0.6);
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GameType;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use App\Models\GameType;
 use App\Utilities\DataForm;
 use App\Utilities\DataFormInput;
@@ -13,8 +14,15 @@ use Illuminate\Http\Request;
 
 class GameTypeController extends Controller
 {
+    function __construct() {
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_super_admin_index'), route('super-admin.index'));
+        $this->addBreadcrumbItem(__('messages.breadcrumbs_game_type_index'), route('super-admin.game-types.index'));
+    }
+
     public function index(Request $request)
     {
+        $this->shareBreadcrumbs();
+
         $query = GameType::withTrashed();
 
         $dataTable = DataTable::make(__('messages.game_type_index_title'), $request, $query);
