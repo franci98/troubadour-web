@@ -45,4 +45,9 @@
     <link id="pagestyle" href="{{ asset('/app/css/dark-theme-core.css') }}" rel="stylesheet" />
     <link href="{{ asset('/app/css/app.css') }}" rel="stylesheet" />
 
+    @if(session()->has('status'))
+        <link rel="stylesheet" href="{{ asset('app/plugins/growl-notification/colored-theme.min.css') }}">
+    @endif
+
+    @stack('styles')
 </head>

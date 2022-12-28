@@ -78,3 +78,15 @@
   }
 
 </script>
+
+@if(session()->has('status'))
+    <script src="{{ asset('app/plugins/growl-notification/growl-notification.min.js')}}"></script>
+    <script>
+        GrowlNotification.notify({
+            title: '{{ session('status') }}',
+            type: 'success',
+            closeTimeout: 3000,
+            position: 'top-center'
+        });
+    </script>
+@endif

@@ -113,7 +113,7 @@ return [
     'classroom_index_column_action_show' => 'Prikaži',
     'classroom_index_column_created_at' => 'Ustvarjena',
     'classroom_users_index_button_add' => 'Dodaj učenca',
-    'classroom_users_create_title' => 'Dodajte učenca v učilnico',
+    'classroom_users_create_title' => 'Dodajte učence v učilnico :0',
     'classroom_users_create_user' => 'Uporabnik',
     'classroom_users_store_success' => 'Učenec je bil uspešno dodan v učilnico.',
     'classroom_create_input_name' => 'Ime učilnice',

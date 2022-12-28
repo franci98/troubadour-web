@@ -49,28 +49,28 @@ class UserController extends Controller
         $this->addBaseBreadcrumbs($classroom);
         $this->addBreadcrumbItem(__('messages.breadcrumbs_classroom_user_create'), route('classrooms.users.create', $classroom), true);
 
-
-        $dataForm = DataForm::make(__('messages.classroom_users_create_title'), 'POST', route('classrooms.users.store', $classroom), route('classrooms.users.index', $classroom));
-
         $options = User::query()
-            ->select('name AS title', 'id AS value')
             ->where('school_id', $classroom->school_id)
+            ->whereNotIn('id', $classroom->users()->select('users.id'))
             ->get();
-        $dataForm->addInput(DataFormInput::select(__('messages.classroom_users_create_user'), 'user_id', true, $options));
 
-        return $dataForm->response();
+        return view('classroom.student-add', ['students' => $options, 'classroom' => $classroom]);
     }
 
     public function store(Request $request, Classroom $classroom)
     {
         $this->authorize('update', $classroom);
         $request->validate([
-            'user_id' => 'required|exists:users,id'
+            'users' => 'required|string',
         ]);
 
-        $classroom->users()->attach($request->user_id);
+        $classroom
+            ->users()
+            ->attach(explode(",", $request->input('users')));
 
-        return redirect()->route('classrooms.users.index', $request->classroom)->with('success', __('messages.classroom_users_store_success'));
+        return redirect()
+            ->route('classrooms.users.index', $request->classroom)
+            ->with('success', __('messages.classroom_users_store_success'));
     }
 
     public function destroy(Classroom $classroom, User $user)
