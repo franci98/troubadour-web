@@ -8,6 +8,9 @@
     </title>
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
     <!-- Nucleo Icons -->
     <link href="{{ asset('/app/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -33,12 +36,13 @@
     <script src="https://kit.fontawesome.com/4b767d74ef.js" crossorigin="anonymous"></script>
     <link href="{{ asset('/app/css/nucleo-svg.css') }}" rel="stylesheet" />
 
-    <!-- Font Awesome Icons -->
+    <!-- Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flatpickr@4.6.9/dist/plugins/monthSelect/style.css">
 
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('/app/css/soft-ui-dashboard.css?v=1.0.2') }}" rel="stylesheet" />
+    <link id="pagestyle" href="{{ asset('/app/css/dark-theme-core.css') }}" rel="stylesheet" />
     <link href="{{ asset('/app/css/app.css') }}" rel="stylesheet" />
 
 </head>

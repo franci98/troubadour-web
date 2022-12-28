@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                <i class="fas fa-gamepad"></i>
+                                <i class="fas fa-gamepad text-secondary"></i>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <i class="fa fa-users text-secondary" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                <i class="fa-solid fa-school"></i>
+                                <i class="fa-solid fa-school text-secondary"></i>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-4 text-end">
                             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <i class="fa-solid fa-chalkboard-user text-secondary"></i>
                             </div>
                         </div>
                     </div>

@@ -30,7 +30,7 @@
                                     <h6 class="my-auto">@lang('messages.dashboard_students_title')</h6>
                                 </div>
                                 <div class="col-lg-6 col-5 my-auto text-end">
-                                        <a class="small text-muted" href="{{ route('classrooms.users.index', $classroom) }}">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('classrooms.users.index', $classroom) }}">
                                             @lang('messages.dashboard_students_index_button')
                                         </a>
                                 </div>
@@ -43,7 +43,7 @@
                                         @if(!$classroom->users()->exists())
                                             <tr>
                                                 <td>
-                                                    <div class="text-center">
+                                                    <div class="text-center text-white">
                                                         @lang("messages.classroom_show_users_empty", [route('classrooms.users.create', $classroom)])
                                                     </div>
                                                 </td>
@@ -120,14 +120,14 @@
                     @endpush
                 </div>
                 <div class="col mb-2">
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-lg-6 col-7">
                             <h5 class="my-auto">
                                 @lang('messages.dashboard_homeworks_list_title')
                             </h5>
                         </div>
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <a class="small text-muted" href="{{ route('classrooms.homeworks.index', $classroom) }}">
+                            <a class="btn btn-sm btn-primary" href="{{ route('classrooms.homeworks.index', $classroom) }}">
                                 @lang('messages.dashboard_homeworks_index_button')
                             </a>
                         </div>

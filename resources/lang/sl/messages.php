@@ -94,10 +94,10 @@ return [
     'classroom_show_activity_title' => 'Aktivnosti učencev',
     'classroom_show_activity_game_user_created' => 'Učenec :0 je igral igro v sklopu domače naloge :1',
     'classroom_show_activity_empty' => 'V učilnici še ni aktivnosti.',
-    'dashboard_homeworks_list_title' => 'Domače naloge',
+    'dashboard_homeworks_list_title' => 'Zadnje domače naloge',
     'dashboard_homeworks_index_button' => 'Vse domače naloge',
     'dashboard_students_title' => 'Moji študentje',
-    'dashboard_welcome' => 'Pozdravljeni, <small class="text-muted">:0</small>!',
+    'dashboard_welcome' => 'Pozdravljeni, <small class="">:0</small>!',
     'sidenav_classroom_create' => 'Nova učilnica',
     'breadcrumbs_homework_create' => 'Dodaj domačo nalogo',
 

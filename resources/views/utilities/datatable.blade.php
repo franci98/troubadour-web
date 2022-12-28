@@ -54,7 +54,7 @@
                             @endforeach
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-white">
                         @foreach($dataTable->data as $item)
                             <tr>
                                 @foreach($dataTable->columns as $i => $column)

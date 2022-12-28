@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="sl">
 @include('base.app.head')
-<body class="g-sidenav-show bg-gray-100">
+<body class="g-sidenav-show dark-page">
 @auth
     @include('base.app.sidenav')
 @endauth
