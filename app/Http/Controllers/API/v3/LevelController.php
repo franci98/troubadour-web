@@ -17,12 +17,13 @@ class LevelController extends Controller
      *     summary="Levels list",
      *     description="Returns an array of all levels the user can or has achieved.",
      *     @OA\Response(
-     *     response=200,
-     *     description="Successful response",
-     *     @OA\MediaType(
-     *     mediaType="application/json",
-     *     )
-     *    )
+     *          response=200,
+     *          description="Successfuly retrieved the list",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/LevelResource"))
+     *          )
+     *       ),
      * )
      */
     public function index()

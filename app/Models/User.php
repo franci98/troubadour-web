@@ -140,6 +140,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->isSchoolAdmin() && $this->school_id === $school->id;
     }
 
+    public function getTotalPointsAttribute(): float
+    {
+        return (float) GameUser::query()->where('user_id', $this->id)->sum('points');
+    }
+
     public function delete()
     {
         $this->roles()->detach();

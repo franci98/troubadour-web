@@ -45,7 +45,7 @@
     </div>
     <div class="card">
         <div class="table-responsive px-2">
-            <table class="table table-hover">
+            <table class="table">
                 @if($dataTable->data->total() > 0)
                     <thead>
                         <tr>
@@ -66,7 +66,7 @@
                                                 {!! wordwrap(($column->valueGetter)($item), 75, "<br />") !!}
                                                 @isset($column->data["subtitleGetter"])
                                                     <br/>
-                                                    <span class="text-break text-muted">{{ ($column->data["subtitleGetter"])($item) }}</span>
+                                                    <span class="text-break">{{ ($column->data["subtitleGetter"])($item) }}</span>
                                                 @endisset
                                                 @break
                                             @case("boolean")
