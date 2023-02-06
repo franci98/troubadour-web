@@ -20,13 +20,13 @@ class HomeworkResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "games_required" => $this->games_required,
-            "available_at" => $this->available_at,
-            "finished_at" => $this->finished_at,
+            "available_at" => $this->available_at->format('Y-m-d H:i:s'),
+            "finished_at" => $this->finished_at->format('Y-m-d H:i:s'),
             "users" => $this->users->pluck('id'),
             "game_type" => $this->gameType->title,
             "difficulty" => DifficultyResource::make($this->difficulty),
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
+            "created_at" => $this->created_at->format('Y-m-d H:i:s'),
+            "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
         ];
 
         $data['games_finished'] = $this->countGamesOf(auth()->user());
