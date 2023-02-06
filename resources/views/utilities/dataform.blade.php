@@ -132,6 +132,7 @@
                                 altFormat: "j. n. Y H:i",
                                 dateFormat: "Y-m-d H:i",
                                 locale: "sl",
+                                time_24hr: true,
                                 enableTime: true,
                             });
                         </script>
