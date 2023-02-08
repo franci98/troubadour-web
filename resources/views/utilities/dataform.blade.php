@@ -42,7 +42,7 @@
                         </div>
                         @isset($input->helpTip)
                             <div class="mt--10">
-                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                <small id="input-{{ $input->name }}-help" class="form-text  ml-2" >
                                     <span class="ml-2">{{ $input->helpTip }}</span>
                                 </small>
                             </div>
@@ -73,7 +73,7 @@
                         </div>
                         @isset($input->helpTip)
                             <div class="mt--10">
-                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                <small id="input-{{ $input->name }}-help" class="form-text  ml-2" >
                                     <span class="ml-2">{{ $input->helpTip }}</span>
                                 </small>
                             </div>
@@ -114,7 +114,7 @@
                         </div>
                         @isset($input->helpTip)
                             <div class="mt--10">
-                                <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-2" >
+                                <small id="input-{{ $input->name }}-help" class="form-text  ml-2" >
                                     <span class="ml-2">{{ $input->helpTip }}</span>
                                 </small>
                             </div>
@@ -201,7 +201,7 @@
                                     @endforeach
                                 </select>
                                 @isset($input->helpTip)
-                                    <small id="input-{{ $input->name }}-help" class="form-text text-muted">
+                                    <small id="input-{{ $input->name }}-help" class="form-text ">
                                         {{ $input->helpTip }}
                                     </small>
                                 @endisset
@@ -229,7 +229,7 @@
                     <textarea rows="{{ $input->extras["rows"] }}" id="input-{{ $input->name }}" name="{{ $input->name }}" class="form-control @if($errors->has($name)) is-invalid @endif" minlength="{{ $input->min }}" maxlength="{{ $input->max }}" @if(($input->required ?? false) === true) required @endif>{{ old($name) ?? $input->value }}</textarea>
                 </div>
                 @isset($input->helpTip)
-                    <small id="input-{{ $input->name }}-help" class="form-text text-muted ml-3">
+                    <small id="input-{{ $input->name }}-help" class="form-text ml-3">
                         {{ $input->helpTip }}
                     </small>
                 @endisset
@@ -245,7 +245,7 @@
         @case("info")
             <div class="{{ $input->extras["class"] ?: "col-$input->divSize text-justify" }} mb-2" id="input-{{ $input->name }}-container">
                 <h6 class="mb-0 text-primary ml-2">{{ $input->title }}</h6>
-                <span class="text-muted">{!! $input->value !!} </span>
+                <span class="">{!! $input->value !!} </span>
             </div>
         @break
         @case("html")
