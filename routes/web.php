@@ -65,9 +65,12 @@ Route::group([
     Route::middleware(['auth'])->group(function () {
         Route::resource('schools', 'School\SchoolController');
         Route::resource('users', 'User\UserController');
+        Route::resource('users.games', 'User\GameController')->only(['index']);
+        Route::get('users/{user}/login', 'User\UserController@loginAs')->name('users.login-as');
         Route::get('users/{user}/roles/edit', 'User\UserController@editRoles')->name('users.roles.edit');
         Route::put('users/{user}/roles', 'User\UserController@updateRoles')->name('users.roles.update');
 
+        Route::resource('games', 'GameController')->only(['show']);
         Route::resource('classrooms', 'ClassroomController');
         Route::resource('classrooms.users', 'Classroom\UserController')->only('index', 'create', 'store', 'destroy');
         Route::resource('classrooms.homeworks', 'Classroom\HomeworkController');

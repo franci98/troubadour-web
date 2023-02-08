@@ -119,11 +119,16 @@ class UserController extends Controller
         $dataView->addItem(DataViewItem::text(__('messages.user_show_item_school'), $user->school->name, 'col-12 col-md-6'));
         $dataView->addItem(DataViewItem::text(__('messages.user_show_item_created_at'), $user->created_at->format('j. n. Y'), 'col-12 col-md-6'));
 
+        $dataView->addItem(DataViewItem::category(__('messages.user_show_item_games'), 'col-12'));
+        $dataView->addItem(DataViewItem::text(__('messages.user_show_item_games_count'), $user->games->count(), 'col-12 col-md-6'));
+        $dataView->addItem(DataViewItem::button(__('messages.user_show_item_games_list'), route('users.games.index', $user->id), 'col-12 col-md-6'));
+
         // ROles
         $dataView->addItem(DataViewItem::category(__('messages.user_show_item_roles'), 'col-12 col-md-6'));
         $dataView->addItem(DataViewItem::button(__('messages.user_show_item_role_edit'), route('users.roles.edit', $user->id), 'col-12 col-md-6'));
         if ($user->isSuperAdmin()) {
             $dataView->addItem(DataViewItem::text(__('messages.user_show_item_role'), __('messages.user_show_item_role_super_admin'), 'col-12 col-md-6'));
+            $dataView->addItem(DataViewItem::button(__('messages.user_show_item_login_as'), route('users.login-as', $user->id), 'col-12 col-md-6'));
         }
         if ($user->isSchoolAdmin()) {
             $dataView->addItem(DataViewItem::text(__('messages.user_show_item_role'), __('messages.user_show_item_role_school_admin', [$user->school->name]), 'col-12 col-md-6'));
@@ -236,5 +241,16 @@ class UserController extends Controller
         return redirect()
             ->route('users.show', $user->id)
             ->with('status', __('messages.user_update_roles_success'));
+    }
+
+    public function loginAs(User $user)
+    {
+        $this->authorize('login-as', $user);
+
+        auth()->login($user);
+
+        return redirect()
+            ->route('dashboard')
+            ->with('status', __('messages.user_login_as_success'));
     }
 }

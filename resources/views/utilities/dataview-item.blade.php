@@ -21,7 +21,7 @@
             {!! $item->value !!}
             @break
             @case("text")
-                <span class="text-muted">{{ $item->title }}</span>
+                <span>{{ $item->title }}</span>
                 <h5 class="mb-0">{{ $item->value }}</h5>
             @break
             @case("category")

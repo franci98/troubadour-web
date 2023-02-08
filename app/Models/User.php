@@ -17,6 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string email
  * @property int school_id
  * @property School school
+ * @property Game[] games
  * @property Collection classrooms
  * @property Collection teachersClassrooms
  */
