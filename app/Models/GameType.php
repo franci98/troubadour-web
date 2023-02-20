@@ -49,9 +49,9 @@ class GameType extends Model
     public function regenerateExercise(Exercise $exercise)
     {
         if ($this->id == self::INTERVALS) {
-            IntervalExercise::generate($exercise);
+            $exercise->intervalExercise = IntervalExercise::generate($exercise);
         } elseif ($this->id == self::RHYTHM) {
-            RhythmExercise::generate($exercise, self::RHYTHM);
+            $exercise->rhythmExercise = RhythmExercise::generate($exercise, self::RHYTHM);
         } elseif ($this->id == self::RHYTHM_GUESS) {
             RhythmExercise::generate($exercise, self::RHYTHM_GUESS);
         } elseif ($this->id == self::RHYTHM_TAP) {
