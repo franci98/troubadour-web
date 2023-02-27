@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @property string description
  * @property Collection parameters
  * @property GameType gameType
+ * @property DifficultyCategory|null difficultyCategory
  * @property int sequence
  */
 class Difficulty extends Model
@@ -27,6 +28,11 @@ class Difficulty extends Model
     public function gameType()
     {
         return $this->belongsTo(GameType::class);
+    }
+
+    public function difficultyCategory()
+    {
+        return $this->belongsTo(DifficultyCategory::class);
     }
 
     public function getEasierDifficulties(bool $including = false): Collection
