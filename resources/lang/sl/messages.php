@@ -190,6 +190,13 @@ return [
     'difficulty_categories_index_column_title' => 'Ime',
     'difficulty_categories_title' => 'Ime',
     'difficulty_categories_description' => 'Opis',
+    'difficulty_index_button_add_to_difficulty_category' => 'Dodaj v kategorijo',
+    'difficulty_categories_difficulties_create_title' => 'Dodaj težavnosti v kategorijo',
+    'difficulty_categories_difficulties_difficulty_id_title' => 'Težavnost',
+    'difficulty_categories_difficulties_difficulty_category_id_title' => 'Kategorija',
+    'difficulty_categories_difficulties_create_info' => 'Težavnosti, ki so izbrane.',
+    'difficulty_edit_input_difficulty_category' => 'Kategorija',
+    'difficulty_index_column_difficulty_category' => 'Kategorija',
 
     'school_index_title' => 'Seznam vseh šol',
     'super_admin_index_title' => 'Statistika in pregled sistema',

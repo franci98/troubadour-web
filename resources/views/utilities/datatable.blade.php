@@ -18,27 +18,77 @@
         @if($dataTable->containsSearchable() || $dataTable->containsButtons())
             <div class="card-body py-3">
                 <div class="row justify-content-end align-items-center">
-                    @if($dataTable->containsSearchable())
-                        <div class="col-12 col-md-auto">
-                            <form method="GET" action="/{{ request()->path() }}" class="w-100">
-                                <div class="input-group mb-3">
-                                    <input type="search" name="search" class="form-control" aria-describedby="data-table-search-submit" minlength="3" aria-label="@lang("messages.search")" placeholder="@lang("messages.search")" value="{{ $dataTable->search ?? "" }}">
-                                    <button class="btn btn-outline-primary mb-0" type="submit" id="data-table-search-submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    @endif
-                    @if($dataTable->containsButtons())
-                        <div class="col-auto">
-                            @isset($dataTable->buttons)
-                                @foreach($dataTable->buttons as $button)
-                                    <a class="btn btn-primary" href="{{ $button["href"] }}">{{ $button["title"] }}</a>
+                @if($dataTable->containsSelectableActions())
+                    <div class="col-auto d-flex me-auto">
+                        <div class="dropdown me-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dataTableMultipleActionsMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Množične akcije
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dataTableMultipleActionsMenuButton">
+                                @foreach($dataTable->selectableActions as $i => $action)
+                                    <form class="dropdown-item data-table-multiple-action-form m-0 p-0" method="{{ $action['method'] }}" action="{{ $action['link'] }}">
+                                        @if($action['method'] !== "GET")
+                                            @csrf
+                                        @endif
+                                        @method($action['method'])
+                                        <button class="btn btn-link m-0" type="submit" data-dt-input-name="{{ $action['inputName'] }}">{{ $action['title'] }}</button>
+                                    </form>
                                 @endforeach
-                            @endisset
+                                @push('scripts')
+                                    <script>
+                                        document.querySelectorAll('.data-table-multiple-action-form').forEach(function(form) {
+                                            form.addEventListener('submit', function(e) {
+                                                e.preventDefault();
+                                                var checkboxes = document.querySelectorAll('.data-table-multiple-action-checkbox:checked');
+                                                Array
+                                                    .from(checkboxes)
+                                                    .forEach(function(checkbox) {
+                                                        var input = document.createElement('input');
+                                                        input.type = 'hidden';
+                                                        input.name = form.querySelector('button').dataset.dtInputName;
+                                                        input.value = checkbox.value;
+                                                        form.appendChild(input);
+                                                    });
+                                                form.submit();
+                                            });
+                                        });
+                                    </script>
+                                @endpush
+                            </div>
                         </div>
-                    @endif
+                    </div>
+                    @push('scripts')
+                        <script>
+                            document.getElementById('dataTableApplyBtn').addEventListener('click', function() {
+                                var selectedForm = document.querySelector('.dropdown-item.active');
+                                if (selectedForm) {
+                                    selectedForm.submit();
+                                }
+                            });
+                        </script>
+                    @endpush
+                @endif
+                @if($dataTable->containsSearchable())
+                    <div class="col-12 col-md-auto">
+                        <form method="GET" action="/{{ request()->path() }}" class="w-100">
+                            <div class="input-group mb-3">
+                                <input type="search" name="search" class="form-control" aria-describedby="data-table-search-submit" minlength="3" aria-label="@lang("messages.search")" placeholder="@lang("messages.search")" value="{{ $dataTable->search ?? "" }}">
+                                <button class="btn btn-outline-primary mb-0" type="submit" id="data-table-search-submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                @endif
+                @if($dataTable->containsButtons())
+                    <div class="col-auto">
+                        @isset($dataTable->buttons)
+                            @foreach($dataTable->buttons as $button)
+                                <a class="btn btn-primary" href="{{ $button["href"] }}">{{ $button["title"] }}</a>
+                            @endforeach
+                        @endisset
+                    </div>
+                @endif
                 </div>
             </div>
         @endif
@@ -49,6 +99,9 @@
                 @if($dataTable->data->total() > 0)
                     <thead>
                         <tr>
+                            @if($dataTable->containsSelectableActions())
+                                <th></th>
+                            @endif
                             @foreach($dataTable->columns as $column)
                                 <th class="ps-2 text-uppercase text-secondary text-xs font-weight-bolder @if($column->orderable) sort @endif @if($dataTable->sortingAsc === $column->name) sorting-asc @elseif($dataTable->sortingDesc === $column->name) sorting-desc @endif" @if($column->orderable) onclick="window.location.href = '{{ $dataTable->getSortUrl($column) }}';" @endif>{{ $column->title }}</th>
                             @endforeach
@@ -57,6 +110,13 @@
                     <tbody class="text-white">
                         @foreach($dataTable->data as $item)
                             <tr>
+                                @if($dataTable->containsSelectableActions())
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input data-table-multiple-action-checkbox" value="{{ $item->id }}">
+                                        </div>
+                                    </td>
+                                @endif
                                 @foreach($dataTable->columns as $i => $column)
                                     @php $link = $column->type !== "actions" && isset($dataTable->linkGetter) ? ($dataTable->linkGetter)($item) : null; @endphp
                                     @php if (isset($dataTable->linkAuthorizationGetter) && !($dataTable->linkAuthorizationGetter)($item)) $link = null; @endphp

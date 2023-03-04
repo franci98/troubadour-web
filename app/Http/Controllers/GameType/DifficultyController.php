@@ -33,6 +33,9 @@ class DifficultyController extends Controller
 
         $dataTable->addColumn(DataTableColumn::text('id', '#', true, true, fn($item) => $item->id));
         $dataTable->addColumn(DataTableColumn::text('name', __('messages.difficulty_index_column_title'), true, true, fn($item) => $item->title, fn($item) => $item->description));
+        $dataTable->addColumn(DataTableColumn::text('difficultyCategory.name', __('messages.difficulty_index_column_difficulty_category'), true, true, fn($item) => $item->difficultyCategory?->name));
+
+        $dataTable->addSelectableAction(__('messages.difficulty_index_button_add_to_difficulty_category'), route('super-admin.game-types.difficulty-categories.difficulties.create', [$gameType]), 'GET', 'difficulty_id[]');
 
         $actions = DataTableColumn::actions();
         $actions->addAction(DataTableColumnAction::normal(__('messages.difficulty_index_button_edit'), fn($item)=> route('super-admin.game-types.difficulties.edit', [$item->gameType, $item]))->setCondition(fn($item) => !$item->trashed()));
@@ -63,6 +66,11 @@ class DifficultyController extends Controller
         $dataForm->addInput(DataFormInput::text(__('messages.difficulty_edit_input_title'), 'title', true, 0, 1024, $difficulty->title));
         $dataForm->addInput(DataFormInput::textarea(__('messages.difficulty_edit_input_description'), 'description', true, 0, 1024, 3,$difficulty->description));
         $dataForm->addInput(DataFormInput::textarea(__('messages.difficulty_edit_input_parameters'), 'parameters', true, 0, 1024, 3, json_encode($difficulty->parameters)));
+        $difficultyCategories = $gameType
+            ->difficultyCategories()
+            ->select('id AS value', 'name AS title')
+            ->get();
+        $dataForm->addInput(DataFormInput::select(__('messages.difficulty_edit_input_difficulty_category'), 'difficulty_category_id', true, $difficultyCategories, $difficulty->difficulty_category_id));
 
         return $dataForm->response();
     }
@@ -73,11 +81,13 @@ class DifficultyController extends Controller
             'title' => 'required|string|max:1024',
             'description' => 'required|string|max:1024',
             'parameters' => 'required|string|max:1024',
+            'difficulty_category_id' => 'required|integer|exists:difficulty_categories,id',
         ]);
 
         $difficulty->title = $data['title'];
         $difficulty->description = $data['description'];
         $difficulty->parameters = json_decode($data['parameters'], true);
+        $difficulty->difficulty_category_id = $data['difficulty_category_id'];
         $difficulty->save();
 
         return redirect()

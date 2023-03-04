@@ -13,7 +13,9 @@ use Illuminate\Support\Collection;
  * @property string description
  * @property Collection parameters
  * @property GameType gameType
+ * @property int game_type_id
  * @property DifficultyCategory|null difficultyCategory
+ * @property int|null difficulty_category_id
  * @property int sequence
  */
 class Difficulty extends Model

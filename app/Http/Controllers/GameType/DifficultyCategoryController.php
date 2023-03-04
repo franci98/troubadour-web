@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GameType;
 
 use App\Http\Controllers\Controller;
+use App\Models\Difficulty;
 use App\Models\Game;
 use App\Models\GameType;
 use App\Utilities\DataForm;
@@ -63,5 +64,53 @@ class DifficultyCategoryController extends Controller
 
         return redirect()
             ->route('super-admin.game-types.difficulty-categories.index', $gameType);
+    }
+
+    public function difficultiesAdd(Request $request, GameType $gameType)
+    {
+        $this->addBaseBreadcrumbs($gameType);
+        $this->shareBreadcrumbs();
+
+        $data = $request->validate([
+            'difficulty_id' => 'required|array',
+            'difficulty_id.*' => 'required|integer|exists:difficulties,id',
+        ]);
+
+        $dataForm = DataForm::make(__('messages.difficulty_categories_difficulties_create_title', [$gameType->title]), 'POST', route('super-admin.game-types.difficulty-categories.difficulties.store', [$gameType]), route('super-admin.game-types.difficulties.index', $gameType));
+
+        $names = [];
+        foreach ($data['difficulty_id'] as $i => $difficultyId) {
+            $difficulty = Difficulty::withTrashed()->findOrFail($difficultyId);
+            $names[] = $difficulty->title;
+            $dataForm->addInput(DataFormInput::hidden('','difficulty_id[' . $i . ']', $difficultyId));
+        }
+        $dataForm->addInput(DataFormInput::info(__('messages.difficulty_categories_difficulties_create_info'), implode(', ', $names)));
+
+        $difficultyCategories = $gameType
+            ->difficultyCategories()
+            ->select('id AS value', 'name AS title')
+            ->orderBy('sequence')
+            ->get();
+        $dataForm->addInput(DataFormInput::select(__('messages.difficulty_categories_difficulties_difficulty_category_id_title'), 'difficulty_category_id', true, $difficultyCategories));
+
+        return $dataForm->response();
+    }
+
+    public function difficultiesStore(GameType $gameType)
+    {
+        $data = request()->validate([
+            'difficulty_id' => 'required|array',
+            'difficulty_id.*' => 'required|integer|exists:difficulties,id',
+            'difficulty_category_id' => 'required|integer|exists:difficulty_categories,id',
+        ]);
+
+        $difficulties = Difficulty::withTrashed()->findMany($data['difficulty_id']);
+        foreach ($difficulties as $difficulty) {
+            $difficulty->difficultyCategory()->associate($data['difficulty_category_id']);
+            $difficulty->save();
+        }
+
+        return redirect()
+            ->route('super-admin.game-types.difficulties.index', $gameType);
     }
 }

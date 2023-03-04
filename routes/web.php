@@ -60,6 +60,8 @@ Route::group([
         Route::get('game-types/{gameType}/restore', 'GameType\GameTypeController@restore')->name('game-types.restore');
         Route::resource('game-types.difficulties', 'GameType\DifficultyController');
         Route::resource('game-types.difficulty-categories', 'GameType\DifficultyCategoryController');
+        Route::get('game-types/{gameType}/difficulty-categories/difficulties/create', 'GameType\DifficultyCategoryController@difficultiesAdd')->name('game-types.difficulty-categories.difficulties.create');
+        Route::post('game-types/{gameType}/difficulty-categories/difficulties', 'GameType\DifficultyCategoryController@difficultiesStore')->name('game-types.difficulty-categories.difficulties.store');
         Route::get('game-types/{gameType}/difficulties/{difficulty}/restore', 'GameType\DifficultyController@restore')->name('game-types.difficulties.restore');
     });
 

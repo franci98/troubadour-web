@@ -21,6 +21,7 @@ class DataTable {
     public $data;
     public $perPage = 20;
     public $buttons = [];
+    public $selectableActions = [];
     public $search;
     public $sortingAsc;
     public $sortingDesc;
@@ -34,6 +35,15 @@ class DataTable {
 
     public function addColumn(DataTableColumn $column) {
         $this->columns[] = $column;
+    }
+
+    public function addSelectableAction(string $title, string $href, string $method, string $inputName) {
+        $this->selectableActions[] = [
+            "link" => $href,
+            "title" => $title,
+            "method" => $method,
+            "inputName" => $inputName,
+        ];
     }
 
     public function addButton(string $href, string $title) {
@@ -104,6 +114,10 @@ class DataTable {
 
     public function containsButtons(): bool {
         return sizeof($this->buttons) > 0;
+    }
+
+    public function containsSelectableActions(): bool {
+        return sizeof($this->selectableActions) > 0;
     }
 
     public function setLinkGetter(callable $linkGetter, ?callable $authorizationGetter = null): DataTable {
