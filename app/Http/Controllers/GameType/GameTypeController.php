@@ -36,6 +36,7 @@ class GameTypeController extends Controller
         $actions->addAction(DataTableColumnAction::destructive(__('messages.game_type_index_button_destroy'), fn($item)=> route('super-admin.game-types.destroy', $item))->setCondition(fn($item) => !$item->trashed()));
         $actions->addAction(DataTableColumnAction::confirmable(__('messages.game_type_index_button_restore'), fn($item)=> route('super-admin.game-types.restore', $item))->setCondition(fn($item) => $item->trashed()));
         $actions->addAction(DataTableColumnAction::normal(__('messages.game_type_index_button_difficulties'), fn($item)=> route('super-admin.game-types.difficulties.index', $item))->setCondition(fn($item) => !$item->trashed()));
+        $actions->addAction(DataTableColumnAction::normal(__('messages.game_type_index_button_difficulty_categories'), fn($item)=> route('super-admin.game-types.difficulty-categories.index', $item))->setCondition(fn($item) => !$item->trashed()));
         $dataTable->addColumn($actions);
 
         return $dataTable->response();

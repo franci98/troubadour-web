@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int sequence
  * @property bool is_active
  * @property GameType gameType
+ * @property Difficulty[] difficulties
  */
 class DifficultyCategory extends Model
 {
@@ -32,5 +33,10 @@ class DifficultyCategory extends Model
     public function gameType()
     {
         return $this->belongsTo(GameType::class);
+    }
+
+    public function difficulties()
+    {
+        return $this->hasMany(Difficulty::class);
     }
 }

@@ -49,6 +49,7 @@ return [
     'breadcrumbs_game_type_index' => 'Vrste iger',
     'breadcrumbs_difficulty_index' => 'Stopnje težavnosti',
     'breadcrumbs_difficulty_edit' => 'Uredi',
+    'breadcrumbs_difficulty_categories_index' => 'Kategorije težavnosti',
 
     'password_reset_title' => "Ponastavitev gesla",
     'password_reset_subtitle' => "Vpišite vaš email s katerim ste prijavljeni v sistem in novo geslo.",
@@ -182,6 +183,13 @@ return [
     'difficulty_edit_input_title' => 'Ime',
     'difficulty_edit_input_description' => 'Opis',
     'difficulty_edit_input_parameters' => 'Parametri',
+
+    'difficulty_categories_index_title' => ':0 - Kategorije',
+    'game_type_index_button_difficulty_categories' => 'Kategorije',
+    'difficulty_categories_create_title' => 'Nova kategorija za igro :0',
+    'difficulty_categories_index_column_title' => 'Ime',
+    'difficulty_categories_title' => 'Ime',
+    'difficulty_categories_description' => 'Opis',
 
     'school_index_title' => 'Seznam vseh šol',
     'super_admin_index_title' => 'Statistika in pregled sistema',

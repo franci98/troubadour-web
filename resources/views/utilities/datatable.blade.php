@@ -96,10 +96,10 @@
                                                 @if($column->showCondensedActions($actions))
                                                     @php $randomId = rand(); @endphp
                                                     <div class="dropdown">
-                                                        <button class="btn btn-sm btn-icon-only" type="button" id="dropdown-{{ $randomId }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button class="btn btn-sm btn-primary btn-icon-only" type="button" id="dropdown-{{ $randomId }}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis-v fa-lg"></i>
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdown-{{ $randomId }}">
+                                                        <div class="dropdown-menu bg-light" aria-labelledby="dropdown-{{ $randomId }}">
                                                             @foreach($actions as $action)
                                                                 <li>
                                                                     <form @if($action->method === "GET") method="GET" @else method="POST" @endif action="{{ ($action->linkGetter)($item) }}">

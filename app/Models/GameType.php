@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int id
  * @property string title
  * @property string description
+ * @property int sequence
+ * @property bool is_active
+ * @property GameType gameType
+ * @property Difficulty[] difficulties
+ * @property DifficultyCategory[] difficultyCategories
  */
 class GameType extends Model
 {
@@ -65,6 +70,11 @@ class GameType extends Model
     public function difficulties()
     {
         return $this->hasMany(Difficulty::class);
+    }
+
+    public function difficultyCategories()
+    {
+        return $this->hasMany(DifficultyCategory::class);
     }
 
 }
