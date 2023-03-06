@@ -29,4 +29,26 @@ class FinishedGames implements BadgeCheckInterface
         }
         return false;
     }
+
+    public static function checkProgress(User $user, array $options = []): ?float
+    {
+        if (
+            isset($options['game_type_id']) &&
+            isset($options['difficulty_id']) &&
+            isset($options['count'])
+        ) {
+            $relevantGames = Game::query()
+                ->where('game_type_id', $options['game_type_id'])
+                ->where('difficulty_id', $options['difficulty_id'])
+                ->get();
+
+            $gameUser = GameUser::query()
+                ->where('user_id', $user->id)
+                ->where('is_finished', true)
+                ->whereIn('game_id', $relevantGames->pluck('id'))
+                ->get();
+            return floatval($gameUser->count()) / $options['count'] * 100.0;
+        }
+        return null;
+    }
 }

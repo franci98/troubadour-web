@@ -16,4 +16,9 @@ class AllAnswersCorrectBadge implements BadgeCheckInterface
             ->first();
         return $gameUser->allAnswersCorrect();
     }
+
+    public static function checkProgress(User $user, array $options = []): ?float
+    {
+        return null;
+    }
 }

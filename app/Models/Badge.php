@@ -40,4 +40,14 @@ class Badge extends Model
         $badgeChecker = $this->implemented_in;
         return $badgeChecker::check($user, $this->options ?: []);
     }
+
+    public function checkProgressOf(User $user): ?float
+    {
+        if ($this->implemented_in == null) {
+            return null;
+        }
+
+        $badgeChecker = $this->implemented_in;
+        return $badgeChecker::checkProgress($user, $this->options ?: []);
+    }
 }
