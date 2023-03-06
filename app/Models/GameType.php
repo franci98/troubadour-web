@@ -42,7 +42,7 @@ class GameType extends Model
         } elseif ($this->id == self::RHYTHM) {
             RhythmExercise::generate($exercise, self::RHYTHM);
         } elseif ($this->id == self::RHYTHM_GUESS) {
-            RhythmExercise::generate($exercise, self::RHYTHM_GUESS);
+            RhythmQuizExercise::generate($exercise, self::RHYTHM_GUESS);
         } elseif ($this->id == self::RHYTHM_TAP) {
             RhythmExercise::generate($exercise, self::RHYTHM_TAP);
         } elseif ($this->id == self::HARMONIC) {

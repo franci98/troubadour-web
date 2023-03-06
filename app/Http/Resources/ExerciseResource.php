@@ -37,8 +37,23 @@ class ExerciseResource extends JsonResource
                 ->toArray();
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
         } elseif ($this->game->gameType->id == GameType::RHYTHM_GUESS) {
-            $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
-            $resource['time_signature'] = $this->rhythmExercise->barInfo;
+            $resource['value'] = $this->rhythmQuizExercise->bars->pluck('content')
+                ->map(function ($content) {
+                    return json_decode($content);
+                })
+                ->flatMap(function ($bar) {
+                    if (count($bar) == 1)
+                        return [$bar];
+                    else {
+                        $result = [];
+                        foreach ($bar as $item) {
+                            $result[] = [$item];
+                        }
+                        return $result;
+                    }
+                })
+                ->toArray();
+            $resource['time_signature'] = $this->rhythmQuizExercise->barInfo;
         } elseif ($this->game->gameType->id == GameType::RHYTHM_TAP) {
             $resource['value'] = RhythmBarResource::collection($this->rhythmExercise->bars);
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
