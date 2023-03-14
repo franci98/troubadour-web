@@ -32,6 +32,7 @@ Route::group([
         Route::apiResource('game-types.difficulties', 'GameType\DifficultyController')->only(['index']);
         Route::apiResource('game-types.difficulty-categories', 'GameType\DifficultyCategoryController')->only(['index']);
         Route::apiResource('games', 'GameController')->only(['show', 'store']);
+        Route::get('/exercises/{exercise}/sound', 'ExerciseController@sound');
         Route::apiResource('classrooms', 'Classroom\ClassroomController')->only(['index']);
         Route::apiResource('badges', 'BadgeController')->only(['index']);
         Route::apiResource('levels', 'LevelController')->only(['index']);
