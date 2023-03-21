@@ -2023,16 +2023,22 @@ class DifficultySeeder extends Seeder
             Difficulty::query()->firstOrCreate($difficulty, ['parameters' => $parameters]);
         }
 
+        $this->createDifficultiesFromFile(GameType::INTERVALS);
+        $this->createDifficultiesFromFile(GameType::INVERSE_INTERVALS);
+    }
+
+    private function createDifficultiesFromFile(int $gametype) {
         $firstline = true;
         $sequence = 1;
-        $file = fopen(base_path("database/data/interval_difficulties.csv"), 'r');
+        $filePath = $gametype == GameType::INTERVALS ? "database/data/interval_difficulties.csv" : "database/data/inverse_interval_difficulties.csv";
+        $file = fopen(base_path($filePath), 'r');
         while (($line = fgetcsv($file)) !== FALSE) {
             if (!$firstline) {
                 Difficulty::query()->firstOrCreate(
                     [
                         "title" => "Razpon " . $line[1] . ", št. not " . $line[2] . " - " . $line[3],
                         "description" => "Intervalni razpon " . $line[1] . ", št. not " . $line[2] . " - " . $line[3],
-                        "game_type_id" => GameType::INTERVALS,
+                        "game_type_id" => $gametype,
                         "sequence" => $sequence++,
                     ],
                     [
@@ -2047,6 +2053,5 @@ class DifficultySeeder extends Seeder
             $firstline = false;
         }
         fclose($file);
-
     }
 }

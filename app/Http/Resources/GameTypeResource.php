@@ -75,7 +75,14 @@ class GameTypeResource extends JsonResource
             'description' => $this->resource->description,
             'deleted_at' => $this->resource->deleted_at,
             'mobile_only' => $this->resource->mobile_only,
-            'image_url' => url('/img/game-types/' . $this->resource->id . '.svg'),
+            'image_url' => $this->getImageUrl(),
         ];
+    }
+
+    public function getImageUrl() {
+        if (file_exists(public_path().'/img/game-types/' . $this->resource->id . '.svg')) {
+            return url('/img/game-types/' . $this->resource->id . '.svg');
+        }
+        return url('/img/game-types/empty.svg');
     }
 }

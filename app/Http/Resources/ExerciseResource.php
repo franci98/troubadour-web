@@ -16,8 +16,12 @@ class ExerciseResource extends JsonResource
             'mp3_url' => config('app.url') . "/audio/$this->id.mp3",//"https://trubadur.koin.lgm.fri.ingress.si/audio/$this->id.mp3",
         ];
 
-        if ($this->game->gameType->id == GameType::INTERVALS)
+        if ($this->game->gameType->id == GameType::INTERVALS) {
             $resource['value'] = $this->intervalExercise->value;
+        }
+        elseif ($this->game->gameType->id == GameType::INVERSE_INTERVALS) {
+            $resource['value'] = $this->inverseIntervalExercise->value;
+        }
         elseif ($this->game->gameType->id == GameType::RHYTHM) {
             $resource['value'] = $this->rhythmExercise->bars->pluck('content')
                 ->map(function ($content) {
