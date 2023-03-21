@@ -17,6 +17,7 @@ class CreateGameTypesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->boolean('mobile_only');
             $table->timestamps();
         });
     }

@@ -18,30 +18,42 @@ class GameTypeSeeder extends Seeder
             'id' => 1,
             'title' => 'Intervalni narek',
             'description' => 'Vadi intervalni narek',
+            'mobile_only' => false,
         ]);
 
         GameType::query()->firstOrCreate([
             'id' => 2,
             'title' => 'Ritmični narek',
             'description' => 'poslušaj in zapiši',
+            'mobile_only' => false,
         ]);
 
         GameType::query()->firstOrCreate([
             'id' => 3,
             'title' => 'Harmonični narek',
             'description' => 'Vadi harmonični narek',
+            'mobile_only' => false,
         ]);
 
         GameType::query()->firstOrCreate([
             'id' => 4,
             'title' => 'Ritmični kviz',
             'description' => 'poslušaj in izberi',
+            'mobile_only' => false,
         ]);
 
         GameType::query()->firstOrCreate([
             'id' => 5,
             'title' => 'Igraj ritem',
             'description' => 'preberi in zaigraj',
+            'mobile_only' => false,
+        ]);
+
+        GameType::query()->firstOrCreate([
+            'id' => 6,
+            'title' => 'Zapoj interval',
+            'description' => 'Zapoj interval',
+            'mobile_only' => true,
         ]);
     }
 }

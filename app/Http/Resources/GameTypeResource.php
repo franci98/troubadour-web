@@ -49,12 +49,32 @@ class GameTypeResource extends JsonResource
      */
     public $image_url;
 
+    /**
+     * @OA\Property(
+     *      title="deleted_at",
+     *      description="Time of game type soft deletion",
+     *      example="2023-03-15 10:00:00"
+     * )
+     */
+    public $deleted_at;
+
+      /**
+     * @OA\Property(
+     *      title="mobile_only",
+     *      description="Whether game should be available only on mobile devices.",
+     *      example="False"
+     * )
+     */
+    public $mobile_only;
+
     public function toArray($request)
     {
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'description' => $this->resource->description,
+            'deleted_at' => $this->resource->deleted_at,
+            'mobile_only' => $this->resource->mobile_only,
             'image_url' => url('/img/game-types/' . $this->resource->id . '.svg'),
         ];
     }
