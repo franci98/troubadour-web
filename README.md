@@ -55,8 +55,3 @@ This will forawrd all connections on port 8000 from Windows to wsl.
 Then run your php server with:
 
 ```php artisan serve --host 0.0.0.0 --port 8000```
-
-
-
-
-
