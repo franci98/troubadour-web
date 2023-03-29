@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGameTypesTable extends Migration
+class AddMobileOnlyGameTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateGameTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('game_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->timestamps();
+        Schema::table('game_types', function (Blueprint $table) {
+            $table->boolean('mobile_only');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateGameTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_types');
+        Schema::table('game_types', function (Blueprint $table) {
+            $table->dropColumn('mobile_only');
+        });
     }
 }
