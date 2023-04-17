@@ -26,6 +26,8 @@ class GameType extends Model
     const RHYTHM_GUESS = 4;
     const RHYTHM_TAP = 5;
 
+    const PRIMARY_SCHOOL_RHYTHM = 7;
+
     protected $fillable = [
         'title',
         'description',
@@ -47,6 +49,8 @@ class GameType extends Model
             RhythmExercise::generate($exercise, self::RHYTHM_TAP);
         } elseif ($this->id == self::HARMONIC) {
             HarmonyExercise::generate($exercise);
+        } elseif ($this->id == self::PRIMARY_SCHOOL_RHYTHM) {
+            PrimarySchoolRhythmExercise::generate($exercise, self::PRIMARY_SCHOOL_RHYTHM);
         }
         $exercise->generateMp3File();
     }
@@ -63,6 +67,8 @@ class GameType extends Model
             RhythmExercise::generate($exercise, self::RHYTHM_TAP);
         } elseif ($this->id == self::HARMONIC) {
             HarmonyExercise::generate($exercise);
+        } elseif ($this->id == self::PRIMARY_SCHOOL_RHYTHM) {
+            $exercise->primarySchoolRhythmExercise = PrimarySchoolRhythmExercise::generate($exercise, self::PRIMARY_SCHOOL_RHYTHM);
         }
         $exercise->generateMp3File();
     }

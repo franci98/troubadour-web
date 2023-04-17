@@ -59,6 +59,9 @@ class ExerciseResource extends JsonResource
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
         } elseif ($this->game->gameType->id == GameType::HARMONIC) {
             $resource['value'] = $this->harmonyExercise->value;
+        } elseif ($this->game->gameType->id == GameType::PRIMARY_SCHOOL_RHYTHM) {
+            $resource['value'] = PrimarySchoolRhythmBarResource::collection($this->primarySchoolRhythmExercise->bars);
+            $resource['time_signature'] = $this->primarySchoolRhythmExercise->primarySchoolBarInfo;
         }
 
         return $resource;

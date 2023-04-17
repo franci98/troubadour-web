@@ -48,10 +48,15 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
                 )
             );
         }
+
+        $sum = collect($chords)->sum('exists');
+        if ($sum === 0)
+            throw new \Exception("No chords selected for this difficulty");
+
         $chord = clone $chords[Utils::weightedRandom(
             array_map(
-                function ($ch) {
-                    return $ch->exists;
+                function ($ch) use ($sum) {
+                    return $ch->exists / $sum;
                 },
                 $chords
             )

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
  * @property IntervalExercise intervalExercise
  * @property RhythmExercise rhythmExercise
  * @property RhythmQuizExercise|null rhythmQuizExercise
+ * @property PrimarySchoolRhythmExercise|null primarySchoolRhythmExercise
  * @property Game game
  * @property Carbon created_at
  */
@@ -38,6 +39,11 @@ class Exercise extends Model
     public function rhythmExercise()
     {
         return $this->hasOne(RhythmExercise::class);
+    }
+
+    public function primarySchoolRhythmExercise()
+    {
+        return $this->hasOne(PrimarySchoolRhythmExercise::class);
     }
 
     public function rhythmQuizExercise()
