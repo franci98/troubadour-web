@@ -75,6 +75,11 @@ class Exercise extends Model
                 'metronome' => false,
             ];
             $soundController->generateHarmonyExerciseSound($this->harmonyExercise->id, $baseFilePath.$this->id, $info);
+        } else if ($this->game->gameType->id == GameType::PRIMARY_SCHOOL_RHYTHM) {
+            $info = (object) [
+                'metronome' => true,
+            ];
+            $soundController->generatePrimarySchoolRhythmExerciseSound($this->primarySchoolRhythmExercise->id, $baseFilePath.$this->id, $info);
         }
     }
 

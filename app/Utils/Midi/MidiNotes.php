@@ -5,6 +5,7 @@ namespace App\Utils\Midi;
 use App\Models\Exercise;
 use App\Models\HarmonyExercise;
 use App\Models\IntervalExercise;
+use App\Models\PrimarySchoolRhythmExercise;
 use Illuminate\Support\Facades\Log;
 use Motniemtin\Midi\Midi;
 use App\Utils\Midi\MidiMsg as MSG;
@@ -140,6 +141,40 @@ class MidiNotes
         );
 
         RhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
+
+        return (object) ['ok' => true, 'file' => $file];
+    }
+
+    public function generatePrimarySchoolRhythmExerciseSound($exId, $baseFilePath, $info)
+    {
+
+        $data = PrimarySchoolRhythmExercise::query()->find($exId);
+
+        if (!$data) {
+            return null;
+        }
+        $data = (object) $data;
+
+
+        $enableMetronome = $info->metronome;
+        $BPM = isset($info->BPMOverride) ? $info->BPMOverride : $data->BPM;
+
+        $file = $this->NotesToSound(
+            $data->exercise,
+            $baseFilePath,
+            $data->notesCollection(),
+            (object) [
+                "enableMetronome" => $enableMetronome,
+                "BPM" => $BPM,
+                "bar" => (object) $data->primarySchoolBarInfo->bar_info,
+                "pitch" => (object) [
+                    "exercise" => [69],
+                    "metronome" => [60, 70]
+                ]
+            ],
+        );
+
+        PrimarySchoolRhythmExercise::query()->where('id', $exId)->update(['mp3_generated' => 1]);
 
         return (object) ['ok' => true, 'file' => $file];
     }
