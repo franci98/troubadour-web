@@ -65,6 +65,16 @@ class DifficultyResource extends JsonResource
      */
     private $number_of_games;
 
+
+    /**
+     * @OA\Property(
+     *      title="deleted at",
+     *      description="Time of difficulty soft deleted.",
+     *      example="2023-03-15 10:00:00"
+     * )
+     */
+    private $deleted_at;
+
     public function toArray($request)
     {
         $data = [
@@ -73,6 +83,7 @@ class DifficultyResource extends JsonResource
             'title' => $this->resource->title,
             'image_url' => 'todo',
             'description' => $this->resource->description,
+            'deleted_at' => $this->resource->deleted_at
         ];
         if (Auth::check()) {
             $data['points'] = $this->resource->getPointsForUser(Auth::user());

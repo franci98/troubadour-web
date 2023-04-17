@@ -36,6 +36,11 @@ class Exercise extends Model
         return $this->hasOne(IntervalExercise::class);
     }
 
+    public function inverseIntervalExercise()
+    {
+        return $this->hasOne(inverseIntervalExercise::class);
+    }
+
     public function rhythmExercise()
     {
         return $this->hasOne(RhythmExercise::class);
