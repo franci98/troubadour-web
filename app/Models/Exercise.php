@@ -61,6 +61,11 @@ class Exercise extends Model
         return $this->hasOne(HarmonyExercise::class);
     }
 
+    public function inverseHarmonyExercise()
+    {
+        return $this->hasOne(InverseHarmonyExercise::class);
+    }
+
     public function generateMp3File()
     {
         $soundController = new MidiNotes();
