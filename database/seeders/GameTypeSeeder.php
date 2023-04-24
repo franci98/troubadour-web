@@ -55,5 +55,12 @@ class GameTypeSeeder extends Seeder
             'description' => 'Zapoj interval',
             'mobile_only' => true,
         ]);
+
+        GameType::query()->firstOrCreate([
+            'id' => 8,
+            'title' => 'Zapoj harmonijo',
+            'description' => 'Zapoj harmonijo',
+            'mobile_only' => true,
+        ]);
     }
 }

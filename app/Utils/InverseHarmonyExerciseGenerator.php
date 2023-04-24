@@ -2,12 +2,10 @@
 
 namespace App\Utils;
 
-use App\Models\HarmonyExercise;
-use App\Models\IntervalExercise;
-use App\Models\RhythmExercise;
+use App\Models\InverseHarmonyExercise;
 use music_theory;
 
-class HarmonyExerciseGenerator extends ExerciseGenerator
+class InverseHarmonyExerciseGenerator extends ExerciseGenerator
 {
     const INTEGER_NOTATION = array(
         ChNames::MIN => [0, 3, 7],
@@ -22,7 +20,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         ChNames::HALF_DIM => [0, 3, 6, 10]
     );
 
-    public function generateExercise(): HarmonyExercise
+    public function generateExercise(): InverseHarmonyExercise
     {
         // Get parameters based on difficulty
         $parameters = $this->exercise->game->difficulty->parameters;
@@ -193,7 +191,7 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         }
 
 
-        $harmonyExercise = HarmonyExercise::query()->create(
+        $harmonyExercise = InverseHarmonyExercise::query()->create(
             [
                 'exercise_id' => $this->exercise->id,
                 'value' => [

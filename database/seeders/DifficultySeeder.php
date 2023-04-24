@@ -793,6 +793,93 @@ class DifficultySeeder extends Seeder
         ];
 
         $difficulties[] = [
+            'title' => 'Razloženi durovi in molovi akordi brez obratov (v ozki legi)',
+            'sequence' => 11,
+            'description' => 'Razoženi durovi in molovi akordi brez obratov (v ozki legi)',
+            'game_type_id' => GameType::INVERSE_HARMONIC,
+            'parameters' => [
+                'razlozen' => 100,
+                "ozka" => 100,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "dom7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "min_maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "dim7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    )
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
             'title' => 'Razloženi durovi in molovi akordi brez obratov (v široki legi)',
             'sequence' => 12,
             'description' => 'Razloženi durovi in molovi akordi brez obratov (v široki legi)',
@@ -971,6 +1058,93 @@ class DifficultySeeder extends Seeder
             'sequence' => 14,
             'description' => 'Razloženi durovi in molovi akordi z osnovnim, prvim in drugim obratom (v ozki legi)',
             'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 100,
+                "ozka" => 100,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "dom7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "min_maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "dim7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    )
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
+            'title' => 'Razloženi durovi in molovi akordi z osnovnim, prvim in drugim obratom (v ozki legi)',
+            'sequence' => 14,
+            'description' => 'Razloženi durovi in molovi akordi z osnovnim, prvim in drugim obratom (v ozki legi)',
+            'game_type_id' => GameType::INVERSE_HARMONIC,
             'parameters' => [
                 'razlozen' => 100,
                 "ozka" => 100,
@@ -1233,6 +1407,93 @@ class DifficultySeeder extends Seeder
             'sequence' => 17,
             'description' => 'Razloženi dur, mol, zmanjšani, zvečani akordi z osnovnim, prvim in drugim obratom (ozka lega)',
             'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 100,
+                "ozka" => 100,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "dom7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "min_maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "dim7" => array(
+                        "exists" => 0,
+                        "obrat0" => 0,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 1,
+                    ),
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    )
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
+            'title' => 'Razloženi dur, mol, zmanjšani, zvečani akordi z osnovnim, prvim in drugim obratom (ozka lega)',
+            'sequence' => 17,
+            'description' => 'Razloženi dur, mol, zmanjšani, zvečani akordi z osnovnim, prvim in drugim obratom (ozka lega)',
+            'game_type_id' => GameType::INVERSE_HARMONIC,
             'parameters' => [
                 'razlozen' => 100,
                 "ozka" => 100,
@@ -1758,6 +2019,93 @@ class DifficultySeeder extends Seeder
             'sequence' => 23,
             'description' => 'Razloženi dur, mol septakordi z obrati v ozki legi',
             'game_type_id' => GameType::HARMONIC,
+            'parameters' => [
+                'razlozen' => 100,
+                "ozka" => 100,
+                "chord" => array(
+                    "min" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+                    ),
+                    "maj" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 0,
+
+                    ),
+                    "dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "aug" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+
+                    ),
+                    "min7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ),
+                    "maj7" => array(
+                        "exists" => 1,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ),
+                    "dom7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "min_maj7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 0,
+                        "obrat2" => 0,
+                        "obrat3" => 0,
+                    ),
+                    "dim7" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    ),
+                    "half_dim" => array(
+                        "exists" => 0,
+                        "obrat0" => 1,
+                        "obrat1" => 1,
+                        "obrat2" => 1,
+                        "obrat3" => 1,
+                    )
+                ),
+                "meja" => 1
+            ]
+        ];
+
+        $difficulties[] = [
+            'title' => 'Razloženi dur, mol septakordi z obrati v ozki legi',
+            'sequence' => 23,
+            'description' => 'Razloženi dur, mol septakordi z obrati v ozki legi',
+            'game_type_id' => GameType::INVERSE_HARMONIC,
             'parameters' => [
                 'razlozen' => 100,
                 "ozka" => 100,
