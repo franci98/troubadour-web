@@ -10,7 +10,7 @@ use Exception;
 
 class MidiConvert {
 
-    private $gain = 1;
+    private $gain = 4;
     private $defaultSoundFont = "/usr/share/sounds/sf2/Fluid.sf2";
 
     public function init(){
