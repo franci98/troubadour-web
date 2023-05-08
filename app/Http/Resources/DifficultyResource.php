@@ -75,6 +75,16 @@ class DifficultyResource extends JsonResource
      */
     private $deleted_at;
 
+
+    /**
+     * @OA\Property(
+     *      title="max_game",
+     *      description="Numbere of games for this difficulty",
+     *      example=1"2"
+     * )
+     */
+    private $max_games;
+
     public function toArray($request)
     {
         $data = [
@@ -83,12 +93,12 @@ class DifficultyResource extends JsonResource
             'title' => $this->resource->title,
             'image_url' => 'todo',
             'description' => $this->resource->description,
-            'deleted_at' => $this->resource->deleted_at
+            'deleted_at' => $this->resource->deleted_at,
+            'max_games' => $this->resource->max_games,
         ];
         if (Auth::check()) {
             $data['points'] = $this->resource->getPointsForUser(Auth::user());
             $data['number_of_games'] = $this->resource->getNumberOfGamesForUser(Auth::user());
-            $data['max_games'] = 24;
          }
 
         return $data;
