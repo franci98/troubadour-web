@@ -41,7 +41,7 @@ Route::group([
         Route::get('password/reset', 'AuthController@passwordResetShow')->name('password.change');
         Route::post('password/reset', 'AuthController@passwordUpdate')->name("password.reset");
     });
-    Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->middleware(['signed'])->name('verification.verify');
+    Route::get('/email/verify/{id}/{hash}', 'AuthController@verifyEmail')->name('verification.verify');
     Route::get('/roles/invalid', 'RoleController@invalid')->name('roles.invalid')->withoutMiddleware('teacher');
     Route::post('logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
