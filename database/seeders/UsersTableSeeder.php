@@ -18,6 +18,14 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = User::query()->firstOrCreate([
+            'name' => 'nedela',
+            'email' => 'nedela@trubadur.si',
+            'school_id' => 1,
+        ], [
+            'email_verified_at' => now(),
+            'password' => Hash::make('deladela'),
+        ]);
+        $user = User::query()->firstOrCreate([
             'name' => 'Trubadur admin',
             'email' => 'admin@trubadur.si',
             'school_id' => 1,

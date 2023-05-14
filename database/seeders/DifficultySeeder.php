@@ -17,6 +17,12 @@ class DifficultySeeder extends Seeder
     {
         $difficulties = [];
         $difficulties[] = [
+            'title' => 'Taktiraj ritem 1',
+            'sequence' => 1,
+            'description' => 'level 1',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
             'title' => '11',
             'sequence' => 1,
             'description' => '1. letnik - level 1',
