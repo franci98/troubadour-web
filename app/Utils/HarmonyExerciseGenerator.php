@@ -87,9 +87,16 @@ class HarmonyExerciseGenerator extends ExerciseGenerator
         /*  Pick one of the available inversions and invert the chord
             (inversion means you take the bottom note and raise it by an octave (+12)
         */
-        $inversion = Utils::weightedRandom($chord->obrati);
-        if ($inversion != null)
+        $numberOfInversions = array_sum($chord->obrati);
+        $inversion = Utils::weightedRandom(array_map(
+            function ($obrat) use ($numberOfInversions) {
+                return $obrat / $numberOfInversions;
+            },
+            $chord->obrati
+        ));
+        if ($inversion != null) {
             self::obrati($chord->integerNotation, $inversion);
+        }
         sort($chord->integerNotation);
 
 
