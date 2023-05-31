@@ -92,17 +92,32 @@ class Homework extends Model
 
     public function countGamesOf(User $user): int
     {
-        return GameUser::query()
-            ->whereIn('game_id', $this->games->pluck('id'))
-            ->where('user_id', $user->id)
-            ->count();
+        return $this->getPlayedGames($user)->count();
     }
 
     public function scoreOf(User $user): int
     {
+        return $this->getPlayedGames($user)->sum('points');
+    }
+
+    // Returns all the homework games that the user has played and finished
+    public function getPlayedGames(User $user): Collection
+    {
         return GameUser::query()
             ->whereIn('game_id', $this->games->pluck('id'))
             ->where('user_id', $user->id)
-            ->sum('points');
+            ->where('is_finished', true)
+            ->get();
+    }
+
+    // Get finished game_ids of the user
+    public function getPlayedGameIds(User $user): Collection
+    {
+        return $this->getPlayedGames($user)->pluck('game_id')->unique('game_id');
+    }
+
+    public function getNotPlayedGames(User $user): Collection
+    {
+        return $this->games()->whereNotIn('id', $this->getPlayedGameIds($user))->get();
     }
 }

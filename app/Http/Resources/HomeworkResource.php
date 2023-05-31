@@ -23,18 +23,15 @@ class HomeworkResource extends JsonResource
             "available_at" => $this->available_at->format('Y-m-d H:i:s'),
             "finished_at" => $this->finished_at->format('Y-m-d H:i:s'),
             "users" => $this->users->pluck('id'),
-            "game_type" => $this->gameType->title,
+            "game_type" => $this->gameType,
             "difficulty" => DifficultyResource::make($this->difficulty),
             "created_at" => $this->created_at->format('Y-m-d H:i:s'),
             "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
         ];
 
+        // This is wrong, because it just checks that the user has played at least one game and not finished it
         $data['games_finished'] = $this->countGamesOf(auth()->user());
-        $data['next_game'] = Game::query()
-            ->where('homework_id', $this->id)
-            ->whereDoesntHave('users', fn($query) => $query->where('users.id', auth()->id()))
-            ->first();
-
+        $data['next_game'] = $this->getNotPlayedGames(auth()->user())->first();
         return $data;
     }
 }
