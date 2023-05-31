@@ -29,7 +29,6 @@ class HomeworkResource extends JsonResource
             "updated_at" => $this->updated_at->format('Y-m-d H:i:s'),
         ];
 
-        // This is wrong, because it just checks that the user has played at least one game and not finished it
         $data['games_finished'] = $this->countGamesOf(auth()->user());
         $data['next_game'] = $this->getNotPlayedGames(auth()->user())->first();
         return $data;
