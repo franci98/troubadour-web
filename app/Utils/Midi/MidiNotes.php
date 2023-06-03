@@ -519,7 +519,7 @@ class MidiNotes
         }
 
         // Melody
-        $this->Instrument($midi, 1, 0);
+        $this->Instrument($midi, 1, $exercise->getMidiInstrumentCode());
         if ($isChord) {
             foreach ($info->pitch->exercise as $i => $item) {
                 $this->GetMIDIData($midi, $notes, $info, (object) [
