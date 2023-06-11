@@ -18,7 +18,35 @@ use Symfony\Component\ErrorHandler\Debug;
 class MidiNotes
 {
 
-    private static $midiPitchMap = [
+    // Array of notes to midi
+    public static $midiPitchMap = [
+        'A0' => 21,
+        'Bb0' => 22,
+        'B0' => 23,
+        'C1' => 24,
+        'Db1' => 25,
+        'D1' => 26,
+        'Eb1' => 27,
+        'E1' => 28,
+        'F1' => 29,
+        'Gb1' => 30,
+        'G1' => 31,
+        'Ab1' => 32,
+        'A1' => 33,
+        'Bb1' => 34,
+        'B1' => 35,
+        'C2' => 36,
+        'Db2' => 37,
+        'D2' => 38,
+        'Eb2' => 39,
+        'E2' => 40,
+        'F2' => 41,
+        'Gb2' => 42,
+        'G2' => 43,
+        'Ab2' => 44,
+        'A2' => 45,
+        'Bb2' => 46,
+        'B2' => 47,
         'C3' => 48,
         'Db3' => 49,
         'D3' => 50,
@@ -68,6 +96,17 @@ class MidiNotes
         'Bb6' => 94,
         'B6' => 95,
         'C7' => 96,
+        'Db7' => 97,
+        'D7' => 98,
+        'Eb7' => 99,
+        'E7' => 100,
+        'F7' => 101,
+        'Gb7' => 102,
+        'G7' => 103,
+        'Ab7' => 104,
+        'A7' => 105,
+        'Bb7' => 106,
+        'B7' => 107,
     ];
 
     private static $lowerToUpperMap = [
