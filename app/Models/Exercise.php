@@ -66,11 +66,16 @@ class Exercise extends Model
         return $this->hasOne(InverseHarmonyExercise::class);
     }
 
+    public function inverseRhythmExercise()
+    {
+        return $this->hasOne(InverseRhythmExercise::class);
+    }
+
     public function generateMp3File()
     {
         $soundController = new MidiNotes();
         $baseFilePath = public_path("audio/");
-        if ($this->game->gameType->id == GameType::RHYTHM) {
+        if ($this->game->gameType->id == GameType::RHYTHM || $this->game->gameType->id == GameType::INVERSE_RHYTHM) {
             $info = (object) [
                 'metronome' => true,
             ];
@@ -91,6 +96,12 @@ class Exercise extends Model
             ];
             $soundController->generatePrimarySchoolRhythmExerciseSound($this->primarySchoolRhythmExercise->id, $baseFilePath.$this->id, $info);
         }
+//        else if ($this->game->gameType->id == GameType::INVERSE_RHYTHM) {
+//            $info = (object) [
+//                'metronome' => true,
+//            ];
+//            $soundController->generateInverseRhythmExerciseSound($this->inverseRhythmExercise->id, $baseFilePath.$this->id, $info);
+//        }
     }
 
     public function deleteMp3File()

@@ -22,7 +22,7 @@ class ExerciseResource extends JsonResource
         elseif ($this->game->gameType->id == GameType::INVERSE_INTERVALS) {
             $resource['value'] = $this->inverseIntervalExercise->value;
         }
-        elseif ($this->game->gameType->id == GameType::RHYTHM) {
+        elseif ($this->game->gameType->id == GameType::RHYTHM || $this->game->gameType->id == GameType::INVERSE_RHYTHM) {
             $resource['value'] = $this->rhythmExercise->bars->pluck('content')
                 ->map(function ($content) {
                     return json_decode($content);

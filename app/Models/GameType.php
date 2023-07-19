@@ -28,7 +28,8 @@ class GameType extends Model
     const INVERSE_INTERVALS = 6;
     const PRIMARY_SCHOOL_RHYTHM = 7;
     const INVERSE_HARMONIC = 8;
-    
+    const INVERSE_RHYTHM = 9;
+
 
     protected $fillable = [
         'title',
@@ -57,6 +58,8 @@ class GameType extends Model
             PrimarySchoolRhythmExercise::generate($exercise, self::PRIMARY_SCHOOL_RHYTHM);
         } elseif ($this->id == self::INVERSE_HARMONIC) {
             InverseHarmonyExercise::generate($exercise);
+        } elseif ($this->id == self::INVERSE_RHYTHM) {
+            RhythmExercise::generate($exercise, self::RHYTHM);
         }
         $exercise->generateMp3File();
     }
