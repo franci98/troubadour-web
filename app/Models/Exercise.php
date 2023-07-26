@@ -79,7 +79,9 @@ class Exercise extends Model
             $info = (object) [
                 'metronome' => true,
             ];
-            $soundController->generateExerciseSound($this->rhythmExercise()->first()->id, $baseFilePath.$this->id, $info);
+            $rhythmExercise = (object) $this->rhythmExercise()->first();
+            $soundController->generateMetronome($rhythmExercise->id, "audio/metronome/".$this->id, $info);
+            $soundController->generateExerciseSound($rhythmExercise->id, $baseFilePath.$this->id, $info);
         } else if ($this->game->gameType->id == GameType::INTERVALS) {
             $info = (object) [
                 'metronome' => false,

@@ -11,7 +11,7 @@ use Exception;
 class MidiConvert {
 
     private $gain = 4;
-    private $defaultSoundFont = "/usr/share/sounds/sf2/Fluid.sf2";
+    private $defaultSoundFont = "storage/fonts/FluidR3_GM.sf2";
 
     public function init(){
 

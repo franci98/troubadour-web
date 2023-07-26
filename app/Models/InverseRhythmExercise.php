@@ -28,6 +28,7 @@ class InverseRhythmExercise extends Model
         'BPM',
         'rhythm_level',
         'mp3_generated',
+        'metronome_file_name'
     ];
 
     public static function generate(Exercise $exercise, int $gameType): InverseRhythmExercise
@@ -60,8 +61,6 @@ class InverseRhythmExercise extends Model
 
     public function notesCollection(): array
     {
-
-        error_log("burek");
         $notes = json_decode($this->bars[0]->content);
         for($i = 1; $i < count($this->bars); $i++){
             $notes = array_merge($notes, json_decode($this->bars[$i]->content));

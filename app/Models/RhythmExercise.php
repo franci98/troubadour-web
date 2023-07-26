@@ -27,6 +27,7 @@ class RhythmExercise extends Model
         'BPM',
         'rhythm_level',
         'mp3_generated',
+        'metronome_file_name'
     ];
 
     public static function generate(Exercise $exercise, int $gameType): RhythmExercise

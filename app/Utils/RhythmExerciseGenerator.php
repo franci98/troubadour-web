@@ -7,6 +7,7 @@ namespace App\Utils;
 use App\Models\Exercise;
 use App\Models\RhythmExercise;
 use Illuminate\Support\Facades\DB;
+use function MongoDB\BSON\toJSON;
 
 class RhythmExerciseGenerator
 {
@@ -667,7 +668,14 @@ class RhythmExerciseGenerator
             return $el->minBarLength <= $spaceLeft;
         });
 
-        return self::weightedRandomSelector($available, function($c) { return $c->id; });
+        return clone $available[Utils::weightedRandom(
+            array_map(
+                function ($feature) use ($available) {
+                    return $feature->prob;
+                },
+                $available
+            )
+        )];
     }
 
 }

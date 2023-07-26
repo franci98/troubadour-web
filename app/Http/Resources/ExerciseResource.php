@@ -40,6 +40,8 @@ class ExerciseResource extends JsonResource
                 })
                 ->toArray();
             $resource['time_signature'] = $this->rhythmExercise->barInfo;
+            $resource['metronome_file_name'] = config('app.url') . "/audio/metronome/$this->id.mp3";
+            $resource['beats_per_minute'] = $this->rhythmExercise->BPM;
         } elseif ($this->game->gameType->id == GameType::RHYTHM_GUESS) {
             $resource['value'] = $this->rhythmQuizExercise->bars->pluck('content')
                 ->map(function ($content) {

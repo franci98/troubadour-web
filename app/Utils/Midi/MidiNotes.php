@@ -14,6 +14,7 @@ use App\Utils\Midi\MidiMsg as MSG;
 use App\Models\RhythmExercise;
 
 use Exception;
+use PhpParser\Node\Expr\Cast\Object_;
 use Symfony\Component\ErrorHandler\Debug;
 
 class MidiNotes
@@ -598,5 +599,136 @@ class MidiNotes
         $mp3 = $c->toMP3($wavFileName, $mp3FileName);
 
         return $mp3FileName;
+    }
+
+//    public function generateMetronomeMp3($exercise, $info){
+//
+//
+//        $BPM = isset($info->BPMOverride) ? $info->BPMOverride : $exercise->BPM;
+//
+//        # Setup midi with bpm and one track for metronome
+//        $midi = $this->SetupMidi($BPM, 2);
+//
+//        $baseFilePath = public_path("audio/metronome/".$exercise->id);
+//
+//        error_log($exercise->barInfo);
+//        #error_log(get_class($exercise->barInfo->bar_info));
+//
+//        # Get one bar of metronom notes to play
+//        $countinNotes = $this->GetMetronomeNotes($exercise->barInfo, 1);
+//        $countinPitch = $this->GetMetronomePitches($exercise->barInfo, 1);
+//
+//        error_log(count($countinNotes));
+//        foreach ($countinPitch as $cip){
+//            error_log($cip);
+//        }
+//
+//        $this->Instrument($midi, 2, 13);
+//
+//        # Generate midi notes for metronome
+//        $this->GetMIDIData($midi, $countinNotes, $info, (object)[
+//            "trackId" => 2,
+//            "pitch" => $countinPitch,
+//            "currentTime" => 0,
+//            "constDuration" => 0.2,
+//            "noteForce" => 80,
+//        ]);
+//
+//        $midiFileName = "$baseFilePath.mid";
+//        $wavFileName  = "$baseFilePath.wav";
+//        $mp3FileName  = "$baseFilePath.mp3";
+//
+//
+//        $c = new MidiConvert();
+//        $midi->saveMidFile($midiFileName);
+//        $wav = $c->toWav($midiFileName, $wavFileName);
+//        $mp3 = $c->toMP3($wavFileName, $mp3FileName);
+//
+//        RhythmExercise::query()->where('id', $exercise->id)->update(['metronome_file_name' => $mp3FileName]);
+//
+//        return $mp3FileName;
+//    }
+
+    public function SetupMidiMetronome($BPM, $trackCount = 2)
+    {
+
+        $midi = new Midi();
+        $midi->open();
+
+        $tempo = 480000 * 60 / $BPM;
+
+        $midi->setTempo($tempo);
+
+        for ($i = 0; $i < $trackCount; $i++) {
+            $midi->newTrack();
+        }
+
+        return $midi;
+    }
+
+    public function metronome(Exercise $exercise, $baseFilePath, $notes, $info, $isChord = false)
+    {
+        $timeDiff = 0;
+        $midi = $this->SetupMidiMetronome($info->BPM, 1);
+        error_log($info->BPM);
+        error_log($midi->getBpm());
+        if ($info->enableMetronome) {
+            $countinNotes = $this->GetMetronomeNotes($info->bar, 1);
+            $countinPitch = $this->GetMetronomePitches($info->bar, 1);
+
+            // Countdown
+            $this->Instrument($midi, 1, 13);
+            $timeDiff = $this->GetMIDIData($midi, $countinNotes, $info, (object)[
+                "trackId" => 1,
+                "pitch" => $countinPitch,
+                "currentTime" => 0,
+                "constDuration" => 0.2,
+                "noteForce" => 80,
+            ]);
+        }
+
+        $midiFileName = "$baseFilePath.mid";
+        $wavFileName  = "$baseFilePath.wav";
+        $mp3FileName  = "$baseFilePath.mp3";
+
+
+        $c = new MidiConvert();
+        $midi->saveMidFile($midiFileName);
+        $wav = $c->toWav($midiFileName, $wavFileName);
+        $mp3 = $c->toMP3($wavFileName, $mp3FileName);
+
+        return $mp3FileName;
+    }
+
+    public function generateMetronome($exId, $baseFilePath, $info)
+    {
+
+        $data = RhythmExercise::query()->find($exId);
+
+        if (!$data) {
+            return null;
+        }
+        $data = (object) $data;
+
+
+        $enableMetronome = $info->metronome;
+        $BPM = isset($info->BPMOverride) ? $info->BPMOverride : $data->BPM;
+
+        $file = $this->metronome(
+            $data->exercise,
+            $baseFilePath,
+            $data->notesCollection(),
+            (object) [
+                "enableMetronome" => $enableMetronome,
+                "BPM" => $BPM,
+                "bar" => (object) $data->barInfo->bar_info,
+                "pitch" => (object) [
+                    "exercise" => [69],
+                    "metronome" => [60, 70]
+                ]
+            ],
+        );
+
+        return (object) ['ok' => true, 'file' => $file];
     }
 }
