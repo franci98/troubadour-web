@@ -18,7 +18,7 @@ class RyhthmExerciseConfigSeeder extends Seeder
         if (RhythmBar::query()->exists())
             return;
 
-        $path = base_path().'/database/data/rhythmGeneratingDefinitions.sql';
+        $path = base_path().'/database/data/primarySchoolRhythmGeneratingDefinitions.sql';
         $sql = file_get_contents($path);
         DB::unprepared($sql);
     }

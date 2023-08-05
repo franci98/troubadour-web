@@ -17,81 +17,148 @@ class DifficultySeeder extends Seeder
     {
         $difficulties = [];
         $difficulties[] = [
-            'title' => 'Taktiraj ritem 1',
+            'title' => '1',
             'sequence' => 1,
             'description' => 'level 1',
             'game_type_id' => 9
         ];
         $difficulties[] = [
-            'title' => '11',
-            'sequence' => 1,
-            'description' => '1. letnik - level 1',
+            'title' => '2',
+            'sequence' => 2,
+            'description' => 'level 2',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '3',
+            'sequence' => 3,
+            'description' => 'level 3',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '4',
+            'sequence' => 4,
+            'description' => 'level 4',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '5',
+            'sequence' => 5,
+            'description' => 'level 5',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '6',
+            'sequence' => 6,
+            'description' => 'level 6',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '7',
+            'sequence' => 7,
+            'description' => 'level 7',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '8',
+            'sequence' => 8,
+            'description' => 'level 8',
             'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '9',
+            'sequence' => 9,
+            'description' => 'level 9',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '10',
+            'sequence' => 10,
+            'description' => 'level 10',
+            'game_type_id' => 9
+        ];
+        $difficulties[] = [
+            'title' => '11',
+            'sequence' => 11,
+            'description' => 'level 11',
+            'game_type_id' => 9
         ];
         $difficulties[] = [
             'title' => '12',
-            'sequence' => 2,
-            'description' => '1. letnik - level 2',
-            'game_type_id' => 2
+            'sequence' => 12,
+            'description' => 'level 12',
+            'game_type_id' => 9
         ];
+
         $difficulties[] = [
             'title' => '13',
-            'sequence' => 3,
-            'description' => '1. letnik - level 3',
+            'sequence' => 13,
+            'description' => 'level 13',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '14',
-            'sequence' => 4,
-            'description' => '1. letnik - level 4',
+            'sequence' => 14,
+            'description' => 'level 14',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '15',
+            'sequence' => 15,
+            'description' => 'level 15',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '16',
+            'sequence' => 16,
+            'description' => 'level 16',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '17',
+            'sequence' => 17,
+            'description' => 'level 17',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '18',
+            'sequence' => 18,
+            'description' => 'level 18',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '19',
+            'sequence' => 19,
+            'description' => 'level 19',
+            'game_type_id' => 2
+        ];
+        $difficulties[] = [
+            'title' => '20',
+            'sequence' => 20,
+            'description' => 'level 20',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '21',
-            'sequence' => 1,
-            'description' => '2. letnik - level 1',
+            'sequence' => 21,
+            'description' => 'level 21',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '22',
-            'sequence' => 2,
-            'description' => '2. letnik - level 2',
+            'sequence' => 22,
+            'description' => 'level 22',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '23',
-            'sequence' => 3,
-            'description' => '2. letnik - level 3',
+            'sequence' => 23,
+            'description' => 'level 23',
             'game_type_id' => 2
         ];
         $difficulties[] = [
             'title' => '24',
-            'sequence' => 4,
-            'description' => '2. letnik - level 4',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '31',
-            'sequence' => 1,
-            'description' => '3. letnik - level 1',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '32',
-            'sequence' => 2,
-            'description' => '3. letnik - level 2',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '33',
-            'sequence' => 3,
-            'description' => '3. letnik - level 3',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '34',
-            'sequence' => 4,
-            'description' => '3. letnik - level 4',
+            'sequence' => 24,
+            'description' => 'level 24',
             'game_type_id' => 2
         ];
         $difficulties[] = [
