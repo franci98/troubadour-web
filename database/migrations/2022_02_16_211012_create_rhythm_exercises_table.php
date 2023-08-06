@@ -28,6 +28,7 @@ class CreateRhythmExercisesTable extends Migration
             // If set, it will be used to split a bar
             // length in quarter notes - how much space does the element occupy in the first bar
             $table->double('cross_bar')->nullable();
+            $table->double('rests');
             $table->softDeletes();
         });
 
