@@ -670,8 +670,6 @@ class MidiNotes
     {
         $timeDiff = 0;
         $midi = $this->SetupMidiMetronome($info->BPM, 1);
-        error_log($info->BPM);
-        error_log($midi->getBpm());
         if ($info->enableMetronome) {
             $countinNotes = $this->GetMetronomeNotes($info->bar, 1);
             $countinPitch = $this->GetMetronomePitches($info->bar, 1);

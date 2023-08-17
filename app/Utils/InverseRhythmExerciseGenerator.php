@@ -145,7 +145,6 @@ class InverseRhythmExerciseGenerator
         $BPM = 60;
         if (json_decode($bar_info_info->bar_info)->base_note == 8)
             $BPM = 120;
-        error_log("burek");
         // Shrani vajo in vrni številko
         return self::saveExercise([
             'bar_info_id' => $bar_info_info->id,

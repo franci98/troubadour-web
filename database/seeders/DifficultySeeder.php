@@ -19,74 +19,58 @@ class DifficultySeeder extends Seeder
         $difficulties[] = [
             'title' => '1',
             'sequence' => 1,
-            'description' => 'level 1',
-            'game_type_id' => 9
+            'description' => 'level 1 - LAHKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '2',
             'sequence' => 2,
-            'description' => 'level 2',
-            'game_type_id' => 9
+            'description' => 'level 2  - LAHKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '3',
             'sequence' => 3,
-            'description' => 'level 3',
-            'game_type_id' => 9
+            'description' => 'level 3  - LAHKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '4',
             'sequence' => 4,
-            'description' => 'level 4',
-            'game_type_id' => 9
+            'description' => 'level 4  - LAHKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '5',
             'sequence' => 5,
-            'description' => 'level 5',
-            'game_type_id' => 9
+            'description' => 'level 5  - ZMERNO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '6',
             'sequence' => 6,
-            'description' => 'level 6',
-            'game_type_id' => 9
+            'description' => 'level 6 - ZMERNO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '7',
             'sequence' => 7,
-            'description' => 'level 7',
-            'game_type_id' => 9
+            'description' => 'level 7 - TEŽKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
         $difficulties[] = [
             'title' => '8',
             'sequence' => 8,
-            'description' => 'level 8',
-            'game_type_id' => 2
-        ];
-        $difficulties[] = [
-            'title' => '9',
-            'sequence' => 9,
-            'description' => 'level 9',
-            'game_type_id' => 9
-        ];
-        $difficulties[] = [
-            'title' => '10',
-            'sequence' => 10,
-            'description' => 'level 10',
-            'game_type_id' => 9
-        ];
-        $difficulties[] = [
-            'title' => '11',
-            'sequence' => 11,
-            'description' => 'level 11',
-            'game_type_id' => 9
-        ];
-        $difficulties[] = [
-            'title' => '12',
-            'sequence' => 12,
-            'description' => 'level 12',
-            'game_type_id' => 9
+            'description' => 'level 8 - ZELO TEŽKO',
+            'game_type_id' => 9,
+            'max_games' => 2,
         ];
 
         $difficulties[] = [
