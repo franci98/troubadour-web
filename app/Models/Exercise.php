@@ -38,7 +38,7 @@ class Exercise extends Model
 
     public function inverseIntervalExercise()
     {
-        return $this->hasOne(inverseIntervalExercise::class);
+        return $this->hasOne(InverseIntervalExercise::class);
     }
 
     public function rhythmExercise()
@@ -80,7 +80,20 @@ class Exercise extends Model
                 'metronome' => false,
             ];
             $soundController->generateIntervalExerciseSound($this->intervalExercise->id, $baseFilePath.$this->id, $info);
-        } else if ($this->game->gameType->id == GameType::HARMONIC) {
+        } 
+        else if ($this->game->gameType->id == GameType::INVERSE_INTERVALS) {
+            $info = (object) [
+                'metronome' => false,
+            ];
+            $soundController->generateIntervalExerciseSound($this->inverseIntervalExercise->id, $baseFilePath.$this->id, $info, inverse:True);
+        } 
+        else if ($this->game->gameType->id == GameType::INVERSE_HARMONIC) {
+            $info = (object) [
+                'metronome' => false,
+            ];
+            $soundController->generateHarmonyExerciseSound($this->inverseHarmonyExercise->id, $baseFilePath.$this->id, $info, inverse:True);
+        }
+        else if ($this->game->gameType->id == GameType::HARMONIC) {
             $info = (object) [
                 'metronome' => false,
             ];
@@ -136,6 +149,18 @@ class Exercise extends Model
             $this->rhythmExercise->delete();
         } else if ($this->game->gameType->id == GameType::INTERVALS) {
             $this->intervalExercise->delete();
+        }
+        else if ($this->game->gameType->id == GameType::INVERSE_INTERVALS) {
+            $this->inverseIntervalExercise->delete();
+        }
+        else if ($this->game->gameType->id == GameType::INVERSE_HARMONIC) {
+            $this->inverseHarmonyExercise->delete();
+        }
+        else if ($this->game->gameType->id == GameType::HARMONIC) {
+            $this->harmonyExercise->delete();
+        }
+        else if ($this->game->gameType->id == GameType::PRIMARY_SCHOOL_RHYTHM) {
+            $this->primarySchoolRhythmExercise->delete();
         }
         $this->deleteMp3File();
         $this->game->gameType->regenerateExercise($this);
