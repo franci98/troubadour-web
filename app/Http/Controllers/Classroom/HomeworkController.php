@@ -31,7 +31,7 @@ class HomeworkController extends Controller
 
     public function index(Request $request, Classroom $classroom)
     {
-//        $this->authorize('viewAny', [Homework::class, $classroom]);
+        //        $this->authorize('viewAny', [Homework::class, $classroom]);
         $this->addBaseBreadcrumbs($classroom);
         $this->shareBreadcrumbs();
 
@@ -45,7 +45,7 @@ class HomeworkController extends Controller
         $dataTable->addColumn(DataTableColumn::text('finished_at', __('messages.homework_index_column_finished_at'), true, true, fn($item) => $item->finished_at->format('j. n. Y G:i')));
 
         $dataTableActionsColumn = DataTableColumn::actions();
-        $dataTableActionsColumn->addAction(DataTableColumnAction::normal(__('messages.show'), fn($item) => route('classrooms.homeworks.show', [$classroom, $item]) ));
+        $dataTableActionsColumn->addAction(DataTableColumnAction::normal(__('messages.show'), fn($item) => route('classrooms.homeworks.show', [$classroom, $item])));
         $dataTable->addColumn($dataTableActionsColumn);
 
         $dataTable->addButton(route('classrooms.homeworks.create', $classroom), __('messages.homework_index_create_button'));
@@ -55,7 +55,7 @@ class HomeworkController extends Controller
 
     public function create(Classroom $classroom)
     {
-//        $this->authorize('create', [Homework::class]);
+        //        $this->authorize('create', [Homework::class]);
 
         $this->addBaseBreadcrumbs($classroom);
         $this->addBreadcrumbItem(__('messages.breadcrumbs_homework_create'), route('classrooms.homeworks.create', $classroom), true);
@@ -75,7 +75,7 @@ class HomeworkController extends Controller
 
     public function store(Request $request, Classroom $classroom)
     {
-//        $this->authorize('create', [Homework::class]);
+        //        $this->authorize('create', [Homework::class]);
 
         $data = $request->validate([
             'name' => 'required',
@@ -122,14 +122,35 @@ class HomeworkController extends Controller
         }
         $dataView->addItem(DataViewItem::category(__('messages.homework_show_games_title'), 'col-12'));
         foreach ($homework->games as $i => $game) {
-            $dataView->addItem(DataViewItem::category(__('messages.homework_show_game_title', [$i +1]), 'col-6'));
-            if ($game->gameType->id == GameType::INTERVALS) {
-                foreach ($game->exercises as $i => $question) {
-                    $dataView->addItem(DataViewItem::component('exercise.interval', ['exercise' => $question->intervalExercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+            $dataView->addItem(DataViewItem::category(__('messages.homework_show_game_title', [$i + 1]), 'col-6'));
+
+            foreach ($game->exercises as $i => $question) {
+                $exercise = [];
+                switch($game->gameType->id) {
+                    case GameType::INTERVALS:
+                        $exercise = $question->intervalExercise;
+                        break;
+                    case GameType::HARMONIC:
+                        $exercise = $question->harmonyExercise;
+                        break;
+                    case GameType::INVERSE_INTERVALS:
+                        $exercise = $question->inverseIntervalExercise;
+                        break;
+                    case GameType::INVERSE_HARMONIC:
+                        $exercise = $question->inverseHarmonyExercise;
+                        break;
+                    case GameType::RHYTHM:
+                        $exercise = $question->rhythmExercise;
+                        break;
                 }
-            } else if ($game->gameType->id == GameType::RHYTHM) {
-                foreach ($game->exercises as $i => $question) {
-                    $dataView->addItem(DataViewItem::component('exercise.rhythm', ['rhythmExercise' => $question->rhythmExercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+                if ($game->gameType->id == GameType::RHYTHM) {
+                    $dataView->addItem(DataViewItem::component('exercise.rhythm', ['rhythmExercise' => $exercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+                }
+                else if ($game->gameType->id == GameType::HARMONIC || $game->gameType->id == GameType::INVERSE_HARMONIC) {
+                    $dataView->addItem(DataViewItem::component('exercise.harmony', ['exercise' => $exercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
+                }
+                else {
+                    $dataView->addItem(DataViewItem::component('exercise.interval', ['exercise' => $exercise], 'col-12', __('messages.exercise') . " " . ($i + 1)));
                 }
             }
         }

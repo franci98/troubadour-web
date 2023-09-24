@@ -5,6 +5,8 @@ namespace App\Utils\Midi;
 use App\Models\Exercise;
 use App\Models\HarmonyExercise;
 use App\Models\IntervalExercise;
+use App\Models\InverseHarmonyExercise;
+use App\Models\InverseIntervalExercise;
 use App\Models\PrimarySchoolRhythmExercise;
 use Illuminate\Support\Facades\Log;
 use Motniemtin\Midi\Midi;
@@ -218,10 +220,10 @@ class MidiNotes
         return (object) ['ok' => true, 'file' => $file];
     }
 
-    public function generateIntervalExerciseSound($exId, $baseFilePath, $info)
+    public function generateIntervalExerciseSound($exId, $baseFilePath, $info, $inverse=False)
     {
 
-        $data = IntervalExercise::query()->find($exId);
+        $data = $inverse ? InverseIntervalExercise::query()->find($exId) : IntervalExercise::query()->find($exId);
 
         if (!$data) {
             return null;
@@ -289,10 +291,9 @@ class MidiNotes
         return substr($key, 0, strlen($key) - 1) . ((substr($key, strlen($key) - 1) + $increase));
     }
 
-    public function generateHarmonyExerciseSound($exId, $baseFilePath, $info)
+    public function generateHarmonyExerciseSound($exId, $baseFilePath, $info, $inverse=False)
     {
-
-        $data = HarmonyExercise::query()->find($exId);
+        $data = $inverse ? InverseHarmonyExercise::query()->find($exId) : HarmonyExercise::query()->find($exId);
 
         if (!$data) {
             return null;
